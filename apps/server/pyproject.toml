@@ -1,0 +1,31 @@
+[project]
+name = "omnia-server"
+version = "0.1.0"
+description = "FastAPI foundation for the OMNIA autonomous creator operating system."
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115.8",
+  "prisma>=0.15.0",
+  "pydantic-settings>=2.7.1",
+  "python-json-logger>=3.2.1",
+  "redis>=5.2.1",
+  "uvicorn[standard]>=0.34.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.15.0",
+  "ruff>=0.9.6"
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["app"]

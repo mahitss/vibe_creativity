@@ -1,0 +1,16 @@
+node_modules
+.next
+dist
+coverage
+.turbo
+.venv
+__pycache__
+*.pyc
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea
+.vscode
+generated
+

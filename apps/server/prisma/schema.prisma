@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-py"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MembershipRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum MissionStatus {
+  DRAFT
+  PLANNED
+  SCHEDULED
+  RUNNING
+  PAUSED
+  COMPLETED
+  FAILED
+}
+
+model User {
+  id          String       @id @default(cuid())
+  email       String       @unique
+  name        String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  memberships Membership[]
+}
+
+model Workspace {
+  id        String       @id @default(cuid())
+  name      String
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  members   Membership[]
+  memories  MemoryRecord[]
+  missions  Mission[]
+  agentRuns AgentRun[]
+  audits    AuditEvent[]
+}
+
+model Membership {
+  id          String         @id @default(cuid())
+  role        MembershipRole @default(MEMBER)
+  userId      String
+  workspaceId String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace   Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, workspaceId])
+}
+
+model MemoryRecord {
+  id          String    @id @default(cuid())
+  workspaceId String
+  scope       String
+  contentHash String
+  metadata    Json      @default("{}")
+  createdAt   DateTime  @default(now())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, scope])
+}
+
+model Mission {
+  id          String        @id @default(cuid())
+  workspaceId String
+  title       String
+  status      MissionStatus @default(DRAFT)
+  state       Json          @default("{}")
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, status])
+}
+
+model AgentRun {
+  id          String    @id @default(cuid())
+  workspaceId String
+  provider    String
+  model       String
+  state       Json      @default("{}")
+  startedAt   DateTime  @default(now())
+  endedAt     DateTime?
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, startedAt])
+}
+
+model AuditEvent {
+  id          String    @id @default(cuid())
+  workspaceId String
+  actorId     String?
+  action      String
+  metadata    Json      @default("{}")
+  createdAt   DateTime  @default(now())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, createdAt])
+}
+

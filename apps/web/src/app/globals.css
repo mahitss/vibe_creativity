@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 250 250 250;
+  --border: 229 229 229;
+  --foreground: 10 10 10;
+  --muted: 82 82 82;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: rgb(var(--background));
+  color: rgb(var(--foreground));
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+  background: rgb(var(--background));
+}
+
+::selection {
+  background: rgb(10 10 10);
+  color: white;
+}
+

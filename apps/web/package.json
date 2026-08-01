@@ -1,0 +1,40 @@
+{
+  "name": "@omnia/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@better-auth/prisma-adapter": "^1.2.0",
+    "@omnia/config": "workspace:*",
+    "@omnia/lib": "workspace:*",
+    "@omnia/types": "workspace:*",
+    "@omnia/ui": "workspace:*",
+    "@tanstack/react-query": "^5.66.0",
+    "better-auth": "^1.2.0",
+    "framer-motion": "^12.4.0",
+    "lucide-react": "^0.475.0",
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zustand": "^5.0.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@types/node": "^22.13.4",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.20.0",
+    "eslint-config-next": "^15.1.7",
+    "postcss": "^8.5.2",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3"
+  }
+}
+

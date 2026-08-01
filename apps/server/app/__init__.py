@@ -1,0 +1,2 @@
+"""OMNIA FastAPI application package."""
+

@@ -31,6 +31,7 @@ export function LeftSidebar({
 }: LeftSidebarProps) {
   const mainNav = [
     { id: "mission-control", label: "Mission Control", icon: Compass },
+    { id: "reviews", label: "Executive COO Review", icon: Brain },
     { id: "timeline", label: "Living Memory Timeline", icon: Clock },
     { id: "knowledge-graph", label: "Interactive Memory Graph", icon: GitBranch },
     { id: "content", label: "Content Pipeline", icon: FileText },

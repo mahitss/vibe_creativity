@@ -12,6 +12,7 @@ import { CommandPalette } from "./command-palette";
 import { AgentConsole } from "../../agents/components/agent-console";
 import { MemoryStudio } from "../../memory/components/memory-studio";
 import { LivingMemoryTimeline } from "../../timeline/components/living-memory-timeline";
+import { ExecutiveReviewDashboard } from "../../reviews/components/executive-review-dashboard";
 
 interface MissionControlWorkspaceProps {
   userDisplayName?: string;
@@ -77,6 +78,8 @@ export function MissionControlWorkspace({
               <IntelligenceInsights />
             </>
           )}
+
+          {activeSection === "reviews" && <ExecutiveReviewDashboard />}
 
           {(activeSection === "timeline" || activeSection === "knowledge-graph") && (
             <LivingMemoryTimeline />

@@ -13,6 +13,7 @@ import { AgentConsole } from "../../agents/components/agent-console";
 import { MemoryStudio } from "../../memory/components/memory-studio";
 import { LivingMemoryTimeline } from "../../timeline/components/living-memory-timeline";
 import { ExecutiveReviewDashboard } from "../../reviews/components/executive-review-dashboard";
+import { DemoPlayer } from "../../demo/components/demo-player";
 
 interface MissionControlWorkspaceProps {
   userDisplayName?: string;
@@ -23,6 +24,7 @@ export function MissionControlWorkspace({
 }: MissionControlWorkspaceProps) {
   const [activeSection, setActiveSection] = useState("mission-control");
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [isDemoActive, setIsDemoActive] = useState(false);
 
   function handleSelectAction(actionId: string) {
     if (actionId === "open-timeline") setActiveSection("timeline");
@@ -37,12 +39,29 @@ export function MissionControlWorkspace({
   const greetingText =
     hour < 12 ? "Good Morning" : hour < 18 ? "Good Afternoon" : "Good Evening";
 
+  if (isDemoActive) {
+    return (
+      <div className="relative">
+        <div className="fixed top-4 right-4 z-50">
+          <button
+            onClick={() => setIsDemoActive(false)}
+            className="bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs px-3 py-1.5 rounded-lg border border-neutral-700 font-mono shadow-lg"
+          >
+            Exit Demo Mode ✕
+          </button>
+        </div>
+        <DemoPlayer />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col font-sans select-none overflow-x-hidden">
       {/* Top Navigation */}
       <TopNav
         onOpenCommandPalette={() => setCommandPaletteOpen(true)}
         userDisplayName={userDisplayName}
+        onOpenDemo={() => setIsDemoActive(true)}
       />
 
       {/* Main Body (Left Sidebar + Central Workspace + Right Intelligence Panel) */}

@@ -16,9 +16,10 @@ import {
 interface TopNavProps {
   onOpenCommandPalette: () => void;
   userDisplayName: string;
+  onOpenDemo?: () => void;
 }
 
-export function TopNav({ onOpenCommandPalette, userDisplayName }: TopNavProps) {
+export function TopNav({ onOpenCommandPalette, userDisplayName, onOpenDemo }: TopNavProps) {
   return (
     <header className="h-14 border-b border-neutral-800 bg-neutral-950/80 backdrop-blur sticky top-0 z-30 px-4 md:px-6 flex items-center justify-between font-sans">
       {/* Left: Brand Logo & Workspace Switcher */}
@@ -54,8 +55,18 @@ export function TopNav({ onOpenCommandPalette, userDisplayName }: TopNavProps) {
         </button>
       </div>
 
-      {/* Right: Live Agent Status & Profile */}
+      {/* Right: Live Agent Status & Demo Mode Trigger */}
       <div className="flex items-center gap-3">
+        {/* Launch Demo Mode Button */}
+        {onOpenDemo && (
+          <button
+            onClick={onOpenDemo}
+            className="flex items-center gap-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition shadow-md shadow-cyan-500/20"
+          >
+            <Sparkles className="h-3.5 w-3.5 fill-current" />
+            <span>2-Min Demo</span>
+          </button>
+        )}
         {/* Live Status Indicators */}
         <div className="hidden lg:flex items-center gap-2 font-mono text-[11px]">
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300">

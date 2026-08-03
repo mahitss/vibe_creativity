@@ -70,7 +70,8 @@ export function AgentConsole() {
       agent_id: "executive",
       name: "Executive Minds Agent",
       version: "1.0.0",
-      description: "Executive coordinator for long-term planning, delegation, and conflict resolution.",
+      description:
+        "Executive coordinator for long-term planning, delegation, and conflict resolution.",
       capabilities: ["coordination", "conflict-resolution", "decision", "planning"],
       dependencies: ["memory", "task-bus"],
       status: "ACTIVE",
@@ -202,10 +203,14 @@ export function AgentConsole() {
     {
       id: "dec-101",
       topic: "Enterprise Launch Timing & Campaign",
-      summary: "Executive resolved schedule conflict: Publish launch on Friday peak retention window.",
+      summary:
+        "Executive resolved schedule conflict: Publish launch on Friday peak retention window.",
       priority: "HIGH",
       status: "PENDING_APPROVAL",
-      reasoning: ["analytics: Audience retention peaks on Friday", "planner: Mission goals ready for Q3 release"],
+      reasoning: [
+        "analytics: Audience retention peaks on Friday",
+        "planner: Mission goals ready for Q3 release",
+      ],
       created_at: new Date().toISOString(),
     },
     {
@@ -214,7 +219,10 @@ export function AgentConsole() {
       summary: "Prepare CloudCorp renewal proposal with upgraded tier placement.",
       priority: "HIGH",
       status: "APPROVED",
-      reasoning: ["sponsor: Contract signals present; renewal conversation due", "business: Revenue opportunity high"],
+      reasoning: [
+        "sponsor: Contract signals present; renewal conversation due",
+        "business: Revenue opportunity high",
+      ],
       created_at: new Date(Date.now() - 3600000).toISOString(),
     },
   ]);
@@ -271,44 +279,42 @@ export function AgentConsole() {
   }
 
   function handleDecisionStatus(id: string, newStatus: string) {
-    setDecisions((prev) =>
-      prev.map((d) => (d.id === id ? { ...d, status: newStatus } : d))
-    );
+    setDecisions((prev) => prev.map((d) => (d.id === id ? { ...d, status: newStatus } : d)));
   }
 
   return (
-    <div className="bg-slate-950 text-slate-100 font-sans p-6 md:p-8 rounded-2xl border border-slate-800">
-      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6 mb-8">
+    <div className="rounded-2xl border border-slate-800 bg-slate-950 p-6 font-sans text-slate-100 md:p-8">
+      <header className="mb-8 flex flex-col justify-between gap-4 border-b border-slate-800 pb-6 md:flex-row md:items-center">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 shadow-lg shadow-cyan-500/20">
             <Cpu className="h-6 w-6 text-white" />
           </div>
           <div>
-            <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+            <h1 className="flex items-center gap-2 text-xl font-bold tracking-tight text-white">
               OMNIA Multi-Agent Intelligence Platform
-              <span className="text-xs px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono">
+              <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-0.5 font-mono text-xs text-cyan-400">
                 v1.0 Enterprise
               </span>
             </h1>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="mt-0.5 text-xs text-slate-400">
               Executive Minds Agent &amp; Specialized Autonomous Bus Console
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="flex items-center bg-slate-900 border border-slate-800 rounded-lg p-1">
+          <div className="flex items-center rounded-lg border border-slate-800 bg-slate-900 p-1">
             <input
               type="text"
               value={cycleFocus}
               onChange={(e) => setCycleFocus(e.target.value)}
-              className="bg-transparent text-xs text-slate-200 px-3 py-1.5 focus:outline-none w-48 font-mono"
+              className="w-48 bg-transparent px-3 py-1.5 font-mono text-xs text-slate-200 focus:outline-none"
               placeholder="Cycle focus area..."
             />
             <button
               onClick={triggerCycle}
               disabled={cycleRunning}
-              className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-semibold px-4 py-2 rounded-md transition shadow-md shadow-cyan-500/20 disabled:opacity-50"
+              className="flex items-center gap-2 rounded-md bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-cyan-500/20 transition hover:from-cyan-400 hover:to-blue-500 disabled:opacity-50"
             >
               {cycleRunning ? (
                 <>
@@ -327,42 +333,52 @@ export function AgentConsole() {
       </header>
 
       {/* Top Metrics Cards */}
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div className="bg-slate-900/80 border border-slate-800/80 rounded-xl p-4 flex items-center justify-between">
+      <section className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div className="flex items-center justify-between rounded-xl border border-slate-800/80 bg-slate-900/80 p-4">
           <div>
-            <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Installed Agents</p>
-            <p className="text-2xl font-bold text-white mt-1 font-mono">{agents.length}</p>
+            <p className="text-xs font-medium uppercase tracking-wider text-slate-400">
+              Installed Agents
+            </p>
+            <p className="mt-1 font-mono text-2xl font-bold text-white">{agents.length}</p>
           </div>
           <Bot className="h-6 w-6 text-blue-400" />
         </div>
 
-        <div className="bg-slate-900/80 border border-slate-800/80 rounded-xl p-4 flex items-center justify-between">
+        <div className="flex items-center justify-between rounded-xl border border-slate-800/80 bg-slate-900/80 p-4">
           <div>
-            <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Task Bus Throughput</p>
-            <p className="text-2xl font-bold text-white mt-1 font-mono">{busMetrics.submitted}</p>
+            <p className="text-xs font-medium uppercase tracking-wider text-slate-400">
+              Task Bus Throughput
+            </p>
+            <p className="mt-1 font-mono text-2xl font-bold text-white">{busMetrics.submitted}</p>
           </div>
           <Activity className="h-6 w-6 text-cyan-400" />
         </div>
 
-        <div className="bg-slate-900/80 border border-slate-800/80 rounded-xl p-4 flex items-center justify-between">
+        <div className="flex items-center justify-between rounded-xl border border-slate-800/80 bg-slate-900/80 p-4">
           <div>
-            <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Avg Latency</p>
-            <p className="text-2xl font-bold text-white mt-1 font-mono">24.3ms</p>
+            <p className="text-xs font-medium uppercase tracking-wider text-slate-400">
+              Avg Latency
+            </p>
+            <p className="mt-1 font-mono text-2xl font-bold text-white">24.3ms</p>
           </div>
           <Clock className="h-6 w-6 text-emerald-400" />
         </div>
 
-        <div className="bg-slate-900/80 border border-slate-800/80 rounded-xl p-4 flex items-center justify-between">
+        <div className="flex items-center justify-between rounded-xl border border-slate-800/80 bg-slate-900/80 p-4">
           <div>
-            <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Dead Letter Queue</p>
-            <p className="text-2xl font-bold text-white mt-1 font-mono">{busMetrics.dead_lettered}</p>
+            <p className="text-xs font-medium uppercase tracking-wider text-slate-400">
+              Dead Letter Queue
+            </p>
+            <p className="mt-1 font-mono text-2xl font-bold text-white">
+              {busMetrics.dead_lettered}
+            </p>
           </div>
           <Layers className="h-6 w-6 text-slate-400" />
         </div>
       </section>
 
       {/* Navigation Tabs */}
-      <nav className="flex items-center gap-2 border-b border-slate-800 pb-3 mb-8 overflow-x-auto">
+      <nav className="mb-8 flex items-center gap-2 overflow-x-auto border-b border-slate-800 pb-3">
         {[
           { id: "topology", label: "Execution Topology Graph", icon: GitBranch },
           { id: "registry", label: "Agent Registry (10)", icon: Bot },
@@ -374,11 +390,15 @@ export function AgentConsole() {
           return (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as "topology" | "registry" | "bus" | "decisions" | "memory" | "logs")}
-              className={`flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg transition whitespace-nowrap ${
+              onClick={() =>
+                setActiveTab(
+                  tab.id as "topology" | "registry" | "bus" | "decisions" | "memory" | "logs",
+                )
+              }
+              className={`flex items-center gap-2 whitespace-nowrap rounded-lg px-4 py-2 text-xs font-medium transition ${
                 isActive
-                  ? "bg-slate-800 text-cyan-400 border border-slate-700 shadow-sm"
-                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-900"
+                  ? "border border-slate-700 bg-slate-800 text-cyan-400 shadow-sm"
+                  : "text-slate-400 hover:bg-slate-900 hover:text-slate-200"
               }`}
             >
               <Icon className="h-4 w-4" />
@@ -389,23 +409,26 @@ export function AgentConsole() {
       </nav>
 
       {/* Content */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+      <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
         {activeTab === "registry" ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {agents.map((ag) => (
-              <div key={ag.agent_id} className="bg-slate-950 border border-slate-800 rounded-xl p-4">
+              <div
+                key={ag.agent_id}
+                className="rounded-xl border border-slate-800 bg-slate-950 p-4"
+              >
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-white">{ag.name}</h3>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400">
+                  <span className="rounded bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] text-emerald-400">
                     {ag.status}
                   </span>
                 </div>
-                <p className="text-xs text-slate-400 mt-2">{ag.description}</p>
+                <p className="mt-2 text-xs text-slate-400">{ag.description}</p>
               </div>
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 text-slate-400 text-xs font-mono">
+          <div className="py-12 text-center font-mono text-xs text-slate-400">
             Agent Console Active &amp; Connected to Task Bus.
           </div>
         )}

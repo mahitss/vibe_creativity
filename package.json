@@ -24,7 +24,6 @@
     "typescript": "^5.7.3"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,mjs,cjs,json,md,yml,yaml}": ["prettier --write"],
-    "apps/web/**/*.{ts,tsx}": ["eslint --fix"]
+    "*.{ts,tsx,js,mjs,cjs,json,md,yml,yaml}": ["prettier --write --ignore-path .prettierignore"]
   }
 }

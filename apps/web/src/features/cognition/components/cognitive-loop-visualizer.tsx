@@ -72,7 +72,8 @@ export function CognitiveLoopVisualizer() {
       expected_impact: 0.6,
       risk_level: "MEDIUM",
       selected: false,
-      rejection_reason: "Delaying release misses optimal CloudCorp sponsorship contract renewal window.",
+      rejection_reason:
+        "Delaying release misses optimal CloudCorp sponsorship contract renewal window.",
     },
     {
       id: "strat-3",
@@ -81,7 +82,8 @@ export function CognitiveLoopVisualizer() {
       expected_impact: 0.45,
       risk_level: "HIGH",
       selected: false,
-      rejection_reason: "Audience memory signals show 317 requests specifically requiring step-by-step code tutorial.",
+      rejection_reason:
+        "Audience memory signals show 317 requests specifically requiring step-by-step code tutorial.",
     },
   ];
 
@@ -103,28 +105,29 @@ export function CognitiveLoopVisualizer() {
   }
 
   return (
-    <div className="space-y-8 font-sans select-none">
+    <div className="select-none space-y-8 font-sans">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-neutral-800 pb-5">
+      <div className="flex flex-col justify-between gap-4 border-b border-neutral-800 pb-5 md:flex-row md:items-center">
         <div>
-          <div className="flex items-center gap-2 mb-1.5 font-mono text-xs">
-            <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold uppercase">
+          <div className="mb-1.5 flex items-center gap-2 font-mono text-xs">
+            <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-0.5 font-bold uppercase text-cyan-400">
               24/7 Autonomous Cognition
             </span>
             <span className="text-neutral-500">Continuous Cognitive Thinking Engine</span>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-neutral-100 flex items-center gap-2">
+          <h1 className="flex items-center gap-2 text-2xl font-bold tracking-tight text-neutral-100">
             Cognitive Loop Engine &amp; Strategy Evaluator
           </h1>
-          <p className="text-xs text-neutral-400 mt-1 max-w-2xl">
-            OMNIA continuously observes, reasons, evaluates strategies, executes safe actions, and learns from outcomes—even when you are offline.
+          <p className="mt-1 max-w-2xl text-xs text-neutral-400">
+            OMNIA continuously observes, reasons, evaluates strategies, executes safe actions, and
+            learns from outcomes—even when you are offline.
           </p>
         </div>
 
         <button
           onClick={handleTriggerCycle}
           disabled={isTriggering}
-          className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition shadow-md shadow-cyan-500/20 flex items-center gap-2 disabled:opacity-50 shrink-0"
+          className="flex shrink-0 items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-cyan-500/20 transition hover:from-cyan-400 hover:to-blue-500 disabled:opacity-50"
         >
           {isTriggering ? (
             <RefreshCw className="h-4 w-4 animate-spin" />
@@ -136,48 +139,48 @@ export function CognitiveLoopVisualizer() {
       </div>
 
       {/* Telemetry Stats */}
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-4 font-mono text-xs">
-        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-1">
-          <p className="text-[10px] text-neutral-500 uppercase tracking-wider">Engine Status</p>
-          <p className="text-base font-bold text-emerald-400 flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+      <section className="grid grid-cols-2 gap-4 font-mono text-xs md:grid-cols-4">
+        <div className="space-y-1 rounded-xl border border-neutral-800 bg-neutral-900 p-4">
+          <p className="text-[10px] uppercase tracking-wider text-neutral-500">Engine Status</p>
+          <p className="flex items-center gap-1.5 text-base font-bold text-emerald-400">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
             Thinking 24/7
           </p>
           <p className="text-[10px] text-neutral-500">Cycle #{cycleCount} Active</p>
         </div>
 
-        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-1">
-          <p className="text-[10px] text-neutral-500 uppercase tracking-wider">Avg Cycle Time</p>
+        <div className="space-y-1 rounded-xl border border-neutral-800 bg-neutral-900 p-4">
+          <p className="text-[10px] uppercase tracking-wider text-neutral-500">Avg Cycle Time</p>
           <p className="text-base font-bold text-neutral-100">1.42s</p>
           <p className="text-[10px] text-neutral-400">12 Pipeline Stages</p>
         </div>
 
-        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-1">
-          <p className="text-[10px] text-neutral-500 uppercase tracking-wider">Learning Accuracy</p>
+        <div className="space-y-1 rounded-xl border border-neutral-800 bg-neutral-900 p-4">
+          <p className="text-[10px] uppercase tracking-wider text-neutral-500">Learning Accuracy</p>
           <p className="text-base font-bold text-cyan-400">94.2%</p>
           <p className="text-[10px] text-neutral-400">+4% Delta This Week</p>
         </div>
 
-        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-1">
-          <p className="text-[10px] text-neutral-500 uppercase tracking-wider">Acceptance Rate</p>
+        <div className="space-y-1 rounded-xl border border-neutral-800 bg-neutral-900 p-4">
+          <p className="text-[10px] uppercase tracking-wider text-neutral-500">Acceptance Rate</p>
           <p className="text-base font-bold text-emerald-400">91.8%</p>
           <p className="text-[10px] text-neutral-400">Grounded Recommendations</p>
         </div>
       </section>
 
       {/* 12-Stage Cognitive Stepper */}
-      <section className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-4">
+      <section className="space-y-4 rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
         <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
-          <h3 className="text-sm font-bold text-neutral-100 flex items-center gap-2">
+          <h3 className="flex items-center gap-2 text-sm font-bold text-neutral-100">
             <Brain className="h-4 w-4 text-cyan-400" />
             Active 12-Stage Cognitive Loop Pipeline
           </h3>
-          <span className="text-xs font-mono text-cyan-400 font-bold">
+          <span className="font-mono text-xs font-bold text-cyan-400">
             Stage {currentStageIndex + 1}/12: {stages[currentStageIndex]?.label}
           </span>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 font-mono text-[11px]">
+        <div className="grid grid-cols-2 gap-2 font-mono text-[11px] sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {stages.map((stg, idx) => {
             const isActive = idx === currentStageIndex;
             const isCompleted = idx < currentStageIndex;
@@ -185,18 +188,18 @@ export function CognitiveLoopVisualizer() {
             return (
               <div
                 key={stg.id}
-                className={`p-3 rounded-xl border transition flex flex-col justify-between space-y-1.5 ${
+                className={`flex flex-col justify-between space-y-1.5 rounded-xl border p-3 transition ${
                   isActive
-                    ? "bg-neutral-800 border-cyan-500/50 text-cyan-400 font-bold shadow-lg shadow-cyan-500/10"
+                    ? "border-cyan-500/50 bg-neutral-800 font-bold text-cyan-400 shadow-lg shadow-cyan-500/10"
                     : isCompleted
-                    ? "bg-neutral-950 border-neutral-850 text-emerald-400"
-                    : "bg-neutral-950/60 border-neutral-900 text-neutral-500"
+                      ? "border-neutral-850 bg-neutral-950 text-emerald-400"
+                      : "border-neutral-900 bg-neutral-950/60 text-neutral-500"
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] opacity-60">Step {idx + 1}</span>
                   {isCompleted && <CheckCircle2 className="h-3 w-3 text-emerald-400" />}
-                  {isActive && <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping" />}
+                  {isActive && <span className="h-2 w-2 animate-ping rounded-full bg-cyan-400" />}
                 </div>
                 <span className="leading-snug">{stg.label.replace(/^\d+\.\s*/, "")}</span>
               </div>
@@ -206,47 +209,51 @@ export function CognitiveLoopVisualizer() {
       </section>
 
       {/* Multi-Strategy Evaluator Grid */}
-      <section className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-4 font-sans">
+      <section className="space-y-4 rounded-2xl border border-neutral-800 bg-neutral-900 p-6 font-sans">
         <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
-          <h3 className="text-sm font-bold text-neutral-100 flex items-center gap-2">
+          <h3 className="flex items-center gap-2 text-sm font-bold text-neutral-100">
             <Sparkles className="h-4 w-4 text-emerald-400" />
             Multi-Strategy Option Evaluation &amp; Rejection Rationale
           </h3>
-          <span className="text-xs font-mono text-neutral-500">Evaluated 3 Candidate Paths</span>
+          <span className="font-mono text-xs text-neutral-500">Evaluated 3 Candidate Paths</span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {strategies.map((strat) => (
             <div
               key={strat.id}
-              className={`rounded-2xl p-5 border flex flex-col justify-between space-y-4 transition ${
+              className={`flex flex-col justify-between space-y-4 rounded-2xl border p-5 transition ${
                 strat.selected
-                  ? "bg-neutral-950 border-cyan-500/50 shadow-lg shadow-cyan-500/10"
-                  : "bg-neutral-950/60 border-neutral-850 opacity-80"
+                  ? "border-cyan-500/50 bg-neutral-950 shadow-lg shadow-cyan-500/10"
+                  : "border-neutral-850 bg-neutral-950/60 opacity-80"
               }`}
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between font-mono text-[10px]">
                   <span
-                    className={`px-2.5 py-0.5 rounded-full font-bold uppercase ${
+                    className={`rounded-full px-2.5 py-0.5 font-bold uppercase ${
                       strat.selected
-                        ? "bg-emerald-500/10 border border-emerald-500/30 text-emerald-400"
+                        ? "border border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
                         : "bg-neutral-800 text-neutral-400"
                     }`}
                   >
                     {strat.selected ? "OPTIMAL STRATEGY" : "REJECTED PATH"}
                   </span>
-                  <span className="text-neutral-400">Impact: {Math.round(strat.expected_impact * 100)}%</span>
+                  <span className="text-neutral-400">
+                    Impact: {Math.round(strat.expected_impact * 100)}%
+                  </span>
                 </div>
 
-                <h4 className="font-bold text-neutral-100 text-xs leading-snug">{strat.name}</h4>
-                <p className="text-neutral-400 text-xs leading-relaxed">{strat.description}</p>
+                <h4 className="text-xs font-bold leading-snug text-neutral-100">{strat.name}</h4>
+                <p className="text-xs leading-relaxed text-neutral-400">{strat.description}</p>
               </div>
 
               {strat.rejection_reason && (
-                <div className="pt-3 border-t border-neutral-850 text-amber-300 font-mono text-[11px] space-y-1">
-                  <span className="font-bold uppercase text-[10px] text-amber-400 block">Why Rejected:</span>
-                  <p className="leading-relaxed text-[11px]">{strat.rejection_reason}</p>
+                <div className="border-neutral-850 space-y-1 border-t pt-3 font-mono text-[11px] text-amber-300">
+                  <span className="block text-[10px] font-bold uppercase text-amber-400">
+                    Why Rejected:
+                  </span>
+                  <p className="text-[11px] leading-relaxed">{strat.rejection_reason}</p>
                 </div>
               )}
             </div>
@@ -255,13 +262,15 @@ export function CognitiveLoopVisualizer() {
       </section>
 
       {/* 24-Hour Self-Evaluation Log */}
-      <section className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-3 font-sans">
-        <h3 className="text-sm font-bold text-neutral-100 flex items-center gap-2">
+      <section className="space-y-3 rounded-2xl border border-neutral-800 bg-neutral-900 p-6 font-sans">
+        <h3 className="flex items-center gap-2 text-sm font-bold text-neutral-100">
           <Lightbulb className="h-4 w-4 text-cyan-400" />
           24-Hour Self-Evaluation &amp; Reflection Log
         </h3>
-        <p className="text-xs text-neutral-300 leading-relaxed bg-neutral-950 border border-neutral-850 rounded-xl p-4 font-mono">
-          "Over the last 24 hours, OMNIA observed that prioritizing technical deep dive tutorials yielded +18% higher audience retention. Rejected commentary clip strategies saved 8 hours of wasted production time. Memory confidence model updated by +4%."
+        <p className="border-neutral-850 rounded-xl border bg-neutral-950 p-4 font-mono text-xs leading-relaxed text-neutral-300">
+          "Over the last 24 hours, OMNIA observed that prioritizing technical deep dive tutorials
+          yielded +18% higher audience retention. Rejected commentary clip strategies saved 8 hours
+          of wasted production time. Memory confidence model updated by +4%."
         </p>
       </section>
     </div>

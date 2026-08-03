@@ -8,7 +8,10 @@ export async function POST(req: Request) {
       message: "Onboarding completed successfully",
       data: body,
     });
-  } catch (error) {
-    return NextResponse.json({ success: false, error: "Failed to process onboarding" }, { status: 400 });
+  } catch {
+    return NextResponse.json(
+      { success: false, error: "Failed to process onboarding" },
+      { status: 400 },
+    );
   }
 }

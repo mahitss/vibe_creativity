@@ -182,21 +182,21 @@ export function DemoPlayer() {
   }, [isPlaying, currentSceneIndex, activeScene.durationSeconds, scenes.length]);
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col font-sans select-none">
+    <div className="flex min-h-screen select-none flex-col bg-neutral-950 font-sans text-neutral-100">
       {/* Top Demo Player Control Bar */}
-      <header className="h-16 border-b border-neutral-800 bg-neutral-900/90 backdrop-blur sticky top-0 z-40 px-4 md:px-6 flex items-center justify-between font-sans">
+      <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-neutral-800 bg-neutral-900/90 px-4 font-sans backdrop-blur md:px-6">
         <div className="flex items-center gap-3">
-          <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center font-bold text-xs text-white font-mono shadow-md">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 font-mono text-xs font-bold text-white shadow-md">
             DEMO
           </div>
           <div>
-            <h2 className="text-sm font-bold text-neutral-100 flex items-center gap-2">
+            <h2 className="flex items-center gap-2 text-sm font-bold text-neutral-100">
               OMNIA Product Demonstration
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
+              <span className="rounded border border-cyan-500/30 bg-cyan-500/10 px-2 py-0.5 font-mono text-[10px] text-cyan-400">
                 2-Min Executive Pitch
               </span>
             </h2>
-            <p className="text-[11px] text-neutral-400 font-mono">
+            <p className="font-mono text-[11px] text-neutral-400">
               Scene {currentSceneIndex + 1} of 7: {activeScene.title}
             </p>
           </div>
@@ -207,7 +207,7 @@ export function DemoPlayer() {
           <button
             onClick={() => setCurrentSceneIndex((prev) => Math.max(prev - 1, 0))}
             disabled={currentSceneIndex === 0}
-            className="p-2 text-neutral-400 hover:text-neutral-200 bg-neutral-950 border border-neutral-800 rounded-lg hover:bg-neutral-850 disabled:opacity-40 transition"
+            className="hover:bg-neutral-850 rounded-lg border border-neutral-800 bg-neutral-950 p-2 text-neutral-400 transition hover:text-neutral-200 disabled:opacity-40"
             title="Previous Scene"
           >
             <ChevronLeft className="h-4 w-4" />
@@ -215,7 +215,7 @@ export function DemoPlayer() {
 
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-semibold px-4 py-2 rounded-lg transition shadow-md shadow-cyan-500/20"
+            className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-cyan-500/20 transition hover:from-cyan-400 hover:to-blue-500"
           >
             {isPlaying ? (
               <>
@@ -233,7 +233,7 @@ export function DemoPlayer() {
           <button
             onClick={() => setCurrentSceneIndex((prev) => Math.min(prev + 1, scenes.length - 1))}
             disabled={currentSceneIndex === scenes.length - 1}
-            className="p-2 text-neutral-400 hover:text-neutral-200 bg-neutral-950 border border-neutral-800 rounded-lg hover:bg-neutral-850 disabled:opacity-40 transition"
+            className="hover:bg-neutral-850 rounded-lg border border-neutral-800 bg-neutral-950 p-2 text-neutral-400 transition hover:text-neutral-200 disabled:opacity-40"
             title="Next Scene"
           >
             <ChevronRight className="h-4 w-4" />
@@ -244,20 +244,20 @@ export function DemoPlayer() {
               setIsPlaying(false);
               setCurrentSceneIndex(0);
             }}
-            className="p-2 text-neutral-400 hover:text-neutral-200 bg-neutral-950 border border-neutral-800 rounded-lg hover:bg-neutral-850 transition"
+            className="hover:bg-neutral-850 rounded-lg border border-neutral-800 bg-neutral-950 p-2 text-neutral-400 transition hover:text-neutral-200"
             title="Restart Demo"
           >
             <RotateCcw className="h-4 w-4" />
           </button>
 
-          <div className="h-5 w-[1px] bg-neutral-800 mx-1" />
+          <div className="mx-1 h-5 w-[1px] bg-neutral-800" />
 
           <button
             onClick={() => setPresenterMode(!presenterMode)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-mono transition ${
+            className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 font-mono text-xs transition ${
               presenterMode
-                ? "bg-cyan-500/10 border-cyan-500/40 text-cyan-400 font-bold"
-                : "bg-neutral-950 border-neutral-800 text-neutral-400 hover:text-neutral-200"
+                ? "border-cyan-500/40 bg-cyan-500/10 font-bold text-cyan-400"
+                : "border-neutral-800 bg-neutral-950 text-neutral-400 hover:text-neutral-200"
             }`}
           >
             <Eye className="h-3.5 w-3.5" />
@@ -267,7 +267,7 @@ export function DemoPlayer() {
       </header>
 
       {/* 7-Scene Stepper Bar */}
-      <div className="bg-neutral-900/60 border-b border-neutral-800 px-6 py-2.5 flex items-center justify-between overflow-x-auto gap-2 font-mono text-xs">
+      <div className="flex items-center justify-between gap-2 overflow-x-auto border-b border-neutral-800 bg-neutral-900/60 px-6 py-2.5 font-mono text-xs">
         {scenes.map((s, idx) => {
           const isActive = idx === currentSceneIndex;
           const isPassed = idx < currentSceneIndex;
@@ -279,21 +279,21 @@ export function DemoPlayer() {
                 setIsPlaying(false);
                 setCurrentSceneIndex(idx);
               }}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition whitespace-nowrap ${
+              className={`flex items-center gap-2 whitespace-nowrap rounded-lg px-3 py-1.5 transition ${
                 isActive
-                  ? "bg-neutral-800 text-cyan-400 font-bold border border-cyan-500/30 shadow-sm"
+                  ? "border border-cyan-500/30 bg-neutral-800 font-bold text-cyan-400 shadow-sm"
                   : isPassed
-                  ? "text-neutral-300 hover:text-neutral-100"
-                  : "text-neutral-500 hover:text-neutral-400"
+                    ? "text-neutral-300 hover:text-neutral-100"
+                    : "text-neutral-500 hover:text-neutral-400"
               }`}
             >
               <span
-                className={`h-5 w-5 rounded-full flex items-center justify-center text-[10px] ${
+                className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] ${
                   isActive
-                    ? "bg-cyan-400 text-neutral-950 font-bold"
+                    ? "bg-cyan-400 font-bold text-neutral-950"
                     : isPassed
-                    ? "bg-emerald-500/20 text-emerald-400"
-                    : "bg-neutral-800 text-neutral-500"
+                      ? "bg-emerald-500/20 text-emerald-400"
+                      : "bg-neutral-800 text-neutral-500"
                 }`}
               >
                 {s.sceneNumber}
@@ -305,66 +305,76 @@ export function DemoPlayer() {
       </div>
 
       {/* Scene View Display */}
-      <main className="flex-1 relative bg-neutral-950 overflow-hidden">
+      <main className="relative flex-1 overflow-hidden bg-neutral-950">
         {activeScene.targetView === "MISSION_CONTROL" && (
           <MissionControlWorkspace userDisplayName="Mahit" />
         )}
 
         {activeScene.targetView === "TIMELINE" && (
-          <div className="p-8 max-w-6xl mx-auto">
+          <div className="mx-auto max-w-6xl p-8">
             <LivingMemoryTimeline />
           </div>
         )}
 
         {activeScene.targetView === "REVIEWS" && (
-          <div className="p-8 max-w-6xl mx-auto">
+          <div className="mx-auto max-w-6xl p-8">
             <ExecutiveReviewDashboard />
           </div>
         )}
 
         {activeScene.targetView === "GRAPH" && (
-          <div className="p-8 max-w-6xl mx-auto">
+          <div className="mx-auto max-w-6xl p-8">
             <GraphCanvas />
           </div>
         )}
 
         {activeScene.targetView === "SUMMARY" && (
-          <div className="p-12 max-w-4xl mx-auto space-y-8 font-sans">
+          <div className="mx-auto max-w-4xl space-y-8 p-12 font-sans">
             {/* OMNIA Core Pillar Statements */}
-            <div className="text-center space-y-4 py-8 border-b border-neutral-800">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-xs font-bold uppercase">
+            <div className="space-y-4 border-b border-neutral-800 py-8 text-center">
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 font-mono text-xs font-bold uppercase text-cyan-400">
                 Final Product Demonstration Summary
               </div>
-              <h1 className="text-4xl font-extrabold tracking-tight text-white space-y-1">
+              <h1 className="space-y-1 text-4xl font-extrabold tracking-tight text-white">
                 <div>OMNIA Remembers.</div>
                 <div className="text-cyan-400">OMNIA Plans.</div>
                 <div className="text-emerald-400">OMNIA Acts.</div>
               </h1>
-              <p className="text-sm text-neutral-400 max-w-lg mx-auto">
-                Proven across 18 months of creator history, 9 specialized agents, persistent memory, and COO strategic review.
+              <p className="mx-auto max-w-lg text-sm text-neutral-400">
+                Proven across 18 months of creator history, 9 specialized agents, persistent memory,
+                and COO strategic review.
               </p>
             </div>
 
             {/* Next 30-Day Strategy Roadmap */}
-            <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 space-y-6">
-              <h3 className="text-lg font-bold text-neutral-100 flex items-center gap-2">
+            <div className="space-y-6 rounded-2xl border border-neutral-800 bg-neutral-900 p-8">
+              <h3 className="flex items-center gap-2 text-lg font-bold text-neutral-100">
                 <Target className="h-5 w-5 text-emerald-400" />
                 Synthesized 30-Day Creator Strategy Roadmap
               </h3>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-sans">
-                <div className="bg-neutral-950 border border-neutral-850 rounded-xl p-4 space-y-2">
-                  <span className="font-mono text-[10px] text-cyan-400 font-bold uppercase">Phase 1 (Days 1–10)</span>
-                  <h4 className="font-bold text-neutral-100">Publish Docker Architecture Deep Dive</h4>
-                  <p className="text-neutral-400 leading-relaxed">
-                    Launch video during Friday peak window; anchor CloudCorp sponsorship renewal proposal.
+              <div className="grid grid-cols-1 gap-4 font-sans text-xs md:grid-cols-2">
+                <div className="border-neutral-850 space-y-2 rounded-xl border bg-neutral-950 p-4">
+                  <span className="font-mono text-[10px] font-bold uppercase text-cyan-400">
+                    Phase 1 (Days 1–10)
+                  </span>
+                  <h4 className="font-bold text-neutral-100">
+                    Publish Docker Architecture Deep Dive
+                  </h4>
+                  <p className="leading-relaxed text-neutral-400">
+                    Launch video during Friday peak window; anchor CloudCorp sponsorship renewal
+                    proposal.
                   </p>
                 </div>
 
-                <div className="bg-neutral-950 border border-neutral-850 rounded-xl p-4 space-y-2">
-                  <span className="font-mono text-[10px] text-emerald-400 font-bold uppercase">Phase 2 (Days 11–20)</span>
-                  <h4 className="font-bold text-neutral-100">Scale Masterclass Course to 1,000 VIP Students</h4>
-                  <p className="text-neutral-400 leading-relaxed">
+                <div className="border-neutral-850 space-y-2 rounded-xl border bg-neutral-950 p-4">
+                  <span className="font-mono text-[10px] font-bold uppercase text-emerald-400">
+                    Phase 2 (Days 11–20)
+                  </span>
+                  <h4 className="font-bold text-neutral-100">
+                    Scale Masterclass Course to 1,000 VIP Students
+                  </h4>
+                  <p className="leading-relaxed text-neutral-400">
                     Expand code repository into module 5 &amp; launch weekly VIP Q&amp;A newsletter.
                   </p>
                 </div>

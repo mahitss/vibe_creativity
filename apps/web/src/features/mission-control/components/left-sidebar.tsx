@@ -7,6 +7,7 @@ import {
   Brain,
   Clock,
   Compass,
+  Cpu,
   Database,
   FileText,
   FolderGit2,
@@ -32,6 +33,7 @@ export function LeftSidebar({
 }: LeftSidebarProps) {
   const mainNav = [
     { id: "mission-control", label: "Mission Control", icon: Compass },
+    { id: "cognition", label: "Cognitive Loop Engine", icon: Cpu },
     { id: "reviews", label: "Executive COO Review", icon: Brain },
     { id: "timeline", label: "Living Memory Timeline", icon: Clock },
     { id: "knowledge-graph", label: "Interactive Memory Graph", icon: GitBranch },

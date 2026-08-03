@@ -15,6 +15,7 @@ import { LivingMemoryTimeline } from "../../timeline/components/living-memory-ti
 import { ExecutiveReviewDashboard } from "../../reviews/components/executive-review-dashboard";
 import { DemoPlayer } from "../../demo/components/demo-player";
 import { MemoryIngestionDashboard } from "../../ingestion/components/memory-ingestion-dashboard";
+import { CognitiveLoopVisualizer } from "../../cognition/components/cognitive-loop-visualizer";
 
 interface MissionControlWorkspaceProps {
   userDisplayName?: string;
@@ -102,6 +103,8 @@ export function MissionControlWorkspace({
           {activeSection === "reviews" && <ExecutiveReviewDashboard />}
 
           {activeSection === "ingestion" && <MemoryIngestionDashboard />}
+
+          {activeSection === "cognition" && <CognitiveLoopVisualizer />}
 
           {(activeSection === "timeline" || activeSection === "knowledge-graph") && (
             <LivingMemoryTimeline />

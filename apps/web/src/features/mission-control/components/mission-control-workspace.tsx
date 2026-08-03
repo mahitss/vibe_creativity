@@ -14,6 +14,7 @@ import { MemoryStudio } from "../../memory/components/memory-studio";
 import { LivingMemoryTimeline } from "../../timeline/components/living-memory-timeline";
 import { ExecutiveReviewDashboard } from "../../reviews/components/executive-review-dashboard";
 import { DemoPlayer } from "../../demo/components/demo-player";
+import { MemoryIngestionDashboard } from "../../ingestion/components/memory-ingestion-dashboard";
 
 interface MissionControlWorkspaceProps {
   userDisplayName?: string;
@@ -99,6 +100,8 @@ export function MissionControlWorkspace({
           )}
 
           {activeSection === "reviews" && <ExecutiveReviewDashboard />}
+
+          {activeSection === "ingestion" && <MemoryIngestionDashboard />}
 
           {(activeSection === "timeline" || activeSection === "knowledge-graph") && (
             <LivingMemoryTimeline />

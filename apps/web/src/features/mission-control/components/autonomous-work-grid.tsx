@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Bot,
   Brain,
@@ -7,12 +8,17 @@ import {
   Database,
   FileText,
   Handshake,
+  HelpCircle,
   MessageSquare,
   Sparkles,
   TrendingUp,
 } from "lucide-react";
+import { WhyInspectionModal } from "../../reasoning/components/why-inspection-modal";
 
 export function AutonomousWorkGrid() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedTitle, setSelectedTitle] = useState("");
+  const [selectedRationale, setSelectedRationale] = useState("");
   const workItems = [
     {
       id: "work-1",
@@ -110,9 +116,21 @@ export function AutonomousWorkGrid() {
                 <h4 className="text-xs font-bold text-neutral-100 leading-snug">{item.title}</h4>
 
                 <div className="mt-2.5 pt-2.5 border-t border-neutral-850">
-                  <p className="text-[11px] font-medium text-neutral-400 uppercase tracking-wider mb-1">
-                    Why OMNIA did this
-                  </p>
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-[11px] font-medium text-neutral-400 uppercase tracking-wider">
+                      Why OMNIA did this
+                    </p>
+                    <button
+                      onClick={() => {
+                        setSelectedTitle(item.title);
+                        setSelectedRationale(item.rationale);
+                        setModalOpen(true);
+                      }}
+                      className="text-[10px] font-mono text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-bold bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/30 transition"
+                    >
+                      <HelpCircle className="h-3 w-3" /> Why?
+                    </button>
+                  </div>
                   <p className="text-xs text-neutral-300 leading-relaxed font-normal">{item.rationale}</p>
                 </div>
               </div>
@@ -121,12 +139,28 @@ export function AutonomousWorkGrid() {
                 <span className="flex items-center gap-1 text-emerald-400">
                   <CheckCircle2 className="h-3 w-3" /> Auto-executed
                 </span>
-                <span className="hover:text-neutral-300 cursor-pointer transition">View Details →</span>
+                <button
+                  onClick={() => {
+                    setSelectedTitle(item.title);
+                    setSelectedRationale(item.rationale);
+                    setModalOpen(true);
+                  }}
+                  className="hover:text-cyan-400 transition flex items-center gap-1 font-mono text-[10px]"
+                >
+                  View Trace →
+                </button>
               </div>
             </div>
           );
         })}
       </div>
+
+      <WhyInspectionModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={selectedTitle || "Executive Reasoning Trace"}
+        observation={selectedRationale || "Educational deep dive tutorials consistently outperform general tech commentary in watch time and subscriber conversion."}
+      />
     </section>
   );
 }

@@ -1,6 +1,5 @@
-import { LandingPage } from "@/features/marketing/components/landing-page";
+import { MissionControlWorkspace } from "../features/mission-control/components/mission-control-workspace";
 
 export default function Home() {
-  return <LandingPage />;
+  return <MissionControlWorkspace userDisplayName="Mahit" />;
 }
-

@@ -16,6 +16,7 @@ import { ExecutiveReviewDashboard } from "../../reviews/components/executive-rev
 import { DemoPlayer } from "../../demo/components/demo-player";
 import { MemoryIngestionDashboard } from "../../ingestion/components/memory-ingestion-dashboard";
 import { CognitiveLoopVisualizer } from "../../cognition/components/cognitive-loop-visualizer";
+import { YouTubeConnectorPage } from "../../youtube/components/youtube-connector-page";
 
 interface MissionControlWorkspaceProps {
   userDisplayName?: string;
@@ -105,6 +106,8 @@ export function MissionControlWorkspace({
           {activeSection === "ingestion" && <MemoryIngestionDashboard />}
 
           {activeSection === "cognition" && <CognitiveLoopVisualizer />}
+
+          {activeSection === "youtube" && <YouTubeConnectorPage />}
 
           {(activeSection === "timeline" || activeSection === "knowledge-graph") && (
             <LivingMemoryTimeline />

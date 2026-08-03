@@ -18,6 +18,7 @@ import {
   Plus,
   Settings,
   Users,
+  Video,
 } from "lucide-react";
 
 interface LeftSidebarProps {
@@ -33,6 +34,7 @@ export function LeftSidebar({
 }: LeftSidebarProps) {
   const mainNav = [
     { id: "mission-control", label: "Mission Control", icon: Compass },
+    { id: "youtube", label: "YouTube Connector", icon: Video },
     { id: "cognition", label: "Cognitive Loop Engine", icon: Cpu },
     { id: "reviews", label: "Executive COO Review", icon: Brain },
     { id: "timeline", label: "Living Memory Timeline", icon: Clock },

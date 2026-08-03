@@ -166,7 +166,7 @@ export function DemoPlayer() {
   const activeScene: SceneData = scenes[currentSceneIndex] ?? scenes[0]!;
 
   useEffect(() => {
-    let timer: any = null;
+    let timer: ReturnType<typeof setInterval> | null = null;
     if (isPlaying) {
       timer = setInterval(() => {
         setCurrentSceneIndex((prev) => {

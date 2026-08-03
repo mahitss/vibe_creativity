@@ -1,6 +1,7 @@
 """Service layer for OMNIA Living Memory Timeline."""
 
 from typing import Any
+
 from app.modules.timeline.graph import MemoryGraphEngine
 
 

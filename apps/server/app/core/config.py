@@ -1,6 +1,6 @@
 from functools import lru_cache
 
-from pydantic import AnyHttpUrl, Field
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -15,11 +15,11 @@ class Settings(BaseSettings):
     )
 
     app_name: str = Field(default="OMNIA", alias="NEXT_PUBLIC_APP_NAME")
-    app_url: AnyHttpUrl = Field(default="http://localhost:3000", alias="NEXT_PUBLIC_APP_URL")
-    api_url: AnyHttpUrl = Field(default="http://localhost:8000", alias="NEXT_PUBLIC_API_URL")
-    database_url: str = Field(alias="DATABASE_URL")
-    redis_url: str = Field(alias="REDIS_URL")
-    supabase_url: str = Field(alias="SUPABASE_URL")
+    app_url: str = Field(default="http://localhost:3000", alias="NEXT_PUBLIC_APP_URL")
+    api_url: str = Field(default="http://localhost:8000", alias="NEXT_PUBLIC_API_URL")
+    database_url: str = Field(default="postgresql://postgres:postgres@localhost:5432/omnia", alias="DATABASE_URL")
+    redis_url: str = Field(default="redis://localhost:6379/0", alias="REDIS_URL")
+    supabase_url: str = Field(default="http://localhost:54321", alias="SUPABASE_URL")
     supabase_storage_bucket: str = Field(default="omnia", alias="SUPABASE_STORAGE_BUCKET")
     minds_agent_provider: str = Field(default="local", alias="MINDS_AGENT_PROVIDER")
     minds_agent_model: str = Field(default="omnia-minds-agent", alias="MINDS_AGENT_MODEL")

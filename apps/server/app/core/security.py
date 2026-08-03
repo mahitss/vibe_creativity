@@ -1,6 +1,7 @@
 """Security and tenant isolation for OMNIA Platform API routes."""
 
 from dataclasses import dataclass
+
 from fastapi import Header, HTTPException
 
 

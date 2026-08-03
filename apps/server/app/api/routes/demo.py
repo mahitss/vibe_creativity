@@ -1,6 +1,6 @@
 """FastAPI routes for OMNIA Demo Mode & Presenter Mode."""
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel, Field
 
 from app.core.security import CreatorContext, require_creator_context

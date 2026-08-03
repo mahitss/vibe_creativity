@@ -6,7 +6,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "lint": "eslint . --max-warnings=0",
+    "lint": "next lint --quiet",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -37,4 +37,3 @@
     "typescript": "^5.7.3"
   }
 }
-

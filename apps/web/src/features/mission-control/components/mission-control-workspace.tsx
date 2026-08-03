@@ -17,6 +17,7 @@ import { DemoPlayer } from "../../demo/components/demo-player";
 import { MemoryIngestionDashboard } from "../../ingestion/components/memory-ingestion-dashboard";
 import { CognitiveLoopVisualizer } from "../../cognition/components/cognitive-loop-visualizer";
 import { YouTubeConnectorPage } from "../../youtube/components/youtube-connector-page";
+import { SemanticSearchPage } from "../../search/components/semantic-search-page";
 
 interface MissionControlWorkspaceProps {
   userDisplayName?: string;
@@ -39,16 +40,15 @@ export function MissionControlWorkspace({
 
   // Dynamic greeting based on current time
   const hour = new Date().getHours();
-  const greetingText =
-    hour < 12 ? "Good Morning" : hour < 18 ? "Good Afternoon" : "Good Evening";
+  const greetingText = hour < 12 ? "Good Morning" : hour < 18 ? "Good Afternoon" : "Good Evening";
 
   if (isDemoActive) {
     return (
       <div className="relative">
-        <div className="fixed top-4 right-4 z-50">
+        <div className="fixed right-4 top-4 z-50">
           <button
             onClick={() => setIsDemoActive(false)}
-            className="bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs px-3 py-1.5 rounded-lg border border-neutral-700 font-mono shadow-lg"
+            className="rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-1.5 font-mono text-xs text-neutral-200 shadow-lg hover:bg-neutral-700"
           >
             Exit Demo Mode ✕
           </button>
@@ -59,7 +59,7 @@ export function MissionControlWorkspace({
   }
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col font-sans select-none overflow-x-hidden">
+    <div className="flex min-h-screen select-none flex-col overflow-x-hidden bg-neutral-950 font-sans text-neutral-100">
       {/* Top Navigation */}
       <TopNav
         onOpenCommandPalette={() => setCommandPaletteOpen(true)}
@@ -68,7 +68,7 @@ export function MissionControlWorkspace({
       />
 
       {/* Main Body (Left Sidebar + Central Workspace + Right Intelligence Panel) */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex flex-1 overflow-hidden">
         {/* Left Sidebar */}
         <LeftSidebar
           activeSection={activeSection}
@@ -77,16 +77,17 @@ export function MissionControlWorkspace({
         />
 
         {/* Central Workspace Content Area */}
-        <main className="flex-1 overflow-y-auto p-6 md:p-8 space-y-8 bg-neutral-950/60 font-sans">
+        <main className="flex-1 space-y-8 overflow-y-auto bg-neutral-950/60 p-6 font-sans md:p-8">
           {activeSection === "mission-control" && (
             <>
               {/* Dynamic Welcome Header */}
               <div className="space-y-1.5">
-                <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-neutral-100">
+                <h1 className="text-2xl font-bold tracking-tight text-neutral-100 md:text-3xl">
                   {greetingText}, {userDisplayName}.
                 </h1>
-                <p className="text-sm text-neutral-400 font-medium">
-                  OMNIA has been running in the background. Here is your prioritized mission &amp; autonomous summary.
+                <p className="text-sm font-medium text-neutral-400">
+                  OMNIA has been running in the background. Here is your prioritized mission &amp;
+                  autonomous summary.
                 </p>
               </div>
 
@@ -116,7 +117,7 @@ export function MissionControlWorkspace({
           {activeSection === "agents" && <AgentConsole />}
 
           {activeSection === "memory" && (
-            <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+            <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-6">
               <MemoryStudio
                 creatorName={userDisplayName}
                 namespace="omnia.mahit.mind"
@@ -147,7 +148,8 @@ export function MissionControlWorkspace({
                     title: "Weekly Planning Reflection",
                     category: "EXECUTIVE",
                     confidence: 0.92,
-                    lesson: "Focus Q3 publishing schedule on multi-part architectural walkthroughs.",
+                    lesson:
+                      "Focus Q3 publishing schedule on multi-part architectural walkthroughs.",
                     createdAt: new Date().toISOString(),
                   },
                 ]}
@@ -164,20 +166,24 @@ export function MissionControlWorkspace({
             </div>
           )}
 
+          {activeSection === "search" && <SemanticSearchPage />}
+
           {activeSection !== "mission-control" &&
+            activeSection !== "search" &&
             activeSection !== "timeline" &&
             activeSection !== "knowledge-graph" &&
             activeSection !== "agents" &&
             activeSection !== "memory" && (
-              <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-12 text-center space-y-3 font-sans">
-                <p className="text-xs font-mono text-cyan-400 uppercase tracking-widest">
+              <div className="space-y-3 rounded-xl border border-neutral-800 bg-neutral-900 p-12 text-center font-sans">
+                <p className="font-mono text-xs uppercase tracking-widest text-cyan-400">
                   Autonomous Section Active
                 </p>
-                <h2 className="text-xl font-bold text-neutral-100 capitalize">
+                <h2 className="text-xl font-bold capitalize text-neutral-100">
                   {activeSection.replace("-", " ")} Workspace
                 </h2>
-                <p className="text-xs text-neutral-400 max-w-md mx-auto leading-relaxed">
-                  Every recommendation and view in {activeSection} is continuously populated by Executive Agent and shared memory reasoning.
+                <p className="mx-auto max-w-md text-xs leading-relaxed text-neutral-400">
+                  Every recommendation and view in {activeSection} is continuously populated by
+                  Executive Agent and shared memory reasoning.
                 </p>
               </div>
             )}

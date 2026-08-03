@@ -268,9 +268,9 @@ export function CognitiveLoopVisualizer() {
           24-Hour Self-Evaluation &amp; Reflection Log
         </h3>
         <p className="border-neutral-850 rounded-xl border bg-neutral-950 p-4 font-mono text-xs leading-relaxed text-neutral-300">
-          "Over the last 24 hours, OMNIA observed that prioritizing technical deep dive tutorials
-          yielded +18% higher audience retention. Rejected commentary clip strategies saved 8 hours
-          of wasted production time. Memory confidence model updated by +4%."
+          &quot;Over the last 24 hours, OMNIA observed that prioritizing technical deep dive
+          tutorials yielded +18% higher audience retention. Rejected commentary clip strategies
+          saved 8 hours of wasted production time. Memory confidence model updated by +4%.&quot;
         </p>
       </section>
     </div>

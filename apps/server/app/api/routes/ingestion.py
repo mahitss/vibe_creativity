@@ -1,6 +1,6 @@
 """FastAPI routes for OMNIA Memory Ingestion Pipeline."""
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel, Field
 
 from app.core.security import CreatorContext, require_creator_context
@@ -22,7 +22,7 @@ class SubmitEventRequest(BaseModel):
     source: EventSource = Field(default=EventSource.USER_ACTION, description="Origin source of event")
     title: str = Field(..., description="Title or event action name")
     description: str = Field(..., description="Detailed description of event context")
-    payload: dict = Field(default_factory=dict, description="Raw event payload metadata")
+    payload: dict[str, object] = Field(default_factory=dict, description="Raw event payload metadata")
 
 
 @router.post("/events")

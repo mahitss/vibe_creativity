@@ -1,6 +1,7 @@
 """FastAPI routes for Multi-Agent Intelligence Platform."""
 
 from fastapi import APIRouter, Depends, Query
+
 from app.core.security import CreatorContext, require_creator_context
 from app.modules.agents.dependencies import agent_platform
 from app.modules.agents.domain import TaskPriority
@@ -79,7 +80,7 @@ async def dispatch(
         payload=payload.payload,
         priority=TaskPriority(payload.priority.value),
     )
-    return _outcome_read(outcome)
+    return outcome
 
 
 @router.get("/dashboard")

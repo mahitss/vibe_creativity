@@ -1,6 +1,7 @@
 """Demo Story Service for OMNIA Platform (Deterministic Presenter Mode)."""
 
 from typing import Any
+
 from app.modules.demo.domain import DemoScene, DemoStorySession, TargetView
 
 

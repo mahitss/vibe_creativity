@@ -1,6 +1,7 @@
 """Pydantic schemas for agent platform API routes."""
 
 from pydantic import BaseModel, Field
+
 from app.modules.agents.domain import TaskPriority
 
 
@@ -12,5 +13,5 @@ class CycleRequest(BaseModel):
 class DispatchRequest(BaseModel):
     target_agent: str = Field(..., description="Target specialized agent ID")
     purpose: str = Field(..., description="Purpose or action name")
-    payload: dict = Field(default_factory=dict, description="Task payload")
+    payload: dict[str, object] = Field(default_factory=dict, description="Task payload")
     priority: TaskPriority = Field(default=TaskPriority.NORMAL, description="Task priority")

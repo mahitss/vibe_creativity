@@ -84,7 +84,7 @@ export function PlaybackSlider() {
   const activeSnapshot: PlaybackSnapshot = snapshots[currentStep] ?? fallbackSnapshot;
 
   useEffect(() => {
-    let interval: any = null;
+    let interval: ReturnType<typeof setInterval> | null = null;
     if (isPlaying) {
       interval = setInterval(() => {
         setCurrentStep((prev) => {
@@ -100,15 +100,16 @@ export function PlaybackSlider() {
   }, [isPlaying, snapshots.length]);
 
   return (
-    <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-6 font-sans shadow-xl">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-neutral-800 pb-4">
+    <div className="space-y-6 rounded-2xl border border-neutral-800 bg-neutral-900 p-6 font-sans shadow-xl">
+      <div className="flex flex-col justify-between gap-4 border-b border-neutral-800 pb-4 md:flex-row md:items-center">
         <div>
-          <h3 className="text-base font-bold text-neutral-100 flex items-center gap-2">
+          <h3 className="flex items-center gap-2 text-base font-bold text-neutral-100">
             <Clock className="h-5 w-5 text-cyan-400" />
             Creator Journey Playback Engine
           </h3>
-          <p className="text-xs text-neutral-400 mt-0.5">
-            Replay the chronological evolution of ideas, content releases, sponsor deals, and revenue milestones.
+          <p className="mt-0.5 text-xs text-neutral-400">
+            Replay the chronological evolution of ideas, content releases, sponsor deals, and
+            revenue milestones.
           </p>
         </div>
 
@@ -116,7 +117,7 @@ export function PlaybackSlider() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-semibold px-4 py-2 rounded-lg transition shadow-sm"
+            className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:from-cyan-400 hover:to-blue-500"
           >
             {isPlaying ? (
               <>
@@ -135,7 +136,7 @@ export function PlaybackSlider() {
               setIsPlaying(false);
               setCurrentStep(0);
             }}
-            className="p-2 text-neutral-400 hover:text-neutral-200 bg-neutral-950 border border-neutral-800 rounded-lg hover:bg-neutral-850 transition"
+            className="hover:bg-neutral-850 rounded-lg border border-neutral-800 bg-neutral-950 p-2 text-neutral-400 transition hover:text-neutral-200"
             title="Reset to Start"
           >
             <RotateCcw className="h-4 w-4" />
@@ -145,8 +146,8 @@ export function PlaybackSlider() {
 
       {/* Playback Timeline Slider */}
       <div className="space-y-2">
-        <div className="flex items-center justify-between text-xs font-mono">
-          <span className="text-cyan-400 font-bold">
+        <div className="flex items-center justify-between font-mono text-xs">
+          <span className="font-bold text-cyan-400">
             Step {currentStep + 1} of {snapshots.length}
           </span>
           <span className="text-neutral-400">{activeSnapshot.timestamp}</span>
@@ -161,10 +162,10 @@ export function PlaybackSlider() {
             setIsPlaying(false);
             setCurrentStep(parseInt(e.target.value, 10));
           }}
-          className="w-full h-2 bg-neutral-950 rounded-lg appearance-none cursor-pointer accent-cyan-400"
+          className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-neutral-950 accent-cyan-400"
         />
 
-        <div className="flex justify-between text-[10px] font-mono text-neutral-500 pt-1">
+        <div className="flex justify-between pt-1 font-mono text-[10px] text-neutral-500">
           <span>Jul 15 (Idea)</span>
           <span>Jul 20 (Draft)</span>
           <span>Jul 25 (Published)</span>
@@ -173,16 +174,16 @@ export function PlaybackSlider() {
       </div>
 
       {/* Current Step State Card */}
-      <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-5 space-y-4">
+      <div className="space-y-4 rounded-xl border border-neutral-800 bg-neutral-950 p-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold uppercase">
+            <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase text-cyan-400">
               {activeSnapshot.evolution_stage} STAGE
             </span>
-            <span className="text-xs font-mono text-neutral-500">{activeSnapshot.timestamp}</span>
+            <span className="font-mono text-xs text-neutral-500">{activeSnapshot.timestamp}</span>
           </div>
 
-          <span className="text-xs font-mono text-emerald-400 flex items-center gap-1">
+          <span className="flex items-center gap-1 font-mono text-xs text-emerald-400">
             <CheckCircle2 className="h-3.5 w-3.5" /> Synchronized
           </span>
         </div>
@@ -190,14 +191,14 @@ export function PlaybackSlider() {
         <h4 className="text-sm font-bold text-neutral-100">{activeSnapshot.title}</h4>
 
         <div>
-          <p className="text-[11px] font-medium text-neutral-500 uppercase tracking-wider mb-2">
+          <p className="mb-2 text-[11px] font-medium uppercase tracking-wider text-neutral-500">
             Active Graph Entities ({activeSnapshot.active_nodes.length})
           </p>
           <div className="flex flex-wrap gap-2">
             {activeSnapshot.active_nodes.map((node) => (
               <span
                 key={node.id}
-                className="text-xs font-mono px-3 py-1 bg-neutral-900 border border-neutral-800 text-neutral-200 rounded-lg flex items-center gap-1.5"
+                className="flex items-center gap-1.5 rounded-lg border border-neutral-800 bg-neutral-900 px-3 py-1 font-mono text-xs text-neutral-200"
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
                 {node.name}

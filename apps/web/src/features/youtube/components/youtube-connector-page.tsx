@@ -1,35 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Activity,
-  ArrowUpRight,
-  CheckCircle2,
-  Clock,
-  Compass,
-  Database,
-  Eye,
-  FileText,
-  Filter,
-  Flame,
-  GitBranch,
-  Globe,
-  Heart,
-  HelpCircle,
-  Layers,
-  MessageSquare,
-  Play,
-  RefreshCw,
-  Share2,
-  Sparkles,
-  Star,
-  ThumbsUp,
-  TrendingUp,
-  Tv,
-  Users,
-  Video,
-  Zap,
-} from "lucide-react";
+import { MessageSquare, RefreshCw, Sparkles, ThumbsUp, Video, Zap } from "lucide-react";
 
 interface SyncedVideo {
   video_id: string;
@@ -116,34 +88,38 @@ export function YouTubeConnectorPage() {
   }
 
   return (
-    <div className="space-y-8 font-sans select-none">
+    <div className="select-none space-y-8 font-sans">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-neutral-800 pb-5">
+      <div className="flex flex-col justify-between gap-4 border-b border-neutral-800 pb-5 md:flex-row md:items-center">
         <div>
-          <div className="flex items-center gap-2 mb-1.5 font-mono text-xs">
-            <span className="px-2.5 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 font-bold uppercase flex items-center gap-1">
+          <div className="mb-1.5 flex items-center gap-2 font-mono text-xs">
+            <span className="flex items-center gap-1 rounded-full border border-rose-500/30 bg-rose-500/10 px-2.5 py-0.5 font-bold uppercase text-rose-400">
               <Video className="h-3 w-3" /> YouTube Intelligence Integration
             </span>
             <span className="text-neutral-500">Continuous Memory &amp; Graph Sync</span>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-neutral-100 flex items-center gap-2">
-            Mahit Tech &amp; Code <span className="text-xs font-mono text-neutral-400 font-normal">(124,000 Subscribers)</span>
+          <h1 className="flex items-center gap-2 text-2xl font-bold tracking-tight text-neutral-100">
+            Mahit Tech &amp; Code{" "}
+            <span className="font-mono text-xs font-normal text-neutral-400">
+              (124,000 Subscribers)
+            </span>
           </h1>
-          <p className="text-xs text-neutral-400 mt-1 max-w-2xl">
-            Automatically synchronizes videos, comments, and analytics into OMNIA's persistent memory and knowledge graph to trigger autonomous recommendations.
+          <p className="mt-1 max-w-2xl text-xs text-neutral-400">
+            Automatically synchronizes videos, comments, and analytics into OMNIA&apos;s persistent
+            memory and knowledge graph to trigger autonomous recommendations.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="text-right font-mono text-[11px] hidden sm:block">
-            <span className="text-neutral-500 block">Cursor: {cursor}</span>
-            <span className="text-emerald-400 font-bold">Synced: {lastSync}</span>
+          <div className="hidden text-right font-mono text-[11px] sm:block">
+            <span className="block text-neutral-500">Cursor: {cursor}</span>
+            <span className="font-bold text-emerald-400">Synced: {lastSync}</span>
           </div>
 
           <button
             onClick={handleSyncNow}
             disabled={isSyncing}
-            className="bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition shadow-md shadow-rose-500/20 flex items-center gap-2 disabled:opacity-50 shrink-0"
+            className="flex shrink-0 items-center gap-2 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-rose-500/20 transition hover:from-rose-500 hover:to-red-500 disabled:opacity-50"
           >
             {isSyncing ? (
               <RefreshCw className="h-4 w-4 animate-spin" />
@@ -156,78 +132,80 @@ export function YouTubeConnectorPage() {
       </div>
 
       {/* Analytics Metric Cards */}
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-4 font-mono text-xs">
-        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-1">
-          <p className="text-[10px] text-neutral-500 uppercase tracking-wider">Total Views (28d)</p>
+      <section className="grid grid-cols-2 gap-4 font-mono text-xs md:grid-cols-4">
+        <div className="space-y-1 rounded-xl border border-neutral-800 bg-neutral-900 p-4">
+          <p className="text-[10px] uppercase tracking-wider text-neutral-500">Total Views (28d)</p>
           <p className="text-xl font-bold text-neutral-100">1,420,000</p>
           <p className="text-[10px] text-emerald-400">+14% vs channel average</p>
         </div>
 
-        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-1">
-          <p className="text-[10px] text-neutral-500 uppercase tracking-wider">Watch Time</p>
+        <div className="space-y-1 rounded-xl border border-neutral-800 bg-neutral-900 p-4">
+          <p className="text-[10px] uppercase tracking-wider text-neutral-500">Watch Time</p>
           <p className="text-xl font-bold text-cyan-400">48,200 hrs</p>
           <p className="text-[10px] text-neutral-400">28-day window</p>
         </div>
 
-        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-1">
-          <p className="text-[10px] text-neutral-500 uppercase tracking-wider">Click-Through Rate (CTR)</p>
+        <div className="space-y-1 rounded-xl border border-neutral-800 bg-neutral-900 p-4">
+          <p className="text-[10px] uppercase tracking-wider text-neutral-500">
+            Click-Through Rate (CTR)
+          </p>
           <p className="text-xl font-bold text-rose-400">8.4%</p>
           <p className="text-[10px] text-emerald-400">+1.2% thumbnail boost</p>
         </div>
 
-        <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 space-y-1">
-          <p className="text-[10px] text-neutral-500 uppercase tracking-wider">Average Retention</p>
+        <div className="space-y-1 rounded-xl border border-neutral-800 bg-neutral-900 p-4">
+          <p className="text-[10px] uppercase tracking-wider text-neutral-500">Average Retention</p>
           <p className="text-xl font-bold text-emerald-400">58.2%</p>
           <p className="text-[10px] text-neutral-400">Top 5% tech creator tier</p>
         </div>
       </section>
 
       {/* Synchronized Video Grid & Comment Feed */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-sans">
+      <div className="grid grid-cols-1 gap-6 font-sans md:grid-cols-3">
         {/* Videos Grid */}
-        <section className="md:col-span-2 bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-4">
+        <section className="space-y-4 rounded-2xl border border-neutral-800 bg-neutral-900 p-6 md:col-span-2">
           <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
-            <h3 className="text-sm font-bold text-neutral-100 flex items-center gap-2">
+            <h3 className="flex items-center gap-2 text-sm font-bold text-neutral-100">
               <Video className="h-4 w-4 text-rose-400" />
               Synchronized Videos &amp; Shorts ({videos.length})
             </h3>
-            <span className="text-xs font-mono text-neutral-500">Auto-Transformed to Memory</span>
+            <span className="font-mono text-xs text-neutral-500">Auto-Transformed to Memory</span>
           </div>
 
           <div className="space-y-3">
             {videos.map((vid) => (
               <div
                 key={vid.video_id}
-                className="bg-neutral-950 border border-neutral-850 rounded-xl p-4 flex flex-col justify-between space-y-3"
+                className="border-neutral-850 flex flex-col justify-between space-y-3 rounded-xl border bg-neutral-950 p-4"
               >
                 <div className="space-y-1">
                   <div className="flex items-center justify-between font-mono text-[10px]">
                     {vid.playlist_name && (
-                      <span className="px-2 py-0.5 rounded bg-rose-500/10 border border-rose-500/30 text-rose-400 font-bold">
+                      <span className="rounded border border-rose-500/30 bg-rose-500/10 px-2 py-0.5 font-bold text-rose-400">
                         {vid.playlist_name}
                       </span>
                     )}
                     <span className="text-neutral-500">ID: {vid.video_id}</span>
                   </div>
-                  <h4 className="font-bold text-neutral-100 text-xs leading-snug">{vid.title}</h4>
+                  <h4 className="text-xs font-bold leading-snug text-neutral-100">{vid.title}</h4>
                 </div>
 
-                <div className="grid grid-cols-4 gap-2 pt-2 border-t border-neutral-850 font-mono text-[11px] text-neutral-400">
+                <div className="border-neutral-850 grid grid-cols-4 gap-2 border-t pt-2 font-mono text-[11px] text-neutral-400">
                   <div>
-                    <span className="text-[10px] text-neutral-500 block">Views</span>
-                    <span className="text-neutral-200 font-bold">{vid.views.toLocaleString()}</span>
+                    <span className="block text-[10px] text-neutral-500">Views</span>
+                    <span className="font-bold text-neutral-200">{vid.views.toLocaleString()}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-neutral-500 block">Watch Time</span>
-                    <span className="text-cyan-400 font-bold">{vid.watch_time_hours}h</span>
+                    <span className="block text-[10px] text-neutral-500">Watch Time</span>
+                    <span className="font-bold text-cyan-400">{vid.watch_time_hours}h</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-neutral-500 block">CTR</span>
-                    <span className="text-rose-400 font-bold">{vid.ctr_percent}%</span>
+                    <span className="block text-[10px] text-neutral-500">CTR</span>
+                    <span className="font-bold text-rose-400">{vid.ctr_percent}%</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-neutral-500 block">Retention</span>
-                    <span className="text-emerald-400 font-bold">{vid.retention_percent}%</span>
+                    <span className="block text-[10px] text-neutral-500">Retention</span>
+                    <span className="font-bold text-emerald-400">{vid.retention_percent}%</span>
                   </div>
                 </div>
               </div>
@@ -236,39 +214,41 @@ export function YouTubeConnectorPage() {
         </section>
 
         {/* Live Comment Triage Feed */}
-        <section className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-4">
+        <section className="space-y-4 rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
           <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
-            <h3 className="text-sm font-bold text-neutral-100 flex items-center gap-2">
+            <h3 className="flex items-center gap-2 text-sm font-bold text-neutral-100">
               <MessageSquare className="h-4 w-4 text-cyan-400" />
               Community Requests &amp; VIP Feed
             </h3>
-            <span className="text-xs font-mono text-neutral-500">{comments.length} Triaged</span>
+            <span className="font-mono text-xs text-neutral-500">{comments.length} Triaged</span>
           </div>
 
           <div className="space-y-3">
             {comments.map((cmt) => (
               <div
                 key={cmt.comment_id}
-                className="bg-neutral-950 border border-neutral-850 rounded-xl p-3.5 space-y-2 text-xs"
+                className="border-neutral-850 space-y-2 rounded-xl border bg-neutral-950 p-3.5 text-xs"
               >
                 <div className="flex items-center justify-between font-mono text-[10px]">
-                  <span className="font-bold text-neutral-200 flex items-center gap-1">
+                  <span className="flex items-center gap-1 font-bold text-neutral-200">
                     {cmt.author_name}
                     {cmt.is_vip && (
-                      <span className="px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-400 font-bold border border-amber-500/30">
+                      <span className="py-0.2 rounded border border-amber-500/30 bg-amber-500/10 px-1.5 font-bold text-amber-400">
                         VIP
                       </span>
                     )}
                   </span>
-                  <span className="text-neutral-500 flex items-center gap-1">
+                  <span className="flex items-center gap-1 text-neutral-500">
                     <ThumbsUp className="h-3 w-3" /> {cmt.like_count}
                   </span>
                 </div>
 
-                <p className="text-neutral-300 text-[11px] leading-relaxed font-normal">{cmt.text}</p>
+                <p className="text-[11px] font-normal leading-relaxed text-neutral-300">
+                  {cmt.text}
+                </p>
 
                 {cmt.is_audience_request && (
-                  <div className="pt-2 border-t border-neutral-850 text-[10px] font-mono text-cyan-400 flex items-center gap-1 font-bold">
+                  <div className="border-neutral-850 flex items-center gap-1 border-t pt-2 font-mono text-[10px] font-bold text-cyan-400">
                     <Sparkles className="h-3 w-3" /> Audience Content Request Detected
                   </div>
                 )}

@@ -87,7 +87,7 @@ export function MemoryStudio({
           <div>
             <p className="text-sm font-semibold tracking-wide">OMNIA MEMORY</p>
             <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-tight md:text-6xl">
-              {creatorName}'s persistent memory.
+              {creatorName}&apos;s persistent memory.
             </h1>
             <p className="mt-5 max-w-2xl text-sm leading-6 text-neutral-600">
               Namespace <span className="font-medium text-neutral-950">{namespace}</span> stores the

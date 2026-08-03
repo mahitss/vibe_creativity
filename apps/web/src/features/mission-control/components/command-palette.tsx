@@ -30,7 +30,7 @@ interface CommandGroup {
     id: string;
     title: string;
     description: string;
-    icon: any;
+    icon: React.ComponentType<{ className?: string }>;
     shortcut?: string;
   }[];
 }
@@ -108,10 +108,13 @@ export function CommandPalette({ isOpen, onClose, onSelectAction }: CommandPalet
     },
   ];
 
-  const allItems = groups.flatMap((g) => g.items).filter((item) =>
-    item.title.toLowerCase().includes(query.toLowerCase()) ||
-    item.description.toLowerCase().includes(query.toLowerCase())
-  );
+  const allItems = groups
+    .flatMap((g) => g.items)
+    .filter(
+      (item) =>
+        item.title.toLowerCase().includes(query.toLowerCase()) ||
+        item.description.toLowerCase().includes(query.toLowerCase()),
+    );
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -146,15 +149,15 @@ export function CommandPalette({ isOpen, onClose, onSelectAction }: CommandPalet
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-24 bg-neutral-950/60 backdrop-blur-sm transition-opacity">
+    <div className="fixed inset-0 z-50 flex items-start justify-center bg-neutral-950/60 pt-24 backdrop-blur-sm transition-opacity">
       <div
-        className="w-full max-w-xl bg-neutral-900 border border-neutral-800 rounded-xl shadow-2xl overflow-hidden font-sans text-neutral-100"
+        className="w-full max-w-xl overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900 font-sans text-neutral-100 shadow-2xl"
         role="dialog"
         aria-modal="true"
       >
         {/* Search Input Bar */}
-        <div className="flex items-center px-4 border-b border-neutral-800 bg-neutral-900/90">
-          <Search className="h-4 w-4 text-neutral-400 mr-3 shrink-0" />
+        <div className="flex items-center border-b border-neutral-800 bg-neutral-900/90 px-4">
+          <Search className="mr-3 h-4 w-4 shrink-0 text-neutral-400" />
           <input
             type="text"
             value={query}
@@ -168,7 +171,7 @@ export function CommandPalette({ isOpen, onClose, onSelectAction }: CommandPalet
           />
           <button
             onClick={onClose}
-            className="p-1 text-neutral-400 hover:text-neutral-200 rounded-md hover:bg-neutral-800 transition"
+            className="rounded-md p-1 text-neutral-400 transition hover:bg-neutral-800 hover:text-neutral-200"
           >
             <X className="h-4 w-4" />
           </button>
@@ -177,23 +180,24 @@ export function CommandPalette({ isOpen, onClose, onSelectAction }: CommandPalet
         {/* Results List */}
         <div className="max-h-96 overflow-y-auto p-2">
           {allItems.length === 0 ? (
-            <div className="py-12 text-center text-xs text-neutral-500 font-mono">
+            <div className="py-12 text-center font-mono text-xs text-neutral-500">
               No matching commands or memories found.
             </div>
           ) : (
             groups.map((group) => {
-              const groupItems = group.items.filter((item) =>
-                item.title.toLowerCase().includes(query.toLowerCase()) ||
-                item.description.toLowerCase().includes(query.toLowerCase())
+              const groupItems = group.items.filter(
+                (item) =>
+                  item.title.toLowerCase().includes(query.toLowerCase()) ||
+                  item.description.toLowerCase().includes(query.toLowerCase()),
               );
               if (groupItems.length === 0) return null;
 
               return (
                 <div key={group.category} className="mb-3 last:mb-0">
-                  <p className="px-3 py-1 text-[11px] font-semibold text-neutral-500 uppercase tracking-wider">
+                  <p className="px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-neutral-500">
                     {group.category}
                   </p>
-                  <div className="space-y-1 mt-1">
+                  <div className="mt-1 space-y-1">
                     {groupItems.map((item) => {
                       const globalIndex = allItems.findIndex((i) => i.id === item.id);
                       const isSelected = globalIndex === selectedIndex;
@@ -207,27 +211,31 @@ export function CommandPalette({ isOpen, onClose, onSelectAction }: CommandPalet
                             onClose();
                           }}
                           onMouseEnter={() => setSelectedIndex(globalIndex)}
-                          className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-left text-xs transition ${
+                          className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-xs transition ${
                             isSelected
-                              ? "bg-neutral-800 text-neutral-100 border border-neutral-700/80 shadow-sm"
-                              : "text-neutral-300 hover:bg-neutral-850 hover:text-neutral-100"
+                              ? "border border-neutral-700/80 bg-neutral-800 text-neutral-100 shadow-sm"
+                              : "hover:bg-neutral-850 text-neutral-300 hover:text-neutral-100"
                           }`}
                         >
                           <div className="flex items-center gap-3">
                             <div
-                              className={`p-1.5 rounded-md ${
-                                isSelected ? "bg-neutral-700 text-neutral-100" : "bg-neutral-800 text-neutral-400"
+                              className={`rounded-md p-1.5 ${
+                                isSelected
+                                  ? "bg-neutral-700 text-neutral-100"
+                                  : "bg-neutral-800 text-neutral-400"
                               }`}
                             >
                               <Icon className="h-4 w-4" />
                             </div>
                             <div>
                               <p className="font-medium">{item.title}</p>
-                              <p className="text-[11px] text-neutral-400 mt-0.5">{item.description}</p>
+                              <p className="mt-0.5 text-[11px] text-neutral-400">
+                                {item.description}
+                              </p>
                             </div>
                           </div>
                           {item.shortcut && (
-                            <span className="font-mono text-[10px] bg-neutral-800 border border-neutral-700 text-neutral-400 px-2 py-0.5 rounded">
+                            <span className="rounded border border-neutral-700 bg-neutral-800 px-2 py-0.5 font-mono text-[10px] text-neutral-400">
                               {item.shortcut}
                             </span>
                           )}
@@ -242,7 +250,7 @@ export function CommandPalette({ isOpen, onClose, onSelectAction }: CommandPalet
         </div>
 
         {/* Footer shortcuts hint */}
-        <div className="px-4 py-2.5 bg-neutral-950 border-t border-neutral-800 flex items-center justify-between text-[11px] text-neutral-500 font-mono">
+        <div className="flex items-center justify-between border-t border-neutral-800 bg-neutral-950 px-4 py-2.5 font-mono text-[11px] text-neutral-500">
           <div className="flex items-center gap-3">
             <span>↑↓ Navigate</span>
             <span>↵ Select</span>

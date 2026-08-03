@@ -1,6 +1,5 @@
 """YouTube Intelligence Connector service for OMNIA Platform."""
 
-from datetime import datetime
 from typing import Any
 from uuid import uuid4
 

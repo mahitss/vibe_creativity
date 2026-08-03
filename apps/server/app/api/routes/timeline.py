@@ -1,6 +1,7 @@
 """FastAPI routes for OMNIA Living Memory Timeline & Interactive Memory Graph."""
 
 from fastapi import APIRouter, Depends, HTTPException, Query
+
 from app.core.security import CreatorContext, require_creator_context
 from app.modules.timeline.service import TimelineService
 

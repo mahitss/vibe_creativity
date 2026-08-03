@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from typing import Any
-from uuid import UUID, uuid4
+from uuid import uuid4
 
 from app.modules.timeline.domain import (
     EvolutionStage,
@@ -195,7 +195,6 @@ class MemoryGraphEngine:
         sorted_events = sorted(self._events, key=lambda e: e.timestamp)
         snapshots = []
         accumulated_nodes = set()
-        accumulated_edges = []
 
         for idx, event in enumerate(sorted_events):
             for obj_id in event.related_objects:

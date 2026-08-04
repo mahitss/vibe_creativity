@@ -51,7 +51,7 @@ export function LeftSidebar({
     { id: "ingestion", label: "Ingestion Pipeline", icon: Layers },
     { id: "content", label: "Content Strategy Engine", icon: Lightbulb },
     { id: "community", label: "Community Guild", icon: Users },
-    { id: "sponsors", label: "Sponsor Deals", icon: Handshake },
+    { id: "sponsors", label: "Sponsor Intelligence Engine", icon: Handshake },
     { id: "memory", label: "Memory Studio", icon: Database },
     { id: "analytics", label: "Analytics Insights", icon: BarChart3 },
     { id: "projects", label: "Projects", icon: FolderGit2 },

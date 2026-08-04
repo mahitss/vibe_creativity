@@ -10,6 +10,7 @@ from app.api.routes.personalization import router as personalization_router
 from app.api.routes.reasoning import router as reasoning_router
 from app.api.routes.reviews import router as reviews_router
 from app.api.routes.search import router as search_router
+from app.api.routes.sponsors import router as sponsors_router
 from app.api.routes.timeline import router as timeline_router
 from app.api.routes.universe import router as universe_router
 from app.api.routes.youtube import router as youtube_router
@@ -28,6 +29,7 @@ api_router.include_router(followup_router)
 api_router.include_router(universe_router)
 api_router.include_router(personalization_router)
 api_router.include_router(content_router)
+api_router.include_router(sponsors_router)
 
 
 

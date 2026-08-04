@@ -24,6 +24,7 @@ import { PersonalizationStudio } from "../../personalization/components/personal
 import { ContentStrategyWorkspace } from "../../content/components/content-strategy-workspace";
 import { SponsorWorkspace } from "../../sponsors/components/sponsor-workspace";
 import { CommunityWorkspace } from "../../community/components/community-workspace";
+import { EvaluationDashboard } from "../../evaluation/components/evaluation-dashboard";
 
 interface MissionControlWorkspaceProps {
   userDisplayName?: string;
@@ -172,6 +173,7 @@ export function MissionControlWorkspace({
             </div>
           )}
 
+          {activeSection === "evaluation" && <EvaluationDashboard />}
           {activeSection === "reviews" && <ExecutiveDashboard />}
           {activeSection === "community" && <CommunityWorkspace />}
           {activeSection === "sponsors" && <SponsorWorkspace />}
@@ -182,6 +184,7 @@ export function MissionControlWorkspace({
           {activeSection === "search" && <SemanticSearchPage />}
 
           {activeSection !== "mission-control" &&
+            activeSection !== "evaluation" &&
             activeSection !== "reviews" &&
             activeSection !== "community" &&
             activeSection !== "sponsors" &&

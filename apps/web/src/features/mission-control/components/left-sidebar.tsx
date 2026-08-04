@@ -22,6 +22,7 @@ import {
   Search,
   Settings,
   Sliders,
+  TrendingUp,
   Users,
   Video,
 } from "lucide-react";
@@ -53,6 +54,7 @@ export function LeftSidebar({
     { id: "community", label: "Community Intelligence Engine", icon: Users },
     { id: "sponsors", label: "Sponsor Intelligence Engine", icon: Handshake },
     { id: "memory", label: "Memory Studio", icon: Database },
+    { id: "evaluation", label: "Self-Improvement Engine", icon: TrendingUp },
     { id: "analytics", label: "Analytics Insights", icon: BarChart3 },
     { id: "projects", label: "Projects", icon: FolderGit2 },
     { id: "agents", label: "Multi-Agent Platform", icon: Bot },

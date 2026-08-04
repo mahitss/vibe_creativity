@@ -20,6 +20,7 @@ import { YouTubeConnectorPage } from "../../youtube/components/youtube-connector
 import { SemanticSearchPage } from "../../search/components/semantic-search-page";
 import { FollowUpCenter } from "../../followup/components/follow-up-center";
 import { KnowledgeUniverseCanvas } from "../../universe/components/knowledge-universe-canvas";
+import { PersonalizationStudio } from "../../personalization/components/personalization-studio";
 
 interface MissionControlWorkspaceProps {
   userDisplayName?: string;
@@ -168,11 +169,13 @@ export function MissionControlWorkspace({
             </div>
           )}
 
+          {activeSection === "personalization" && <PersonalizationStudio />}
           {activeSection === "universe" && <KnowledgeUniverseCanvas />}
           {activeSection === "followup" && <FollowUpCenter />}
           {activeSection === "search" && <SemanticSearchPage />}
 
           {activeSection !== "mission-control" &&
+            activeSection !== "personalization" &&
             activeSection !== "universe" &&
             activeSection !== "followup" &&
             activeSection !== "search" &&

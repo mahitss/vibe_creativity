@@ -20,6 +20,7 @@ import {
   Plus,
   Search,
   Settings,
+  Sliders,
   Users,
   Video,
 } from "lucide-react";
@@ -37,6 +38,7 @@ export function LeftSidebar({
 }: LeftSidebarProps) {
   const mainNav = [
     { id: "mission-control", label: "Mission Control", icon: Compass },
+    { id: "personalization", label: "Personalization Studio", icon: Sliders },
     { id: "universe", label: "Knowledge Universe", icon: Globe },
     { id: "followup", label: "Follow-up Center", icon: Bell },
     { id: "search", label: "Memory Search Engine", icon: Search },

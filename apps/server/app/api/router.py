@@ -5,6 +5,7 @@ from app.api.routes.demo import router as demo_router
 from app.api.routes.followup import router as followup_router
 from app.api.routes.health import router as health_router
 from app.api.routes.ingestion import router as ingestion_router
+from app.api.routes.personalization import router as personalization_router
 from app.api.routes.reasoning import router as reasoning_router
 from app.api.routes.reviews import router as reviews_router
 from app.api.routes.search import router as search_router
@@ -24,6 +25,8 @@ api_router.include_router(youtube_router)
 api_router.include_router(search_router)
 api_router.include_router(followup_router)
 api_router.include_router(universe_router)
+api_router.include_router(personalization_router)
+
 
 
 

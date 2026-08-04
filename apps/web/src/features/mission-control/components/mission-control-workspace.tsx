@@ -19,6 +19,7 @@ import { CognitiveLoopVisualizer } from "../../cognition/components/cognitive-lo
 import { YouTubeConnectorPage } from "../../youtube/components/youtube-connector-page";
 import { SemanticSearchPage } from "../../search/components/semantic-search-page";
 import { FollowUpCenter } from "../../followup/components/follow-up-center";
+import { KnowledgeUniverseCanvas } from "../../universe/components/knowledge-universe-canvas";
 
 interface MissionControlWorkspaceProps {
   userDisplayName?: string;
@@ -167,10 +168,12 @@ export function MissionControlWorkspace({
             </div>
           )}
 
+          {activeSection === "universe" && <KnowledgeUniverseCanvas />}
           {activeSection === "followup" && <FollowUpCenter />}
           {activeSection === "search" && <SemanticSearchPage />}
 
           {activeSection !== "mission-control" &&
+            activeSection !== "universe" &&
             activeSection !== "followup" &&
             activeSection !== "search" &&
             activeSection !== "timeline" &&

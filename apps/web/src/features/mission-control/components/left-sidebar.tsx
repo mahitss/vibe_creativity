@@ -13,6 +13,7 @@ import {
   FileText,
   FolderGit2,
   GitBranch,
+  Globe,
   Handshake,
   Layers,
   LayoutDashboard,
@@ -36,6 +37,7 @@ export function LeftSidebar({
 }: LeftSidebarProps) {
   const mainNav = [
     { id: "mission-control", label: "Mission Control", icon: Compass },
+    { id: "universe", label: "Knowledge Universe", icon: Globe },
     { id: "followup", label: "Follow-up Center", icon: Bell },
     { id: "search", label: "Memory Search Engine", icon: Search },
     { id: "youtube", label: "YouTube Connector", icon: Video },

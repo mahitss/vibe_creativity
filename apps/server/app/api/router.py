@@ -9,6 +9,7 @@ from app.api.routes.reasoning import router as reasoning_router
 from app.api.routes.reviews import router as reviews_router
 from app.api.routes.search import router as search_router
 from app.api.routes.timeline import router as timeline_router
+from app.api.routes.universe import router as universe_router
 from app.api.routes.youtube import router as youtube_router
 
 api_router = APIRouter()
@@ -22,6 +23,7 @@ api_router.include_router(cognition_router)
 api_router.include_router(youtube_router)
 api_router.include_router(search_router)
 api_router.include_router(followup_router)
+api_router.include_router(universe_router)
 
 
 

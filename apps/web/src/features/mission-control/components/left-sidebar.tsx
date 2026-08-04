@@ -45,7 +45,7 @@ export function LeftSidebar({
     { id: "search", label: "Memory Search Engine", icon: Search },
     { id: "youtube", label: "YouTube Connector", icon: Video },
     { id: "cognition", label: "Cognitive Loop Engine", icon: Cpu },
-    { id: "reviews", label: "Executive COO Review", icon: Brain },
+    { id: "reviews", label: "Executive Strategy Engine", icon: Brain },
     { id: "timeline", label: "Living Memory Timeline", icon: Clock },
     { id: "knowledge-graph", label: "Interactive Memory Graph", icon: GitBranch },
     { id: "ingestion", label: "Ingestion Pipeline", icon: Layers },

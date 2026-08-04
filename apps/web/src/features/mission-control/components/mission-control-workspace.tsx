@@ -12,7 +12,7 @@ import { CommandPalette } from "./command-palette";
 import { AgentConsole } from "../../agents/components/agent-console";
 import { MemoryStudio } from "../../memory/components/memory-studio";
 import { LivingMemoryTimeline } from "../../timeline/components/living-memory-timeline";
-import { ExecutiveReviewDashboard } from "../../reviews/components/executive-review-dashboard";
+import { ExecutiveDashboard } from "../../executive/components/executive-dashboard";
 import { DemoPlayer } from "../../demo/components/demo-player";
 import { MemoryIngestionDashboard } from "../../ingestion/components/memory-ingestion-dashboard";
 import { CognitiveLoopVisualizer } from "../../cognition/components/cognitive-loop-visualizer";
@@ -108,7 +108,7 @@ export function MissionControlWorkspace({
             </>
           )}
 
-          {activeSection === "reviews" && <ExecutiveReviewDashboard />}
+          {activeSection === "reviews" && <ExecutiveDashboard />}
 
           {activeSection === "ingestion" && <MemoryIngestionDashboard />}
 
@@ -172,6 +172,7 @@ export function MissionControlWorkspace({
             </div>
           )}
 
+          {activeSection === "reviews" && <ExecutiveDashboard />}
           {activeSection === "community" && <CommunityWorkspace />}
           {activeSection === "sponsors" && <SponsorWorkspace />}
           {activeSection === "content" && <ContentStrategyWorkspace />}
@@ -181,6 +182,7 @@ export function MissionControlWorkspace({
           {activeSection === "search" && <SemanticSearchPage />}
 
           {activeSection !== "mission-control" &&
+            activeSection !== "reviews" &&
             activeSection !== "community" &&
             activeSection !== "sponsors" &&
             activeSection !== "content" &&

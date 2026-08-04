@@ -50,7 +50,7 @@ export function LeftSidebar({
     { id: "knowledge-graph", label: "Interactive Memory Graph", icon: GitBranch },
     { id: "ingestion", label: "Ingestion Pipeline", icon: Layers },
     { id: "content", label: "Content Strategy Engine", icon: Lightbulb },
-    { id: "community", label: "Community Guild", icon: Users },
+    { id: "community", label: "Community Intelligence Engine", icon: Users },
     { id: "sponsors", label: "Sponsor Intelligence Engine", icon: Handshake },
     { id: "memory", label: "Memory Studio", icon: Database },
     { id: "analytics", label: "Analytics Insights", icon: BarChart3 },

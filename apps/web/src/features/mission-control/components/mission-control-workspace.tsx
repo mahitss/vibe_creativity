@@ -23,6 +23,7 @@ import { KnowledgeUniverseCanvas } from "../../universe/components/knowledge-uni
 import { PersonalizationStudio } from "../../personalization/components/personalization-studio";
 import { ContentStrategyWorkspace } from "../../content/components/content-strategy-workspace";
 import { SponsorWorkspace } from "../../sponsors/components/sponsor-workspace";
+import { CommunityWorkspace } from "../../community/components/community-workspace";
 
 interface MissionControlWorkspaceProps {
   userDisplayName?: string;
@@ -171,6 +172,7 @@ export function MissionControlWorkspace({
             </div>
           )}
 
+          {activeSection === "community" && <CommunityWorkspace />}
           {activeSection === "sponsors" && <SponsorWorkspace />}
           {activeSection === "content" && <ContentStrategyWorkspace />}
           {activeSection === "personalization" && <PersonalizationStudio />}
@@ -179,6 +181,7 @@ export function MissionControlWorkspace({
           {activeSection === "search" && <SemanticSearchPage />}
 
           {activeSection !== "mission-control" &&
+            activeSection !== "community" &&
             activeSection !== "sponsors" &&
             activeSection !== "content" &&
             activeSection !== "personalization" &&

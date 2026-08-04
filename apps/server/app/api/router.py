@@ -16,6 +16,7 @@ from app.api.routes.search import router as search_router
 from app.api.routes.sponsors import router as sponsors_router
 from app.api.routes.timeline import router as timeline_router
 from app.api.routes.universe import router as universe_router
+from app.api.routes.workflows import router as workflows_router
 from app.api.routes.youtube import router as youtube_router
 
 api_router = APIRouter()
@@ -36,6 +37,7 @@ api_router.include_router(sponsors_router)
 api_router.include_router(community_router)
 api_router.include_router(executive_router)
 api_router.include_router(evaluation_router)
+api_router.include_router(workflows_router)
 
 
 

@@ -25,6 +25,7 @@ import { ContentStrategyWorkspace } from "../../content/components/content-strat
 import { SponsorWorkspace } from "../../sponsors/components/sponsor-workspace";
 import { CommunityWorkspace } from "../../community/components/community-workspace";
 import { EvaluationDashboard } from "../../evaluation/components/evaluation-dashboard";
+import { WorkflowOrchestrator } from "../../workflows/components/workflow-orchestrator";
 
 interface MissionControlWorkspaceProps {
   userDisplayName?: string;
@@ -173,6 +174,7 @@ export function MissionControlWorkspace({
             </div>
           )}
 
+          {activeSection === "workflows" && <WorkflowOrchestrator />}
           {activeSection === "evaluation" && <EvaluationDashboard />}
           {activeSection === "reviews" && <ExecutiveDashboard />}
           {activeSection === "community" && <CommunityWorkspace />}
@@ -184,6 +186,7 @@ export function MissionControlWorkspace({
           {activeSection === "search" && <SemanticSearchPage />}
 
           {activeSection !== "mission-control" &&
+            activeSection !== "workflows" &&
             activeSection !== "evaluation" &&
             activeSection !== "reviews" &&
             activeSection !== "community" &&

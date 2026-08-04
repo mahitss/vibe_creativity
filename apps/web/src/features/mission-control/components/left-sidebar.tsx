@@ -55,6 +55,7 @@ export function LeftSidebar({
     { id: "sponsors", label: "Sponsor Intelligence Engine", icon: Handshake },
     { id: "memory", label: "Memory Studio", icon: Database },
     { id: "evaluation", label: "Self-Improvement Engine", icon: TrendingUp },
+    { id: "workflows", label: "Workflow Orchestrator", icon: GitBranch },
     { id: "analytics", label: "Analytics Insights", icon: BarChart3 },
     { id: "projects", label: "Projects", icon: FolderGit2 },
     { id: "agents", label: "Multi-Agent Platform", icon: Bot },

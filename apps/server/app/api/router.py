@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from app.api.routes.cognition import router as cognition_router
 from app.api.routes.demo import router as demo_router
+from app.api.routes.followup import router as followup_router
 from app.api.routes.health import router as health_router
 from app.api.routes.ingestion import router as ingestion_router
 from app.api.routes.reasoning import router as reasoning_router
@@ -20,6 +21,7 @@ api_router.include_router(ingestion_router)
 api_router.include_router(cognition_router)
 api_router.include_router(youtube_router)
 api_router.include_router(search_router)
+api_router.include_router(followup_router)
 
 
 

@@ -3,6 +3,7 @@
 import {
   Activity,
   BarChart3,
+  Bell,
   Bot,
   Brain,
   Clock,
@@ -35,6 +36,7 @@ export function LeftSidebar({
 }: LeftSidebarProps) {
   const mainNav = [
     { id: "mission-control", label: "Mission Control", icon: Compass },
+    { id: "followup", label: "Follow-up Center", icon: Bell },
     { id: "search", label: "Memory Search Engine", icon: Search },
     { id: "youtube", label: "YouTube Connector", icon: Video },
     { id: "cognition", label: "Cognitive Loop Engine", icon: Cpu },

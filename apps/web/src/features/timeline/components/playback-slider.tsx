@@ -96,7 +96,9 @@ export function PlaybackSlider() {
         });
       }, 1500);
     }
-    return () => clearInterval(interval);
+    return () => {
+      if (interval) clearInterval(interval);
+    };
   }, [isPlaying, snapshots.length]);
 
   return (

@@ -18,6 +18,7 @@ import { MemoryIngestionDashboard } from "../../ingestion/components/memory-inge
 import { CognitiveLoopVisualizer } from "../../cognition/components/cognitive-loop-visualizer";
 import { YouTubeConnectorPage } from "../../youtube/components/youtube-connector-page";
 import { SemanticSearchPage } from "../../search/components/semantic-search-page";
+import { FollowUpCenter } from "../../followup/components/follow-up-center";
 
 interface MissionControlWorkspaceProps {
   userDisplayName?: string;
@@ -166,9 +167,11 @@ export function MissionControlWorkspace({
             </div>
           )}
 
+          {activeSection === "followup" && <FollowUpCenter />}
           {activeSection === "search" && <SemanticSearchPage />}
 
           {activeSection !== "mission-control" &&
+            activeSection !== "followup" &&
             activeSection !== "search" &&
             activeSection !== "timeline" &&
             activeSection !== "knowledge-graph" &&

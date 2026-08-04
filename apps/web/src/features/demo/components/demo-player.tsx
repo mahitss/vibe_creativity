@@ -178,7 +178,9 @@ export function DemoPlayer() {
         });
       }, activeScene.durationSeconds * 1000);
     }
-    return () => clearInterval(timer);
+    return () => {
+      if (timer) clearInterval(timer);
+    };
   }, [isPlaying, currentSceneIndex, activeScene.durationSeconds, scenes.length]);
 
   return (

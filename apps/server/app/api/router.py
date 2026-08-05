@@ -23,6 +23,7 @@ from app.api.routes.sponsors import router as sponsors_router
 from app.api.routes.timeline import router as timeline_router
 from app.api.routes.tools import router as tools_router
 from app.api.routes.universe import router as universe_router
+from app.api.routes.workflow_engine import router as workflow_engine_router
 from app.api.routes.workflows import router as workflows_router
 from app.api.routes.youtube import router as youtube_router
 
@@ -34,6 +35,7 @@ api_router.include_router(events_router)
 api_router.include_router(registry_router)
 api_router.include_router(context_router)
 api_router.include_router(tools_router)
+api_router.include_router(workflow_engine_router)
 api_router.include_router(mission_control_router)
 api_router.include_router(timeline_router)
 api_router.include_router(reviews_router)

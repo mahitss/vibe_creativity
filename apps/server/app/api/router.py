@@ -13,6 +13,7 @@ from app.api.routes.followup import router as followup_router
 from app.api.routes.health import router as health_router
 from app.api.routes.ingestion import router as ingestion_router
 from app.api.routes.mission_control import router as mission_control_router
+from app.api.routes.observability import router as observability_router
 from app.api.routes.personalization import router as personalization_router
 from app.api.routes.reasoning import router as reasoning_router
 from app.api.routes.reflection import router as reflection_router
@@ -40,6 +41,7 @@ api_router.include_router(tools_router)
 api_router.include_router(workflow_engine_router)
 api_router.include_router(scheduler_router)
 api_router.include_router(reflection_router)
+api_router.include_router(observability_router)
 api_router.include_router(mission_control_router)
 api_router.include_router(timeline_router)
 api_router.include_router(reviews_router)

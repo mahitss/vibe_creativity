@@ -9,6 +9,7 @@ from app.api.routes.demo import router as demo_router
 from app.api.routes.evaluation import router as evaluation_router
 from app.api.routes.events import router as events_router
 from app.api.routes.executive import router as executive_router
+from app.api.routes.executive_mind import router as executive_mind_router
 from app.api.routes.followup import router as followup_router
 from app.api.routes.health import router as health_router
 from app.api.routes.ingestion import router as ingestion_router
@@ -46,6 +47,7 @@ api_router.include_router(reflection_router)
 api_router.include_router(observability_router)
 api_router.include_router(security_governance_router)
 api_router.include_router(validation_router)
+api_router.include_router(executive_mind_router)
 api_router.include_router(mission_control_router)
 api_router.include_router(timeline_router)
 api_router.include_router(reviews_router)

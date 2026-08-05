@@ -149,3 +149,62 @@ async def get_executive_mind_status(
     ws = engine.get_workspace(context.creator_id)
     mind = engine.get_mind(ws.workspace_id)
     return _format_mind(mind)
+
+
+class OnboardingPayload(BaseModel):
+    full_name: str = Field(..., description="Creator full name")
+    username: str = Field(..., description="Creator username")
+    bio: str = Field(default="", description="Creator bio")
+    country: str = Field(default="US", description="Country")
+    timezone: str = Field(default="America/New_York", description="Timezone")
+    creator_types: list[str] = Field(default_factory=list, description="Creator types")
+    goals: list[str] = Field(default_factory=list, description="Creator goals")
+    connected_platforms: list[str] = Field(default_factory=list, description="Platforms")
+    brand_voice: str = Field(default="Technical", description="Brand voice")
+    audience_type: str = Field(default="Engineers", description="Audience type")
+    preferred_tone: str = Field(default="Direct", description="Preferred tone")
+
+
+@router.post("/onboarding")
+async def submit_onboarding_data(
+    payload: OnboardingPayload,
+    context: CreatorContext = Depends(require_creator_context),
+    engine: AuthWorkspaceEngine = Depends(get_auth_engine),
+) -> dict[str, Any]:
+    from app.modules.authentication.domain import (
+        BrandDNA,
+        CreatorGoals,
+        CreatorProfile,
+        OnboardingSubmission,
+        WorkingStyle,
+    )
+
+    sub = OnboardingSubmission(
+        profile=CreatorProfile(
+            full_name=payload.full_name,
+            username=payload.username,
+            bio=payload.bio,
+            country=payload.country,
+            timezone=payload.timezone,
+            creator_types=payload.creator_types,
+        ),
+        goals=CreatorGoals(goals_list=payload.goals),
+        brand_dna=BrandDNA(voice=payload.brand_voice, audience_type=payload.audience_type),
+        working_style=WorkingStyle(preferred_tone=payload.preferred_tone),
+        connected_platforms=payload.connected_platforms,
+    )
+    ws = engine.submit_onboarding(context.creator_id, sub)
+    return {
+        "status": "COMPLETED",
+        "workspace": _format_workspace(ws),
+        "executive_mind": _format_mind(ws.executive_mind) if ws.executive_mind else None,
+    }
+
+
+@router.get("/onboarding/status")
+async def get_onboarding_status(
+    context: CreatorContext = Depends(require_creator_context),
+    engine: AuthWorkspaceEngine = Depends(get_auth_engine),
+) -> dict[str, Any]:
+    return engine.get_onboarding_status(context.creator_id)
+

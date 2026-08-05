@@ -1,6 +1,7 @@
 """Service layer for OMNIA Production Auth, Workspace & Executive Mind Management."""
 
 from datetime import UTC, datetime, timedelta
+from typing import Any
 from uuid import uuid4
 
 from app.modules.authentication.domain import (
@@ -180,3 +181,26 @@ class AuthWorkspaceEngine:
         if timezone:
             ws.timezone = timezone
         return ws
+
+    def submit_onboarding(self, creator_id: str, submission: Any) -> Workspace:
+        ws = self.get_workspace(creator_id)
+        ws.creator_profile = submission.profile
+        if ws.executive_mind:
+            ws.executive_mind.default_goals = submission.goals.goals_list
+            ws.executive_mind.default_preferences = {
+                "voice": submission.brand_dna.voice,
+                "audience": submission.brand_dna.audience_type,
+                "tone": submission.working_style.preferred_tone,
+                "publishing_frequency": submission.working_style.publishing_frequency,
+            }
+        return ws
+
+    def get_onboarding_status(self, creator_id: str) -> dict[str, Any]:
+        ws = self.get_workspace(creator_id)
+        is_completed = ws.creator_profile is not None
+        return {
+            "completed": is_completed,
+            "creator_profile": ws.creator_profile,
+            "workspace_id": ws.workspace_id,
+            "executive_mind_id": ws.executive_mind.mind_id if ws.executive_mind else None,
+        }

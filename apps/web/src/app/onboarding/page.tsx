@@ -1,5 +1,5 @@
-import { OnboardingWorkspaceForm } from "../../features/auth/components/onboarding-workspace-form";
+import { ExecutiveMindOnboarding } from "../../features/onboarding/components/executive-mind-onboarding";
 
 export default function OnboardingPage() {
-  return <OnboardingWorkspaceForm />;
+  return <ExecutiveMindOnboarding />;
 }

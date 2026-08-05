@@ -6,6 +6,7 @@ from app.api.routes.community import router as community_router
 from app.api.routes.content import router as content_router
 from app.api.routes.demo import router as demo_router
 from app.api.routes.evaluation import router as evaluation_router
+from app.api.routes.events import router as events_router
 from app.api.routes.executive import router as executive_router
 from app.api.routes.followup import router as followup_router
 from app.api.routes.health import router as health_router
@@ -26,6 +27,7 @@ api_router = APIRouter()
 api_router.include_router(health_router, tags=["health"])
 api_router.include_router(auth_router)
 api_router.include_router(runtime_router)
+api_router.include_router(events_router)
 api_router.include_router(mission_control_router)
 api_router.include_router(timeline_router)
 api_router.include_router(reviews_router)

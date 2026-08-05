@@ -15,6 +15,7 @@ from app.api.routes.ingestion import router as ingestion_router
 from app.api.routes.mission_control import router as mission_control_router
 from app.api.routes.personalization import router as personalization_router
 from app.api.routes.reasoning import router as reasoning_router
+from app.api.routes.reflection import router as reflection_router
 from app.api.routes.registry import router as registry_router
 from app.api.routes.reviews import router as reviews_router
 from app.api.routes.runtime import router as runtime_router
@@ -38,6 +39,7 @@ api_router.include_router(context_router)
 api_router.include_router(tools_router)
 api_router.include_router(workflow_engine_router)
 api_router.include_router(scheduler_router)
+api_router.include_router(reflection_router)
 api_router.include_router(mission_control_router)
 api_router.include_router(timeline_router)
 api_router.include_router(reviews_router)

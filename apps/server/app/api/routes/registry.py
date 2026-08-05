@@ -95,7 +95,7 @@ async def get_capabilities_matrix(
     return matrix
 
 
-@router.get("/runtime/tools")
+@router.get("/runtime/registry/tools")
 async def get_tool_registry(
     engine: AgentRegistryEngine = Depends(get_registry_engine),
 ) -> list[dict[str, Any]]:

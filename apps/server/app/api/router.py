@@ -14,6 +14,7 @@ from app.api.routes.mission_control import router as mission_control_router
 from app.api.routes.personalization import router as personalization_router
 from app.api.routes.reasoning import router as reasoning_router
 from app.api.routes.reviews import router as reviews_router
+from app.api.routes.runtime import router as runtime_router
 from app.api.routes.search import router as search_router
 from app.api.routes.sponsors import router as sponsors_router
 from app.api.routes.timeline import router as timeline_router
@@ -24,6 +25,7 @@ from app.api.routes.youtube import router as youtube_router
 api_router = APIRouter()
 api_router.include_router(health_router, tags=["health"])
 api_router.include_router(auth_router)
+api_router.include_router(runtime_router)
 api_router.include_router(mission_control_router)
 api_router.include_router(timeline_router)
 api_router.include_router(reviews_router)

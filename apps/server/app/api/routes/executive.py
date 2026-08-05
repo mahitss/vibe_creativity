@@ -105,3 +105,4 @@ async def run_executive_cycle(
         "active_conflicts": [_format_conflict(c) for c in rep.active_conflicts],
         "latest_decision": _format_decision(rep.decisions_log[0]) if rep.decisions_log else None,
     }
+    

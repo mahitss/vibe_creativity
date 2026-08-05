@@ -441,9 +441,11 @@ export function MissionControlWorkspace({
                   </div>
 
                   <div className="border-neutral-850 flex items-center justify-between border-t pt-2 font-mono text-[10px] text-neutral-500">
-                    <span>Evidence: #{ins.evidence_memory_ids[0]}</span>
+                    <span>Evidence: #{ins.evidence_memory_ids[0] || "mem-grounding"}</span>
                     <button
-                      onClick={() => handleInspectMemory(ins.evidence_memory_ids[0])}
+                      onClick={() =>
+                        handleInspectMemory(ins.evidence_memory_ids[0] || "mem-grounding")
+                      }
                       className="text-indigo-400 hover:underline"
                     >
                       Inspect →

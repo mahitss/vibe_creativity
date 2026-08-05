@@ -18,6 +18,7 @@ from app.api.routes.reasoning import router as reasoning_router
 from app.api.routes.registry import router as registry_router
 from app.api.routes.reviews import router as reviews_router
 from app.api.routes.runtime import router as runtime_router
+from app.api.routes.scheduler import router as scheduler_router
 from app.api.routes.search import router as search_router
 from app.api.routes.sponsors import router as sponsors_router
 from app.api.routes.timeline import router as timeline_router
@@ -36,6 +37,7 @@ api_router.include_router(registry_router)
 api_router.include_router(context_router)
 api_router.include_router(tools_router)
 api_router.include_router(workflow_engine_router)
+api_router.include_router(scheduler_router)
 api_router.include_router(mission_control_router)
 api_router.include_router(timeline_router)
 api_router.include_router(reviews_router)

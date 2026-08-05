@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+from app.api.routes.authentication import router as auth_router
 from app.api.routes.cognition import router as cognition_router
 from app.api.routes.community import router as community_router
 from app.api.routes.content import router as content_router
@@ -21,6 +22,7 @@ from app.api.routes.youtube import router as youtube_router
 
 api_router = APIRouter()
 api_router.include_router(health_router, tags=["health"])
+api_router.include_router(auth_router)
 api_router.include_router(timeline_router)
 api_router.include_router(reviews_router)
 api_router.include_router(demo_router)

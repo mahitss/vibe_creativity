@@ -22,6 +22,7 @@ from app.api.routes.reviews import router as reviews_router
 from app.api.routes.runtime import router as runtime_router
 from app.api.routes.scheduler import router as scheduler_router
 from app.api.routes.search import router as search_router
+from app.api.routes.security_governance import router as security_governance_router
 from app.api.routes.sponsors import router as sponsors_router
 from app.api.routes.timeline import router as timeline_router
 from app.api.routes.tools import router as tools_router
@@ -42,6 +43,7 @@ api_router.include_router(workflow_engine_router)
 api_router.include_router(scheduler_router)
 api_router.include_router(reflection_router)
 api_router.include_router(observability_router)
+api_router.include_router(security_governance_router)
 api_router.include_router(mission_control_router)
 api_router.include_router(timeline_router)
 api_router.include_router(reviews_router)

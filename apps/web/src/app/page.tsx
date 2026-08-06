@@ -1,5 +1,5 @@
-import { MissionControlWorkspace } from "../features/mission-control/components/mission-control-workspace";
+import { MissionControlCockpit } from "../features/mission-control/components/mission-control-cockpit";
 
 export default function Home() {
-  return <MissionControlWorkspace userDisplayName="Mahit" />;
+  return <MissionControlCockpit />;
 }

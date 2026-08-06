@@ -170,7 +170,26 @@ export function ShellProvider({ children }: { children: React.ReactNode }) {
 export function useShell() {
   const context = useContext(ShellContext);
   if (!context) {
-    throw new Error("useShell must be used within a ShellProvider");
+    return {
+      sidebarCollapsed: false,
+      setSidebarCollapsed: () => {},
+      sidebarWidth: 240,
+      setSidebarWidth: () => {},
+      rightPanelOpen: false,
+      setRightPanelOpen: () => {},
+      rightPanelTitle: "",
+      rightPanelContent: null,
+      openRightPanel: () => {},
+      closeRightPanel: () => {},
+      commandPaletteOpen: false,
+      setCommandPaletteOpen: () => {},
+      theme: "dark" as ThemeMode,
+      setTheme: () => {},
+      agentStatus: "IDLE" as AgentStatusMode,
+      setAgentStatus: () => {},
+      workspaceName: "OMNIA Creator Studio",
+      setWorkspaceName: () => {},
+    };
   }
   return context;
 }

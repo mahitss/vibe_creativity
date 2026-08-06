@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Button } from "@omnia/ui";
 
-export default function GlobalError({
+export default function Error({
   error,
   reset,
 }: Readonly<{
@@ -15,22 +15,22 @@ export default function GlobalError({
   }, [error]);
 
   return (
-    <html lang="en">
-      <body>
-        <main className="flex min-h-screen items-center justify-center bg-neutral-50 p-6">
-          <section className="w-full max-w-md rounded-lg border border-neutral-200 bg-white p-8">
-            <p className="text-sm text-neutral-500">System boundary</p>
-            <h1 className="mt-3 text-2xl font-semibold text-neutral-950">Something interrupted OMNIA.</h1>
-            <p className="mt-3 text-sm leading-6 text-neutral-600">
-              The client shell caught the failure before it could leak into the session state.
-            </p>
-            <Button className="mt-6" onClick={reset}>
-              Recover session
-            </Button>
-          </section>
-        </main>
-      </body>
-    </html>
+    <main className="flex min-h-screen items-center justify-center bg-slate-950 p-6 font-sans text-slate-100">
+      <section className="w-full max-w-md space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-8 shadow-2xl">
+        <p className="font-mono text-xs font-bold uppercase tracking-wider text-amber-400">
+          System boundary
+        </p>
+        <h1 className="text-xl font-extrabold text-slate-100">Something interrupted OMNIA.</h1>
+        <p className="text-xs leading-relaxed text-slate-400">
+          The client shell caught the failure before it could leak into the session state.
+        </p>
+        <Button
+          className="mt-4 bg-emerald-500 font-bold text-slate-950 hover:bg-emerald-400"
+          onClick={reset}
+        >
+          Recover session
+        </Button>
+      </section>
+    </main>
   );
 }
-

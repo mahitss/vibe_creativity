@@ -1,5 +1,10 @@
-import { CommunityIntelligenceDashboard } from "../../../features/community/components/community-intelligence-dashboard";
+import { AppLayout } from "../../../features/shell/components/app-layout";
+import { CommunityWorkspace } from "../../../features/community/components/community-workspace";
 
 export default function CommunityPage() {
-  return <CommunityIntelligenceDashboard />;
+  return (
+    <AppLayout>
+      <CommunityWorkspace />
+    </AppLayout>
+  );
 }

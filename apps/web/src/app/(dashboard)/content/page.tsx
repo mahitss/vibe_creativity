@@ -1,5 +1,10 @@
-import { ContentWorkspaceDashboard } from "../../../features/content/components/content-workspace-dashboard";
+import { AppLayout } from "../../../features/shell/components/app-layout";
+import { ContentStrategyWorkspace } from "../../../features/content/components/content-strategy-workspace";
 
 export default function ContentPage() {
-  return <ContentWorkspaceDashboard />;
+  return (
+    <AppLayout>
+      <ContentStrategyWorkspace />
+    </AppLayout>
+  );
 }

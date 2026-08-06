@@ -1,10 +1,10 @@
 import { AppLayout } from "../../features/shell/components/app-layout";
-import { MissionControlWorkspace } from "../../features/mission-control/components/mission-control-workspace";
+import { MissionControlCockpit } from "../../features/mission-control/components/mission-control-cockpit";
 
 export default function DashboardPage() {
   return (
     <AppLayout>
-      <MissionControlWorkspace userDisplayName="Mahit" />
+      <MissionControlCockpit />
     </AppLayout>
   );
 }

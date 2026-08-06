@@ -1,5 +1,10 @@
-import { SponsorWorkspaceDashboard } from "../../../features/sponsors/components/sponsor-workspace-dashboard";
+import { AppLayout } from "../../../features/shell/components/app-layout";
+import { SponsorWorkspace } from "../../../features/sponsors/components/sponsor-workspace";
 
 export default function SponsorsPage() {
-  return <SponsorWorkspaceDashboard />;
+  return (
+    <AppLayout>
+      <SponsorWorkspace />
+    </AppLayout>
+  );
 }

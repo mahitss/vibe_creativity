@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from app.api.routes.authentication import router as auth_router
+from app.api.routes.business_intelligence import router as business_intelligence_router
 from app.api.routes.cognition import router as cognition_router
 from app.api.routes.collaboration import router as collaboration_router
 from app.api.routes.community import router as community_router
@@ -66,6 +67,7 @@ api_router.include_router(connector_framework_router)
 api_router.include_router(collaboration_router)
 api_router.include_router(enterprise_router)
 api_router.include_router(network_router)
+api_router.include_router(business_intelligence_router)
 api_router.include_router(community_intelligence_router)
 api_router.include_router(sponsor_intelligence_router)
 api_router.include_router(content_intelligence_router)

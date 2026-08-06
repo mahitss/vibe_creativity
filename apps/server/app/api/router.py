@@ -30,6 +30,7 @@ from app.api.routes.platform_sdk import router as platform_sdk_router
 from app.api.routes.reasoning import router as reasoning_router
 from app.api.routes.reflection import router as reflection_router
 from app.api.routes.registry import router as registry_router
+from app.api.routes.research_institute import router as research_institute_router
 from app.api.routes.reviews import router as reviews_router
 from app.api.routes.runtime import router as runtime_router
 from app.api.routes.scheduler import router as scheduler_router
@@ -70,6 +71,7 @@ api_router.include_router(enterprise_router)
 api_router.include_router(network_router)
 api_router.include_router(business_intelligence_router)
 api_router.include_router(trust_framework_router)
+api_router.include_router(research_institute_router)
 api_router.include_router(community_intelligence_router)
 api_router.include_router(sponsor_intelligence_router)
 api_router.include_router(content_intelligence_router)

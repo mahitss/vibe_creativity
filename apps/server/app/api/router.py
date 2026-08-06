@@ -16,6 +16,7 @@ from app.api.routes.executive_mind import router as executive_mind_router
 from app.api.routes.followup import router as followup_router
 from app.api.routes.health import router as health_router
 from app.api.routes.ingestion import router as ingestion_router
+from app.api.routes.memory_intelligence import router as memory_intelligence_router
 from app.api.routes.memory_service import router as memory_service_router
 from app.api.routes.mission_control import router as mission_control_router
 from app.api.routes.observability import router as observability_router
@@ -55,6 +56,7 @@ api_router.include_router(security_governance_router)
 api_router.include_router(validation_router)
 api_router.include_router(executive_mind_router)
 api_router.include_router(memory_service_router)
+api_router.include_router(memory_intelligence_router)
 api_router.include_router(connector_framework_router)
 api_router.include_router(community_intelligence_router)
 api_router.include_router(sponsor_intelligence_router)

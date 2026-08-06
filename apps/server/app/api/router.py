@@ -10,6 +10,7 @@ from app.api.routes.content import router as content_router
 from app.api.routes.content_intelligence import router as content_intelligence_router
 from app.api.routes.context import router as context_router
 from app.api.routes.demo import router as demo_router
+from app.api.routes.enterprise import router as enterprise_router
 from app.api.routes.evaluation import router as evaluation_router
 from app.api.routes.events import router as events_router
 from app.api.routes.executive import router as executive_router
@@ -60,6 +61,7 @@ api_router.include_router(memory_service_router)
 api_router.include_router(memory_intelligence_router)
 api_router.include_router(connector_framework_router)
 api_router.include_router(collaboration_router)
+api_router.include_router(enterprise_router)
 api_router.include_router(community_intelligence_router)
 api_router.include_router(sponsor_intelligence_router)
 api_router.include_router(content_intelligence_router)

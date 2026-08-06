@@ -1,23 +1,55 @@
-"""FastAPI routes for OMNIA Demo Mode & Presenter Mode."""
+from typing import Any
 
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, Field
 
 from app.core.security import CreatorContext, require_creator_context
+from app.modules.demo.journey import GoldenJourneyService
 from app.modules.demo.service import DemoStoryService
 
 router = APIRouter(prefix="/demo", tags=["demo"])
 
-# Module singleton service instance
+# Module singleton service instances
 _demo_service = DemoStoryService()
+_journey_service = GoldenJourneyService()
 
 
 def get_demo_service() -> DemoStoryService:
     return _demo_service
 
 
+def get_journey_service() -> GoldenJourneyService:
+    return _journey_service
+
+
 class SetSceneRequest(BaseModel):
     scene_index: int = Field(..., ge=0, le=6, description="Index of target demo scene (0 to 6)")
+
+
+@router.post("/journey/day1")
+async def execute_day1_import(
+    context: CreatorContext = Depends(require_creator_context),
+    service: GoldenJourneyService = Depends(get_journey_service),
+) -> dict[str, Any]:
+    return service.execute_day1_import()
+
+
+@router.post("/journey/day2")
+async def execute_day2_return(
+    context: CreatorContext = Depends(require_creator_context),
+    service: GoldenJourneyService = Depends(get_journey_service),
+) -> dict[str, Any]:
+    return service.execute_day2_return()
+
+
+@router.get("/journey/state")
+async def get_journey_state(
+    context: CreatorContext = Depends(require_creator_context),
+    service: GoldenJourneyService = Depends(get_journey_service),
+) -> dict[str, Any]:
+    if service.current_day == 1:
+        return service.execute_day1_import()
+    return service.execute_day2_return()
 
 
 @router.get("/session")

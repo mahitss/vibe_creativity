@@ -20,6 +20,7 @@ from app.api.routes.followup import router as followup_router
 from app.api.routes.global_ecosystem import router as global_ecosystem_router
 from app.api.routes.health import router as health_router
 from app.api.routes.heritage import router as heritage_router
+from app.api.routes.human_potential_2080 import router as human_potential_2080_router
 from app.api.routes.infrastructure_2060 import router as infrastructure_2060_router
 from app.api.routes.ingestion import router as ingestion_router
 from app.api.routes.intelligence_cloud import router as intelligence_cloud_router
@@ -80,6 +81,7 @@ api_router.include_router(open_foundation_router)
 api_router.include_router(global_ecosystem_router)
 api_router.include_router(heritage_router)
 api_router.include_router(infrastructure_2060_router)
+api_router.include_router(human_potential_2080_router)
 api_router.include_router(community_intelligence_router)
 api_router.include_router(sponsor_intelligence_router)
 api_router.include_router(content_intelligence_router)

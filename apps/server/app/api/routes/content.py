@@ -134,6 +134,19 @@ async def create_content(
     return _format_item(item)
 
 
+class RepurposePayload(BaseModel):
+    topic: str = Field(default="Docker Containerization", description="Topic to repurpose")
+    memory_id: str = Field(default="mem-yt-comment-42", description="Grounding memory ID")
+
+
+@router.post("/repurpose")
+async def repurpose_content(
+    payload: RepurposePayload,
+    engine: ContentStrategyEngine = Depends(get_content_engine),
+) -> dict[str, Any]:
+    return engine.repurpose_content(topic=payload.topic, memory_id=payload.memory_id)
+
+
 @router.patch("/status")
 async def update_content_status(
     payload: UpdateStatusPayload,

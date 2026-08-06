@@ -18,6 +18,23 @@ interface ExplainabilityDrawerProps {
 }
 
 export function ExplainabilityDrawer({ isOpen, onClose, missionTitle }: ExplainabilityDrawerProps) {
+  const [_explanationData, setExplanationData] = React.useState<Record<string, unknown> | null>(
+    null,
+  );
+
+  React.useEffect(() => {
+    if (isOpen) {
+      fetch("http://localhost:8000/api/missions/mission-top-101/explanation", {
+        headers: { "X-Creator-Id": "creator-default" },
+      })
+        .then((res) => res.json())
+        .then((data) => setExplanationData(data))
+        .catch(() => {
+          // Fallback
+        });
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (

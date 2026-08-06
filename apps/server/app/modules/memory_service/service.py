@@ -134,6 +134,18 @@ class PersistentMemoryService:
             importance=0.90,
             tags=["sponsorship", "revenue", "acme_corp"],
         )
+        mem_comment = self.store_memory(
+            workspace_id="ws-101",
+            memory_type=MemoryType.COMMUNITY,
+            title="127 Audience Requests for Docker Containerization",
+            summary="127 community members requested Docker orchestration after React Authentication video.",
+            content="Top comment by @dev_alex (142 upvotes): 'Can you build a Docker setup for multi-agent systems? We need container orchestration.'",
+            importance=0.95,
+            confidence=0.94,
+            tags=["docker", "community_requests", "youtube_comments"],
+        )
+        mem_comment.memory_id = "mem-yt-comment-42"
+        self._memories["mem-yt-comment-42"] = mem_comment
 
     def store_memory(
         self,

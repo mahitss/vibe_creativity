@@ -114,13 +114,21 @@ export function MissionControlCockpit() {
     }, 400);
   };
 
-  const handleApprove = () => {
+  const handleApprove = async () => {
     triggerAiThinking(() => {
       setApprovalStep(4);
     });
+    try {
+      await fetch("http://localhost:8000/api/mission-control/mission/approve", {
+        method: "POST",
+        headers: { "X-Creator-Id": "creator-default" },
+      });
+    } catch {
+      // Local fallback mode
+    }
   };
 
-  const handleRegenerateAsset = (index: number) => {
+  const handleRegenerateAsset = async (index: number) => {
     triggerAiThinking(() => {
       setGeneratedAssets((prev) => {
         const target = prev[index];
@@ -129,10 +137,59 @@ export function MissionControlCockpit() {
         next[index] = {
           platform: target.platform,
           title: target.title,
-          content: `${target.content} [Regenerated with fresh memory grounding & retention optimization]`,
+          content: `${target.content} [Regenerated with live Memory Service grounding & retention optimization]`,
         };
         return next;
       });
+    });
+
+    try {
+      const res = await fetch("http://localhost:8000/api/content/repurpose", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Creator-Id": "creator-default" },
+        body: JSON.stringify({ topic: "Docker Containerization", memory_id: "mem-yt-comment-42" }),
+      });
+      const data = await res.json();
+      if (data && data.assets && data.assets[index]) {
+        setGeneratedAssets((prev) => {
+          const next = [...prev];
+          if (next[index]) {
+            next[index] = {
+              platform: data.assets[index].platform,
+              title: data.assets[index].title,
+              content: data.assets[index].content,
+            };
+          }
+          return next;
+        });
+      }
+    } catch {
+      // Fallback
+    }
+  };
+
+  const handleInspectMemoryRow = async (memoryId: string) => {
+    try {
+      const res = await fetch(`http://localhost:8000/api/memory/${memoryId}`);
+      if (res.ok) {
+        const data = await res.json();
+        setSelectedEvidence({
+          type: "MEMORY",
+          title: `Persistent Memory Row #${data.memory_id}`,
+          detail: `${data.title}: ${data.content}`,
+          provenance: `Source: ${data.source} • Version: v${data.version} • Confidence: ${Math.round(data.confidence * 100)}%`,
+        });
+        return;
+      }
+    } catch {
+      // Fallback detail
+    }
+    setSelectedEvidence({
+      type: "MEMORY",
+      title: `Persistent Memory Row #${memoryId}`,
+      detail:
+        "Stored 127 verified audience requests for container orchestration and Docker Compose setups.",
+      provenance: "Memory Service • Vector Hash 0x9f3a",
     });
   };
 
@@ -505,15 +562,7 @@ export function MissionControlCockpit() {
 
             {/* Clickable Memory Item */}
             <button
-              onClick={() =>
-                setSelectedEvidence({
-                  type: "MEMORY",
-                  title: "Persistent Memory Row #mem-yt-comment-42",
-                  detail:
-                    "Stored 127 verified audience requests for container orchestration and Docker Compose setups.",
-                  provenance: "Memory Service • Vector Hash 0x9f3a",
-                })
-              }
+              onClick={() => handleInspectMemoryRow("mem-yt-comment-42")}
               className="group space-y-2 border border-[#3c3c3c] bg-[#0d0d0d] p-5 text-left transition hover:border-white"
             >
               <div className="flex items-center justify-between text-[10px] font-bold text-white">

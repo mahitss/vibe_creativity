@@ -6,6 +6,7 @@ from app.api.routes.community import router as community_router
 from app.api.routes.community_intelligence import router as community_intelligence_router
 from app.api.routes.connector_framework import router as connector_framework_router
 from app.api.routes.content import router as content_router
+from app.api.routes.content_intelligence import router as content_intelligence_router
 from app.api.routes.context import router as context_router
 from app.api.routes.demo import router as demo_router
 from app.api.routes.evaluation import router as evaluation_router
@@ -56,6 +57,7 @@ api_router.include_router(memory_service_router)
 api_router.include_router(connector_framework_router)
 api_router.include_router(community_intelligence_router)
 api_router.include_router(sponsor_intelligence_router)
+api_router.include_router(content_intelligence_router)
 api_router.include_router(mission_control_router)
 api_router.include_router(timeline_router)
 api_router.include_router(reviews_router)

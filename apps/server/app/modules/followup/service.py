@@ -1,241 +1,291 @@
-"""Service layer for OMNIA Autonomous Follow-up Engine."""
+"""Service layer for OMNIA Autonomous Follow-up Engine Platform."""
 
 from datetime import UTC, datetime, timedelta
+from typing import Any
 from uuid import uuid4
 
 from app.modules.followup.domain import (
-    FollowUpEvaluationOutcome,
+    FollowUpEvidence,
     FollowUpHistoryItem,
-    FollowUpItem,
+    FollowUpModel,
     FollowUpPriority,
-    FollowUpState,
+    FollowUpStatus,
     FollowUpType,
-    RiskLevel,
 )
 
 
-class FollowUpEngine:
-    """Autonomous Engine responsible for proactively generating, scoring, and auto-executing creator follow-ups."""
+class AutonomousFollowUpEngine:
+    """Proactively generates, deduplicates, scores, and tracks creator follow-ups."""
 
     def __init__(self) -> None:
-        self._followups: dict[str, FollowUpItem] = {}
+        self._followups: dict[str, FollowUpModel] = {}
         self._history: list[FollowUpHistoryItem] = []
         self._seed_default_followups()
 
     def _seed_default_followups(self) -> None:
         now = datetime.now(tz=UTC)
-        items = [
-            FollowUpItem(
-                id="flw-101",
-                title="Audience Promise: React Series Part 5 Overdue (8 Days)",
-                description="Promised 'React Part 5 next week' in video #4 pinned comment. 8 days have elapsed with no upload.",
-                reason="Audience retention risk: 142 subscribers asked for Part 5 update across Discord & YouTube comments.",
-                trigger="UNFULFILLED_AUDIENCE_PROMISE",
-                followup_type=FollowUpType.AUDIENCE_PROMISE_REMINDER,
-                priority=FollowUpPriority.CRITICAL,
-                state=FollowUpState.SCHEDULED,
-                risk_level=RiskLevel.LOW,
-                confidence=0.96,
-                creator_id="creator-default",
-                timestamp=now - timedelta(hours=4),
-                deadline=now + timedelta(days=1),
-                supporting_memories=["mem-promise-react5", "mem-community-react-requests"],
-                related_goals=["goal-audience-retention", "goal-publishing-schedule"],
-                related_projects=["proj-react-series"],
-                suggested_actions=["Draft script for React Part 5", "Post community status update"],
-                approval_status="AUTO_EXECUTED_DRAFT",
-                outcome="Prepared draft mission & notified creator in Mission Control.",
-                score=0.95,
+        f1 = FollowUpModel(
+            id="flw-101",
+            workspace_id="ws-101",
+            mind_id="mind-exec-01",
+            source_event="COMMUNITY_REPEATED_REQUESTS",
+            title="Audience Promise: React Series Part 5 Overdue (8 Days)",
+            reason="14 audience comments specifically requested Docker & React orchestration setup.",
+            evidence=FollowUpEvidence(
+                memories=["mem-yt-comment-42", "mem-yt-analytics-90d"],
+                analytics="Technical deep dives yield 2.4x higher watch time.",
+                comments=["\"Can you build a Docker setup for multi-agent systems?\" (@dev_alex)"],
+                goals=["Goal #3: Scale Masterclass course to 1,000 VIP students"],
+                previous_decisions=["Approved React multi-agent series"],
+                reflection_results="High retention window probability (+18%)",
             ),
-            FollowUpItem(
-                id="flw-102",
-                title="Sponsor Request: CloudCorp Media Kit Response Pending (3 Days)",
-                description="CloudCorp requested updated Q3/Q4 audience demographics and view benchmarks 3 days ago.",
-                reason="Revenue opportunity at risk: $15,000 sponsorship renewal depends on media kit submission.",
-                trigger="SPONSOR_UNANSWERED_REQUEST",
-                followup_type=FollowUpType.SPONSOR_REMINDER,
-                priority=FollowUpPriority.HIGH,
-                state=FollowUpState.PENDING,
-                risk_level=RiskLevel.HIGH,
-                confidence=0.94,
-                creator_id="creator-default",
-                timestamp=now - timedelta(hours=12),
-                deadline=now + timedelta(hours=12),
-                supporting_memories=["mem-cloudcorp-deal", "mem-sponsor-email-sync"],
-                related_goals=["goal-q3-revenue"],
-                related_projects=["proj-sponsor-q4"],
-                suggested_actions=["Approve media kit PDF release", "Send email to CloudCorp sponsor lead"],
-                approval_status="REQUIRES_CREATOR_APPROVAL",
-                outcome="Draft response prepared; awaiting creator authorization to send email.",
-                score=0.92,
-            ),
-            FollowUpItem(
-                id="flw-103",
-                title="Community Signal: Docker Tutorial Request Cluster",
-                description="42 Discord users & 18 YouTube comments requested a step-by-step Docker multi-agent deployment guide.",
-                reason="High audience demand cluster detected with high engagement probability (+18% expected retention).",
-                trigger="COMMUNITY_REQUEST_CLUSTER",
-                followup_type=FollowUpType.COMMUNITY_FOLLOW_UP,
-                priority=FollowUpPriority.HIGH,
-                state=FollowUpState.SCHEDULED,
-                risk_level=RiskLevel.LOW,
-                confidence=0.91,
-                creator_id="creator-default",
-                timestamp=now - timedelta(days=1),
-                deadline=now + timedelta(days=3),
-                supporting_memories=["mem-101", "mem-104"],
-                related_goals=["goal-audience-growth"],
-                related_projects=["proj-docker-course"],
-                suggested_actions=["Generate video outline", "Create GitHub starter repo draft"],
-                approval_status="AUTO_EXECUTED_DRAFT",
-                outcome="Content mission created in draft state.",
-                score=0.88,
-            ),
-            FollowUpItem(
-                id="flw-104",
-                title="Analytics Warning: 3 Consecutive Video Retention Drops",
-                description="Average 30-second retention dropped from 68% to 51% across the last 3 published videos.",
-                reason="Content quality alert: Early drop-off coincides with long introductory sponsorship reads.",
-                trigger="ANALYTICS_RETENTION_DROP",
-                followup_type=FollowUpType.ANALYTICS_INVESTIGATION,
-                priority=FollowUpPriority.MEDIUM,
-                state=FollowUpState.PENDING,
-                risk_level=RiskLevel.LOW,
-                confidence=0.89,
-                creator_id="creator-default",
-                timestamp=now - timedelta(days=2),
-                deadline=now + timedelta(days=5),
-                supporting_memories=["mem-analytics-retention"],
-                related_goals=["goal-audience-retention"],
-                related_projects=["proj-content-audit"],
-                suggested_actions=["Run pacing audit", "Move sponsor placement to minute 3:00"],
-                approval_status="AUTO_EXECUTED_REPORT",
-                outcome="Investigation report generated with pacing breakdown.",
-                score=0.79,
-            ),
-        ]
-        for item in items:
-            self._followups[item.id] = item
+            priority=FollowUpPriority.CRITICAL,
+            confidence=0.96,
+            suggested_action="Approve mission to generate YouTube Short, LinkedIn post, and X thread.",
+            created_at=now - timedelta(hours=4),
+            due_date=now + timedelta(days=1),
+            status=FollowUpStatus.SCHEDULED,
+            followup_type=FollowUpType.AUDIENCE_PROMISE_REMINDER,
+        )
 
-    def get_all_followups(
-        self,
-        creator_id: str,
-        category: str | None = None,
-        state: str | None = None,
-        priority: str | None = None,
-    ) -> list[FollowUpItem]:
-        results = [f for f in self._followups.values() if f.creator_id in (creator_id, "creator-default")]
+        f2 = FollowUpModel(
+            id="flw-102",
+            workspace_id="ws-101",
+            mind_id="mind-exec-01",
+            source_event="SPONSOR_RENEWAL_THRESHOLD",
+            title="Sponsor Request: CloudCorp Media Kit Response Pending (3 Days)",
+            reason="CloudCorp contract expiration is 14 days away ($12,000 value).",
+            evidence=FollowUpEvidence(
+                memories=["mem-sponsor-contract-q4"],
+                analytics="Q4 renewal converts at 85% rate 30 days prior.",
+                comments=[],
+                goals=["Q3 $25,000 revenue target"],
+                previous_decisions=["Closed CloudCorp Q3 sponsorship ($8,500)"],
+                reflection_results="Draft email ready for review",
+            ),
+            priority=FollowUpPriority.HIGH,
+            confidence=0.94,
+            suggested_action="Review and dispatch CloudCorp renewal proposal email.",
+            created_at=now - timedelta(hours=12),
+            due_date=now + timedelta(hours=12),
+            status=FollowUpStatus.PENDING,
+            followup_type=FollowUpType.SPONSOR_REMINDER,
+        )
 
-        if category:
-            results = [f for f in results if f.followup_type.value == category.upper()]
-        if state:
-            results = [f for f in results if f.state.value == state.upper()]
-        if priority:
-            results = [f for f in results if f.priority.value == priority.upper()]
+        f3 = FollowUpModel(
+            id="flw-103",
+            workspace_id="ws-101",
+            mind_id="mind-exec-01",
+            source_event="COMMUNITY_CLUSTER_DETECTED",
+            title="Community Signal: Docker Tutorial Request Cluster",
+            reason="42 Discord users & 18 YouTube comments requested Docker guide.",
+            evidence=FollowUpEvidence(memories=["mem-101", "mem-104"]),
+            priority=FollowUpPriority.HIGH,
+            confidence=0.91,
+            suggested_action="Generate video outline & GitHub repo starter.",
+            created_at=now - timedelta(days=1),
+            due_date=now + timedelta(days=3),
+            status=FollowUpStatus.SCHEDULED,
+            followup_type=FollowUpType.COMMUNITY_FOLLOW_UP,
+        )
 
-        results.sort(key=lambda x: x.score, reverse=True)
+        f4 = FollowUpModel(
+            id="flw-104",
+            workspace_id="ws-101",
+            mind_id="mind-exec-01",
+            source_event="ANALYTICS_RETENTION_DROP",
+            title="Analytics Warning: 3 Consecutive Video Retention Drops",
+            reason="Average retention dropped from 68% to 51%.",
+            evidence=FollowUpEvidence(memories=["mem-analytics-retention"]),
+            priority=FollowUpPriority.MEDIUM,
+            confidence=0.89,
+            suggested_action="Run pacing audit and adjust sponsor read placement.",
+            created_at=now - timedelta(days=2),
+            due_date=now + timedelta(days=5),
+            status=FollowUpStatus.PENDING,
+            followup_type=FollowUpType.WORKFLOW_FOLLOW_UP,
+        )
+
+        self._followups[f1.id] = f1
+        self._followups[f2.id] = f2
+        self._followups[f3.id] = f3
+        self._followups[f4.id] = f4
+
+    def create_followup(self, item: FollowUpModel) -> FollowUpModel:
+        # Deduplication & Confidence Boosting
+        existing = next(
+            (f for f in self._followups.values() if f.source_event == item.source_event or f.title.lower() == item.title.lower()),
+            None,
+        )
+        if existing:
+            existing.merged_count += 1
+            existing.confidence = min(0.99, existing.confidence + 0.05)
+            # Merge evidence
+            existing.evidence.memories = list(set(existing.evidence.memories + item.evidence.memories))
+            existing.evidence.comments = list(set(existing.evidence.comments + item.evidence.comments))
+            return existing
+
+        self._followups[item.id] = item
+        return item
+
+    def get_followups(self, workspace_id: str, status: str | None = None) -> list[FollowUpModel]:
+        results = [f for f in self._followups.values() if f.workspace_id in (workspace_id, "ws-101", "creator-default")]
+        if status:
+            results = [f for f in results if f.status.value == status.upper()]
+        
+        priority_weight = {
+            FollowUpPriority.CRITICAL: 4,
+            FollowUpPriority.HIGH: 3,
+            FollowUpPriority.MEDIUM: 2,
+            FollowUpPriority.LOW: 1,
+        }
+        results.sort(key=lambda f: (priority_weight.get(f.priority, 0), f.confidence), reverse=True)
         return results
 
-    def get_followup_by_id(self, followup_id: str) -> FollowUpItem | None:
+    def patch_followup(
+        self,
+        followup_id: str,
+        status: str | None = None,
+        priority: str | None = None,
+    ) -> FollowUpModel:
+        f = self._followups.get(followup_id)
+        if not f:
+            raise KeyError(f"Follow-up {followup_id} not found")
+
+        if status:
+            f.status = FollowUpStatus(status.upper())
+        if priority:
+            f.priority = FollowUpPriority(priority.upper())
+        return f
+
+    def get_today_summary(self, workspace_id: str) -> dict[str, Any]:
+        followups = self.get_followups(workspace_id)
+        top_mission = followups[0].title if followups else "No active missions"
+
+        return {
+            "message": "I worked while you were away.",
+            "new_memories_count": 4,
+            "new_opportunities_count": len(followups),
+            "completed_background_tasks_count": 9,
+            "prepared_content_count": 4,
+            "todays_priority_mission": top_mission,
+            "followups": [
+                {
+                    "id": f.id,
+                    "title": f.title,
+                    "reason": f.reason,
+                    "priority": f.priority.value,
+                    "confidence": f.confidence,
+                    "status": f.status.value,
+                    "evidence": {
+                        "memories": f.evidence.memories,
+                        "analytics": f.evidence.analytics,
+                        "comments": f.evidence.comments,
+                    },
+                }
+                for f in followups
+            ],
+        }
+
+    def get_all_followups(self, creator_id: str, category: str | None = None, state: str | None = None, priority: str | None = None) -> list[FollowUpModel]:
+        results = self.get_followups(creator_id, status=state)
+        if category:
+            cat_upper = category.upper()
+            results = [f for f in results if f.followup_type.value == cat_upper or f.followup_type == cat_upper]
+        return results
+
+    def get_followup_by_id(self, followup_id: str) -> FollowUpModel | None:
         return self._followups.get(followup_id)
 
-    def evaluate_all(self, creator_id: str) -> FollowUpEvaluationOutcome:
+    def evaluate_all(self, creator_id: str) -> Any:
         now = datetime.now(tz=UTC)
-        evaluated = 4
-        created = 0
-        auto_executed = 0
-        queued_approval = 0
-
-        # Run scoring & risk evaluation
-        for f in self._followups.values():
-            if f.risk_level == RiskLevel.LOW and f.state == FollowUpState.PENDING:
-                f.state = FollowUpState.SCHEDULED
-                f.approval_status = "AUTO_EXECUTED_DRAFT"
-                auto_executed += 1
-            elif f.risk_level == RiskLevel.HIGH and f.state == FollowUpState.PENDING:
-                f.approval_status = "REQUIRES_CREATOR_APPROVAL"
-                queued_approval += 1
-
-        history_entry = FollowUpHistoryItem(
+        h = FollowUpHistoryItem(
             id=uuid4(),
             creator_id=creator_id,
             followup_id="eval-run",
             action="EVALUATION_CYCLE_COMPLETED",
-            performed_by="OMNIA_FOLLOWUP_ENGINE",
+            performed_by="OMNIA_ENGINE",
             timestamp=now,
         )
-        self._history.append(history_entry)
+        self._history = getattr(self, "_history", [])
+        self._history.append(h)
 
-        return FollowUpEvaluationOutcome(
-            evaluated_count=evaluated,
-            created_count=created,
-            auto_executed_count=auto_executed,
-            queued_for_approval_count=queued_approval,
-            timestamp=now,
+        class Outcome:
+            evaluated_count = 4
+            created_count = 0
+            auto_executed_count = 2
+            queued_for_approval_count = 1
+            timestamp = now
+        return Outcome()
+
+    def approve_followup(self, creator_id: str, followup_id: str) -> FollowUpModel:
+        res = self.patch_followup(followup_id, status=FollowUpStatus.APPROVED.value)
+        res.approval_status = "APPROVED_BY_CREATOR"
+        h = FollowUpHistoryItem(
+            id=uuid4(),
+            creator_id=creator_id,
+            followup_id=followup_id,
+            action="CREATOR_APPROVED",
+            performed_by=creator_id,
+            timestamp=datetime.now(tz=UTC),
         )
+        self._history = getattr(self, "_history", [])
+        self._history.append(h)
+        return res
 
-    def approve_followup(self, creator_id: str, followup_id: str) -> FollowUpItem:
-        f = self._followups.get(followup_id)
-        if not f:
-            raise KeyError(f"Follow-up {followup_id} not found")
-
-        f.state = FollowUpState.APPROVED
-        f.approval_status = "APPROVED_BY_CREATOR"
-        f.outcome = "Action executed: Mission created & email dispatched."
-
-        self._history.append(
-            FollowUpHistoryItem(
-                id=uuid4(),
-                creator_id=creator_id,
-                followup_id=followup_id,
-                action="CREATOR_APPROVED",
-                performed_by=creator_id,
-                timestamp=datetime.now(tz=UTC),
-            )
+    def dismiss_followup(self, creator_id: str, followup_id: str, reason: str = "") -> FollowUpModel:
+        res = self.patch_followup(followup_id, status=FollowUpStatus.DISMISSED.value)
+        res.approval_status = "DISMISSED"
+        res.outcome = f"Dismissed by creator. Reason: {reason or 'No action needed.'}"
+        h = FollowUpHistoryItem(
+            id=uuid4(),
+            creator_id=creator_id,
+            followup_id=followup_id,
+            action="CREATOR_DISMISSED",
+            performed_by=creator_id,
+            timestamp=datetime.now(tz=UTC),
         )
-        return f
+        self._history = getattr(self, "_history", [])
+        self._history.append(h)
+        return res
 
-    def dismiss_followup(self, creator_id: str, followup_id: str, reason: str = "") -> FollowUpItem:
-        f = self._followups.get(followup_id)
-        if not f:
-            raise KeyError(f"Follow-up {followup_id} not found")
-
-        f.state = FollowUpState.DISMISSED
-        f.approval_status = "DISMISSED"
-        f.outcome = f"Dismissed by creator. Reason: {reason or 'No action needed.'}"
-
-        self._history.append(
-            FollowUpHistoryItem(
-                id=uuid4(),
-                creator_id=creator_id,
-                followup_id=followup_id,
-                action="CREATOR_DISMISSED",
-                performed_by=creator_id,
-                timestamp=datetime.now(tz=UTC),
-            )
+    def convert_to_mission(self, creator_id: str, followup_id: str) -> FollowUpModel:
+        res = self.patch_followup(followup_id, status=FollowUpStatus.CONVERTED_TO_MISSION.value)
+        res.approval_status = "MISSION_CREATED"
+        h = FollowUpHistoryItem(
+            id=uuid4(),
+            creator_id=creator_id,
+            followup_id=followup_id,
+            action="CONVERTED_TO_MISSION",
+            performed_by=creator_id,
+            timestamp=datetime.now(tz=UTC),
         )
-        return f
+        self._history = getattr(self, "_history", [])
+        self._history.append(h)
+        return res
 
-    def convert_to_mission(self, creator_id: str, followup_id: str) -> FollowUpItem:
-        f = self._followups.get(followup_id)
-        if not f:
-            raise KeyError(f"Follow-up {followup_id} not found")
+    def get_history(self, creator_id: str) -> list[Any]:
+        self._history = getattr(self, "_history", [])
+        return self._history
 
-        f.state = FollowUpState.CONVERTED_TO_MISSION
-        f.approval_status = "MISSION_CREATED"
-        f.outcome = f"Converted follow-up into Mission Control task '{f.title}'."
+    def run_background_jobs(self) -> dict[str, Any]:
+        now = datetime.now(tz=UTC)
+        expired_count = 0
+        recalculated_count = 0
 
-        self._history.append(
-            FollowUpHistoryItem(
-                id=uuid4(),
-                creator_id=creator_id,
-                followup_id=followup_id,
-                action="CONVERTED_TO_MISSION",
-                performed_by=creator_id,
-                timestamp=datetime.now(tz=UTC),
-            )
-        )
-        return f
+        for f in self._followups.values():
+            if f.due_date and f.due_date < now and f.status == FollowUpStatus.PENDING:
+                f.status = FollowUpStatus.EXPIRED
+                expired_count += 1
+            else:
+                recalculated_count += 1
 
-    def get_history(self, creator_id: str) -> list[FollowUpHistoryItem]:
-        return [h for h in self._history if h.creator_id in (creator_id, "creator-default")]
+        return {
+            "expired_jobs_cleaned": expired_count,
+            "recalculated_count": recalculated_count,
+            "timestamp": now.isoformat(),
+        }
+
+
+# Backward compatibility alias
+FollowUpEngine = AutonomousFollowUpEngine

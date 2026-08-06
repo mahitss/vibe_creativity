@@ -108,3 +108,13 @@ async def postpone_primary_mission(
 ) -> dict[str, Any]:
     status = engine.postpone_primary_mission()
     return {"status": status}
+
+
+@router.get("/missions/{mission_id}/explanation")
+async def get_mission_explanation(
+    mission_id: str,
+    context: CreatorContext = Depends(require_creator_context),
+) -> dict[str, Any]:
+    from app.modules.reasoning.service import ReasoningEngineService
+    svc = ReasoningEngineService()
+    return svc.get_mission_explanation(mission_id)

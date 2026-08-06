@@ -21,6 +21,7 @@ from app.api.routes.ingestion import router as ingestion_router
 from app.api.routes.memory_intelligence import router as memory_intelligence_router
 from app.api.routes.memory_service import router as memory_service_router
 from app.api.routes.mission_control import router as mission_control_router
+from app.api.routes.network import router as network_router
 from app.api.routes.observability import router as observability_router
 from app.api.routes.personalization import router as personalization_router
 from app.api.routes.platform_sdk import router as platform_sdk_router
@@ -62,6 +63,7 @@ api_router.include_router(memory_intelligence_router)
 api_router.include_router(connector_framework_router)
 api_router.include_router(collaboration_router)
 api_router.include_router(enterprise_router)
+api_router.include_router(network_router)
 api_router.include_router(community_intelligence_router)
 api_router.include_router(sponsor_intelligence_router)
 api_router.include_router(content_intelligence_router)

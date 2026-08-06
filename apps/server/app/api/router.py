@@ -27,6 +27,7 @@ from app.api.routes.runtime import router as runtime_router
 from app.api.routes.scheduler import router as scheduler_router
 from app.api.routes.search import router as search_router
 from app.api.routes.security_governance import router as security_governance_router
+from app.api.routes.sponsor_intelligence import router as sponsor_intelligence_router
 from app.api.routes.sponsors import router as sponsors_router
 from app.api.routes.timeline import router as timeline_router
 from app.api.routes.tools import router as tools_router
@@ -54,6 +55,7 @@ api_router.include_router(executive_mind_router)
 api_router.include_router(memory_service_router)
 api_router.include_router(connector_framework_router)
 api_router.include_router(community_intelligence_router)
+api_router.include_router(sponsor_intelligence_router)
 api_router.include_router(mission_control_router)
 api_router.include_router(timeline_router)
 api_router.include_router(reviews_router)

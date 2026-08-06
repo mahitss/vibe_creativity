@@ -25,6 +25,7 @@ from app.api.routes.memory_service import router as memory_service_router
 from app.api.routes.mission_control import router as mission_control_router
 from app.api.routes.network import router as network_router
 from app.api.routes.observability import router as observability_router
+from app.api.routes.open_foundation import router as open_foundation_router
 from app.api.routes.personalization import router as personalization_router
 from app.api.routes.platform_sdk import router as platform_sdk_router
 from app.api.routes.reasoning import router as reasoning_router
@@ -72,6 +73,7 @@ api_router.include_router(network_router)
 api_router.include_router(business_intelligence_router)
 api_router.include_router(trust_framework_router)
 api_router.include_router(research_institute_router)
+api_router.include_router(open_foundation_router)
 api_router.include_router(community_intelligence_router)
 api_router.include_router(sponsor_intelligence_router)
 api_router.include_router(content_intelligence_router)

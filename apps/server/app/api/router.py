@@ -32,6 +32,7 @@ from app.api.routes.observability import router as observability_router
 from app.api.routes.open_foundation import router as open_foundation_router
 from app.api.routes.personalization import router as personalization_router
 from app.api.routes.platform_sdk import router as platform_sdk_router
+from app.api.routes.project_z import router as project_z_router
 from app.api.routes.reasoning import router as reasoning_router
 from app.api.routes.reflection import router as reflection_router
 from app.api.routes.registry import router as registry_router
@@ -82,6 +83,7 @@ api_router.include_router(global_ecosystem_router)
 api_router.include_router(heritage_router)
 api_router.include_router(infrastructure_2060_router)
 api_router.include_router(human_potential_2080_router)
+api_router.include_router(project_z_router)
 api_router.include_router(community_intelligence_router)
 api_router.include_router(sponsor_intelligence_router)
 api_router.include_router(content_intelligence_router)

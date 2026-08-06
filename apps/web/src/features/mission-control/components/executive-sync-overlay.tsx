@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Brain, CheckCircle2, Cpu, Sparkles, ShieldCheck } from "lucide-react";
+import { CheckCircle2, ShieldCheck, Zap } from "lucide-react";
 
 interface ExecutiveSyncOverlayProps {
   onComplete: () => void;
@@ -12,16 +12,15 @@ export function ExecutiveSyncOverlay({ onComplete }: ExecutiveSyncOverlayProps) 
   const [progress, setProgress] = useState<number>(0);
 
   const steps = [
-    "Loading memories",
-    "Reviewing yesterday",
-    "Scanning community",
-    "Checking sponsors",
-    "Updating strategy",
-    "Preparing today's mission",
+    "LOADING MEMORY CORE",
+    "REVIEWING YESTERDAY'S PERFORMANCE",
+    "SCANNING AUDIENCE COMMUNITY SIGNALS",
+    "CHECKING SPONSOR RENEWAL THRESHOLDS",
+    "UPDATING EXECUTIVE STRATEGY",
+    "PREPARING TODAY'S PRIORITY MISSION",
   ];
 
   useEffect(() => {
-    // Web Audio Chime on sync completion
     const playStartupChime = () => {
       try {
         const AudioCtx =
@@ -69,29 +68,41 @@ export function ExecutiveSyncOverlay({ onComplete }: ExecutiveSyncOverlayProps) 
   }, [onComplete, steps.length]);
 
   return (
-    <div className="animate-fade-in fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950/95 p-6 font-sans text-slate-100 backdrop-blur-2xl">
-      <div className="w-full max-w-lg space-y-8 rounded-3xl border border-slate-800 bg-slate-900/90 p-8 text-center shadow-2xl backdrop-blur-xl">
-        {/* Logo & Spinner */}
-        <div className="relative inline-flex items-center justify-center">
-          <div className="absolute -inset-4 animate-pulse rounded-full bg-gradient-to-r from-amber-500/20 via-cyan-500/20 to-purple-500/20 blur-xl" />
-          <div className="relative rounded-2xl border border-slate-800 bg-slate-950 p-4">
-            <Brain className="h-10 w-10 animate-bounce text-amber-400" />
+    <div className="animate-fade-in fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/95 p-6 font-sans text-white backdrop-blur-3xl">
+      {/* BMW M Tricolor Header Bar */}
+      <div className="bmw-m-stripe fixed left-0 right-0 top-0" />
+
+      <div className="relative w-full max-w-xl space-y-8 overflow-hidden rounded-none border border-[#3c3c3c] bg-[#1a1a1a] p-8 text-center shadow-2xl">
+        {/* Tricolor skew badge */}
+        <div className="absolute right-0 top-0 p-4">
+          <div className="bmw-m-tricolor-dots">
+            <span />
+            <span />
+            <span />
           </div>
         </div>
 
-        {/* Sync Title */}
-        <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 font-mono text-xs font-bold text-amber-300">
-            <Cpu className="h-3.5 w-3.5" /> EXECUTIVE SYNC IN PROGRESS
+        {/* M Power Logo & Badge */}
+        <div className="space-y-4">
+          <div className="inline-flex items-center gap-3 border border-[#3c3c3c] bg-[#0d0d0d] px-4 py-1.5 font-mono text-xs font-bold uppercase tracking-widest text-white">
+            <div className="bmw-m-tricolor-dots">
+              <span />
+              <span />
+              <span />
+            </div>
+            <span>{"///"} M EXECUTIVE SYNC</span>
           </div>
-          <h2 className="text-2xl font-extrabold text-slate-100">Synchronizing Autonomous Mind</h2>
-          <p className="font-mono text-xs text-slate-400">
-            Restoring session memory &amp; synthesizing 24h background work...
+
+          <h2 className="font-sans text-3xl font-extrabold uppercase tracking-wider text-white">
+            EXECUTIVE SYNCHRONIZATION
+          </h2>
+          <p className="font-mono text-xs uppercase tracking-wide text-[#bbbbbb]">
+            RESTORING SESSION MEMORY &amp; SYNTHESIZING 24H AUTONOMOUS WORK...
           </p>
         </div>
 
-        {/* Animated Checkmarks */}
-        <div className="space-y-2 rounded-2xl border border-slate-800/80 bg-slate-950 p-5 text-left font-mono text-xs">
+        {/* Animated Motorsport Checklist */}
+        <div className="space-y-2.5 rounded-none border border-[#3c3c3c] bg-[#0d0d0d] p-6 text-left font-mono text-xs">
           {steps.map((step, idx) => {
             const isCompleted = idx < stepIndex;
             const isCurrent = idx === stepIndex;
@@ -100,41 +111,48 @@ export function ExecutiveSyncOverlay({ onComplete }: ExecutiveSyncOverlayProps) 
                 key={step}
                 className={`flex items-center justify-between transition-all duration-300 ${
                   isCompleted
-                    ? "text-emerald-400 opacity-100"
+                    ? "font-semibold text-white opacity-100"
                     : isCurrent
-                      ? "font-bold text-amber-300 opacity-100"
-                      : "text-slate-600 opacity-40"
+                      ? "font-bold text-[#1c69d4] opacity-100"
+                      : "text-[#7e7e7e] opacity-40"
                 }`}
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   {isCompleted ? (
-                    <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                    <CheckCircle2 className="h-4 w-4 text-[#0066b1]" />
                   ) : isCurrent ? (
-                    <span className="h-2 w-2 animate-ping rounded-full bg-amber-400" />
+                    <div className="bmw-m-tricolor-dots">
+                      <span />
+                      <span />
+                      <span />
+                    </div>
                   ) : (
-                    <span className="h-2 w-2 rounded-full bg-slate-700" />
+                    <span className="h-2 w-2 rounded-full bg-[#3c3c3c]" />
                   )}
-                  <span>{step}</span>
+                  <span className="tracking-wider">{step}</span>
                 </div>
-                <span className="text-[10px]">
-                  {isCompleted ? "DONE" : isCurrent ? "SYNCING..." : "PENDING"}
+                <span className="text-[10px] font-bold uppercase tracking-widest">
+                  {isCompleted ? "VERIFIED" : isCurrent ? "PROCESSING..." : "QUEUED"}
                 </span>
               </div>
             );
           })}
         </div>
 
-        {/* Progress Bar */}
+        {/* M Tricolor Progress Bar */}
         <div className="space-y-2">
-          <div className="h-2.5 w-full overflow-hidden rounded-full border border-slate-800 bg-slate-950 p-0.5">
+          <div className="h-3 w-full rounded-none border border-[#3c3c3c] bg-[#0d0d0d] p-0.5">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-amber-400 via-cyan-400 to-emerald-400 transition-all duration-75"
-              style={{ width: `${progress}%` }}
+              className="h-full transition-all duration-75"
+              style={{
+                width: `${progress}%`,
+                background: "linear-gradient(90deg, #0066b1 0%, #1c69d4 50%, #e22718 100%)",
+              }}
             />
           </div>
-          <div className="flex justify-between font-mono text-[10px] text-slate-500">
-            <span>OMNIA EXECUTIVE RUNTIME</span>
-            <span>{progress}%</span>
+          <div className="flex justify-between font-mono text-[10px] font-bold uppercase tracking-widest text-[#7e7e7e]">
+            <span>{"///"} M EXECUTIVE RUNTIME ENGINE</span>
+            <span className="text-white">{progress}%</span>
           </div>
         </div>
       </div>

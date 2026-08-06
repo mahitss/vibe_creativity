@@ -3,10 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --background: 250 250 250;
-  --border: 229 229 229;
-  --foreground: 10 10 10;
-  --muted: 82 82 82;
+  --background: 0 0% 0%;
+  --border: 0 0% 23.5%;
+  --foreground: 0 0% 100%;
+  --muted: 0 0% 49.4%;
+  --m-blue-light: #0066b1;
+  --m-blue-dark: #1c69d4;
+  --m-red: #e22718;
 }
 
 * {
@@ -14,18 +17,88 @@
 }
 
 html {
-  background: rgb(var(--background));
-  color: rgb(var(--foreground));
+  background: #000000;
+  color: #ffffff;
   text-rendering: optimizeLegibility;
 }
 
 body {
   min-height: 100vh;
-  background: rgb(var(--background));
+  background: #000000;
+  color: #ffffff;
 }
 
 ::selection {
-  background: rgb(10 10 10);
-  color: white;
+  background: #1c69d4;
+  color: #ffffff;
 }
 
+/* BMW M Tricolor Badge & Stripe Utility */
+.bmw-m-stripe {
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    #0066b1 0%,
+    #0066b1 33.33%,
+    #1c69d4 33.33%,
+    #1c69d4 66.66%,
+    #e22718 66.66%,
+    #e22718 100%
+  );
+}
+
+.bmw-m-stripe-vertical {
+  width: 4px;
+  background: linear-gradient(
+    180deg,
+    #0066b1 0%,
+    #0066b1 33.33%,
+    #1c69d4 33.33%,
+    #1c69d4 66.66%,
+    #e22718 66.66%,
+    #e22718 100%
+  );
+}
+
+.bmw-m-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid #3c3c3c;
+  background: #1a1a1a;
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.bmw-m-tricolor-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.bmw-m-tricolor-dots span:nth-child(1) {
+  width: 6px;
+  height: 12px;
+  background-color: #0066b1;
+  transform: skewX(-15deg);
+}
+
+.bmw-m-tricolor-dots span:nth-child(2) {
+  width: 6px;
+  height: 12px;
+  background-color: #1c69d4;
+  transform: skewX(-15deg);
+}
+
+.bmw-m-tricolor-dots span:nth-child(3) {
+  width: 6px;
+  height: 12px;
+  background-color: #e22718;
+  transform: skewX(-15deg);
+}

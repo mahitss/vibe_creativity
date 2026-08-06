@@ -20,6 +20,7 @@ from app.api.routes.memory_service import router as memory_service_router
 from app.api.routes.mission_control import router as mission_control_router
 from app.api.routes.observability import router as observability_router
 from app.api.routes.personalization import router as personalization_router
+from app.api.routes.platform_sdk import router as platform_sdk_router
 from app.api.routes.reasoning import router as reasoning_router
 from app.api.routes.reflection import router as reflection_router
 from app.api.routes.registry import router as registry_router
@@ -58,6 +59,7 @@ api_router.include_router(connector_framework_router)
 api_router.include_router(community_intelligence_router)
 api_router.include_router(sponsor_intelligence_router)
 api_router.include_router(content_intelligence_router)
+api_router.include_router(platform_sdk_router)
 api_router.include_router(mission_control_router)
 api_router.include_router(timeline_router)
 api_router.include_router(reviews_router)

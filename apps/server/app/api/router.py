@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from app.api.routes.authentication import router as auth_router
 from app.api.routes.cognition import router as cognition_router
+from app.api.routes.collaboration import router as collaboration_router
 from app.api.routes.community import router as community_router
 from app.api.routes.community_intelligence import router as community_intelligence_router
 from app.api.routes.connector_framework import router as connector_framework_router
@@ -58,6 +59,7 @@ api_router.include_router(executive_mind_router)
 api_router.include_router(memory_service_router)
 api_router.include_router(memory_intelligence_router)
 api_router.include_router(connector_framework_router)
+api_router.include_router(collaboration_router)
 api_router.include_router(community_intelligence_router)
 api_router.include_router(sponsor_intelligence_router)
 api_router.include_router(content_intelligence_router)

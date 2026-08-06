@@ -39,6 +39,7 @@ from app.api.routes.sponsor_intelligence import router as sponsor_intelligence_r
 from app.api.routes.sponsors import router as sponsors_router
 from app.api.routes.timeline import router as timeline_router
 from app.api.routes.tools import router as tools_router
+from app.api.routes.trust_framework import router as trust_framework_router
 from app.api.routes.universe import router as universe_router
 from app.api.routes.validation import router as validation_router
 from app.api.routes.workflow_engine import router as workflow_engine_router
@@ -68,6 +69,7 @@ api_router.include_router(collaboration_router)
 api_router.include_router(enterprise_router)
 api_router.include_router(network_router)
 api_router.include_router(business_intelligence_router)
+api_router.include_router(trust_framework_router)
 api_router.include_router(community_intelligence_router)
 api_router.include_router(sponsor_intelligence_router)
 api_router.include_router(content_intelligence_router)

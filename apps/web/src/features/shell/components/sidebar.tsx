@@ -61,7 +61,7 @@ export function Sidebar() {
     {
       title: "Core Operations",
       items: [
-        { id: "dashboard", label: "Mission Control", href: "/dashboard", icon: LayoutDashboard },
+        { id: "dashboard", label: "Mission Control", href: "/", icon: LayoutDashboard },
         { id: "content", label: "Content Strategy", href: "/content", icon: Lightbulb },
         { id: "community", label: "Community Intelligence", href: "/community", icon: Users },
         { id: "sponsors", label: "Sponsor Deals", href: "/sponsors", icon: Handshake },

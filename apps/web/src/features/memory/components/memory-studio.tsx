@@ -42,11 +42,11 @@ interface RelationshipRecord {
 }
 
 interface MemoryStudioProps {
-  creatorName: string;
-  memories: MemoryRecord[];
-  namespace: string;
-  reflections: ReflectionRecord[];
-  relationships: RelationshipRecord[];
+  creatorName?: string;
+  memories?: MemoryRecord[];
+  namespace?: string;
+  reflections?: ReflectionRecord[];
+  relationships?: RelationshipRecord[];
 }
 
 const memoryTypes: Array<MemoryType | "ALL"> = [
@@ -62,12 +62,51 @@ const memoryTypes: Array<MemoryType | "ALL"> = [
 ];
 
 export function MemoryStudio({
-  creatorName,
-  memories,
-  namespace,
-  reflections,
-  relationships,
-}: MemoryStudioProps) {
+  creatorName = "Mahit",
+  memories = [
+    {
+      id: "mem-yt-comment-42",
+      title: "127 Audience Requests for Docker",
+      description:
+        "127 community members requested Docker orchestration after React Auth tutorial.",
+      memoryType: "COMMUNITY",
+      importance: 0.95,
+      createdAt: "2026-08-06",
+      updatedAt: "2026-08-06",
+      tags: ["docker", "requests"],
+    },
+    {
+      id: "mem-cloudcorp-deal",
+      title: "Acme CloudCorp Sponsorship",
+      description:
+        "Signed $15,000 sponsorship contract with CloudCorp for 3 video integration slots.",
+      memoryType: "PERFORMANCE",
+      importance: 0.9,
+      createdAt: "2026-08-05",
+      updatedAt: "2026-08-05",
+      tags: ["sponsorship", "revenue"],
+    },
+  ],
+  namespace = "omnia.creator.studio",
+  reflections = [
+    {
+      title: "Deep Technical Tutorials Outperform Commentary",
+      category: "Content Strategy",
+      confidence: 0.96,
+      lesson: "Hands-on code walkthroughs yield 2.4x higher watch time retention.",
+      createdAt: "2026-08-06",
+    },
+  ],
+  relationships = [
+    {
+      subject: "React Auth",
+      relationship: "LEADS_TO",
+      object: "Docker Multi-Agent",
+      strength: 0.94,
+      trustScore: 0.98,
+    },
+  ],
+}: MemoryStudioProps = {}) {
   const [activeType, setActiveType] = React.useState<MemoryType | "ALL">("ALL");
   const [query, setQuery] = React.useState("");
 

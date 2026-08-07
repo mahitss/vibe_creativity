@@ -80,7 +80,7 @@ export function CommunityWorkspace() {
   const [selectedMemberId, setSelectedMemberId] = useState<string | null>("mbr-alex-101");
   const [showReplyModal, setShowReplyModal] = useState<boolean>(false);
 
-  const [members] = useState<Member[]>([
+  const [members, setMembers] = useState<Member[]>([
     {
       id: "mbr-alex-101",
       platform: "YouTube",

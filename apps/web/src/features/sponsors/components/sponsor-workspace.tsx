@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AlertTriangle,
   ArrowRight,
@@ -67,6 +67,7 @@ interface Sponsor {
   };
   campaign_history: string[];
   notes: string;
+  memory_references?: string[];
 }
 
 interface Opportunity {
@@ -84,7 +85,7 @@ export function SponsorWorkspace() {
   const [selectedSponsorId, setSelectedSponsorId] = useState<string | null>("spn-cloudcorp-101");
   const [showFollowupModal, setShowFollowupModal] = useState<boolean>(false);
 
-  const [sponsors] = useState<Sponsor[]>([
+  const [sponsors, setSponsors] = useState<Sponsor[]>([
     {
       id: "spn-cloudcorp-101",
       company_name: "CloudCorp Inc.",
@@ -108,67 +109,80 @@ export function SponsorWorkspace() {
         ],
         usage_rights: "Digital & Social Media (1 Year)",
         exclusivity_days: 30,
-        payment_terms: "Net 30",
-        special_requests: "Include CloudCorp live terminal deployment demo.",
+        payment_terms: "Net-30 upon publication",
+        special_requests: "Include code snippet repository link",
       },
-      campaign_history: [
-        "Q1 Docker Integration ($12,000)",
-        "Q3 Multi-Agent Title Sponsorship ($15,000)",
-      ],
-      notes: "CloudCorp requested updated Q3/Q4 media kit 3 days ago. Highly responsive partner.",
-    },
-    {
-      id: "spn-vercel-102",
-      company_name: "Vercel",
-      brand: "Vercel Frontend Cloud",
-      industry: "Web Hosting & Serverless",
-      primary_contact: "Mark Davis (Head of Creator Relations)",
-      email: "mark.d@vercel.com",
-      website: "https://vercel.com",
-      country: "USA",
-      status: "LONG_TERM_PARTNER",
-      relationship_score: 0.96,
-      trust_score: 0.98,
-      lifetime_value: 35000.0,
-      negotiation_terms: {
-        offered_price: 10000.0,
-        deliverables: ["Next.js Masterclass Title Partner", "Vercel Deploy Link in Description"],
-        usage_rights: "Perpetual",
-        exclusivity_days: 14,
-        payment_terms: "Net 15",
-      },
-      campaign_history: [
-        "Next.js 14 Launch Sponsor ($15,000)",
-        "React Masterclass Series ($20,000)",
-      ],
-      notes: "Long-term partner. Automatic renewal eligibility for Q4.",
-    },
-    {
-      id: "spn-datadog-103",
-      company_name: "Datadog",
-      brand: "Datadog APM & Observability",
-      industry: "DevOps & Observability",
-      primary_contact: "Alex Rivera (Partner Marketing Manager)",
-      email: "arivera@datadog.com",
-      website: "https://datadog.com",
-      country: "USA",
-      status: "PROPOSAL",
-      relationship_score: 0.85,
-      trust_score: 0.9,
-      lifetime_value: 10000.0,
-      negotiation_terms: {
-        offered_price: 10000.0,
-        deliverables: ["Dedicated Observability Walkthrough in Docker Video Part 2"],
-        usage_rights: "Digital (6 Months)",
-        exclusivity_days: 30,
-        payment_terms: "Net 30",
-      },
-      campaign_history: [],
-      notes: "Proposal sent for Docker Part 2 observability read.",
+      campaign_history: ["React Series Part 2 Sponsor"],
+      notes: "High interest in developer tooling audience.",
+      memory_references: ["mem-cloudcorp-deal"],
     },
   ]);
 
+  useEffect(() => {
+    fetch("/api/sponsors/pipeline", {
+      headers: { "X-Creator-Id": "creator-default" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.pipeline_stages) {
+          const all: Sponsor[] = [];
+          Object.values(data.pipeline_stages).forEach((stageObj: unknown) => {
+            const sObj = stageObj as { sponsors?: Record<string, unknown>[] };
+            if (sObj && Array.isArray(sObj.sponsors)) {
+              sObj.sponsors.forEach((item: Record<string, unknown>) => {
+                all.push({
+                  id: item.id as string,
+                  company_name: item.company_name as string,
+                  brand: item.brand as string,
+                  industry: item.industry as string,
+                  primary_contact: item.primary_contact as string,
+                  email: item.email as string,
+                  website: (item.website as string) || "https://example.com",
+                  country: (item.country as string) || "USA",
+                  status: (
+                    (item.status as string) || "PROSPECT"
+                  ).toUpperCase() as unknown as Sponsor["status"],
+                  relationship_score: (item.relationship_score as number) ?? 0.9,
+                  trust_score: (item.trust_score as number) ?? 0.95,
+                  lifetime_value: (item.lifetime_value as number) ?? 15000,
+                  negotiation_terms: (item.negotiation_terms as Sponsor["negotiation_terms"]) || {
+                    offered_price: 15000,
+                    counter_offer: 18000,
+                    deliverables: ["60s Integration"],
+                    usage_rights: "Digital 1 Year",
+                    exclusivity_days: 30,
+                    payment_terms: "Net-30",
+                    special_requests: "GitHub Link",
+                  },
+                  campaign_history: (item.campaign_history as string[]) || [],
+                  notes: (item.notes as string) || "",
+                  memory_references: (item.memory_references as string[]) || [
+                    "#mem-cloudcorp-deal",
+                  ],
+                });
+              });
+            }
+          });
+          if (all.length > 0) {
+            setSponsors(all);
+          }
+        }
+      })
+      .catch(() => {
+        // Fallback
+      });
+  }, []);
+
   const [opportunities] = useState<Opportunity[]>([
+    {
+      id: "spn-vercel-102",
+      brand_name: "Vercel Frontend Cloud",
+      industry: "Web Hosting & Serverless",
+      niche_match_score: 0.96,
+      estimated_value: 35000.0,
+      reason: "High alignment with Next.js and frontend cloud content.",
+      suggested_action: "Send automated Q4 sponsorship proposal draft.",
+    },
     {
       id: "opp-101",
       brand_name: "Supabase",

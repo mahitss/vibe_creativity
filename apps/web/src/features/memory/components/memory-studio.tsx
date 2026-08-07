@@ -109,15 +109,41 @@ export function MemoryStudio({
 }: MemoryStudioProps = {}) {
   const [activeType, setActiveType] = React.useState<MemoryType | "ALL">("ALL");
   const [query, setQuery] = React.useState("");
+  const [liveMemories, setLiveMemories] = React.useState<MemoryRecord[]>(memories);
+
+  React.useEffect(() => {
+    fetch("/api/memory", {
+      headers: { "X-Creator-Id": "creator-default" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          const mapped: MemoryRecord[] = data.map((item: Record<string, unknown>) => ({
+            id: (item.memory_id || item.id) as string,
+            title: item.title as string,
+            description: (item.summary || item.content || item.description) as string,
+            memoryType: ((item.type || "COMMUNITY") as string).toUpperCase() as MemoryType,
+            importance: (item.importance as number) ?? 0.9,
+            createdAt: item.created_at ? (item.created_at as string).slice(0, 10) : "2026-08-06",
+            updatedAt: item.updated_at ? (item.updated_at as string).slice(0, 10) : "2026-08-06",
+            tags: (item.tags as string[]) || [],
+          }));
+          setLiveMemories(mapped);
+        }
+      })
+      .catch(() => {
+        // Fallback to seeded initial state
+      });
+  }, []);
 
   const filteredMemories = React.useMemo(() => {
-    return memories.filter((memory) => {
+    return liveMemories.filter((memory) => {
       const matchesType = activeType === "ALL" || memory.memoryType === activeType;
       const searchable =
         `${memory.title} ${memory.description} ${memory.tags.join(" ")}`.toLowerCase();
       return matchesType && searchable.includes(query.toLowerCase());
     });
-  }, [activeType, memories, query]);
+  }, [activeType, liveMemories, query]);
 
   return (
     <main className="min-h-screen bg-neutral-50 px-6 py-8 text-neutral-950">
@@ -136,7 +162,7 @@ export function MemoryStudio({
           </div>
           <div className="rounded-lg border border-neutral-200 bg-white p-4 text-sm shadow-sm">
             <p className="text-neutral-500">Stored memories</p>
-            <p className="mt-1 text-3xl font-semibold">{memories.length}</p>
+            <p className="mt-1 text-3xl font-semibold">{liveMemories.length}</p>
           </div>
         </header>
 

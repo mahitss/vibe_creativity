@@ -2,15 +2,27 @@
 
 import React, { useState } from "react";
 import {
+  Activity,
   BarChart3,
+  Bot,
   Brain,
   CheckCircle2,
+  ChevronDown,
+  ChevronRight,
   Copy,
+  Cpu,
+  Database,
+  Edit3,
+  Layers,
+  Play,
   RefreshCw,
   Share2,
+  Sparkles,
   Sun,
+  Terminal,
   ThumbsUp,
   X,
+  Zap,
 } from "lucide-react";
 import { ExplainabilityDrawer } from "../../reasoning/components/explainability-drawer";
 
@@ -30,13 +42,16 @@ interface AssetItem {
 export function MissionControlCockpit() {
   const [showExplainability, setShowExplainability] = useState<boolean>(false);
   const [approvalStep, setApprovalStep] = useState<number>(-1);
-  const [isEvidenceExpanded, setIsEvidenceExpanded] = useState<boolean>(false);
+  const [isEvidenceExpanded, setIsEvidenceExpanded] = useState<boolean>(true);
 
+  // Live AI thinking state
   const [isAiThinking, setIsAiThinking] = useState<boolean>(false);
   const [thinkingStep, setThinkingStep] = useState<number>(0);
 
+  // Inspector modal state
   const [selectedEvidence, setSelectedEvidence] = useState<EvidenceItemDetail | null>(null);
 
+  // Editable Generated Assets state
   const [generatedAssets, setGeneratedAssets] = useState<AssetItem[]>([
     {
       platform: "YOUTUBE SHORT",
@@ -134,14 +149,17 @@ export function MissionControlCockpit() {
 
   return (
     <div className="relative min-h-screen bg-[#000000] p-6 font-sans text-white selection:bg-[#1c69d4] selection:text-white md:p-8">
+      {/* Top BMW M Tricolor Bar */}
       <div className="bmw-m-stripe fixed left-0 right-0 top-0 z-40" />
 
+      {/* Explainability Panel Drawer */}
       <ExplainabilityDrawer
         isOpen={showExplainability}
         onClose={() => setShowExplainability(false)}
         missionTitle="Create Docker Part 1"
       />
 
+      {/* Evidence Inspector Modal */}
       {selectedEvidence && (
         <div className="animate-fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-6 font-sans backdrop-blur-md">
           <div className="relative w-full max-w-lg space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-2xl">
@@ -185,6 +203,7 @@ export function MissionControlCockpit() {
         </div>
       )}
 
+      {/* Live AI Thinking Overlay Modal */}
       {isAiThinking && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-6 font-sans backdrop-blur-2xl">
           <div className="relative w-full max-w-md space-y-6 border border-[#3c3c3c] bg-[#1a1a1a] p-8 text-center shadow-2xl">
@@ -235,6 +254,7 @@ export function MissionControlCockpit() {
       )}
 
       <div className="mx-auto max-w-6xl space-y-6 pt-2">
+        {/* MODULE 1: EXECUTIVE STATUS & LIVE AGENT TELEMETRY */}
         <div className="flex flex-col justify-between gap-4 border-b border-[#3c3c3c] pb-4 md:flex-row md:items-center">
           <div>
             <div className="flex items-center gap-3">
@@ -244,71 +264,52 @@ export function MissionControlCockpit() {
                 <span />
               </div>
               <h1 className="font-sans text-2xl font-extrabold uppercase tracking-wider text-white">
-                {"///"} OMNIA CREATOR COMMAND CENTER
+                {"///"} OMNIA CREATOR OPERATING SYSTEM
               </h1>
             </div>
             <p className="mt-0.5 font-mono text-[11px] uppercase tracking-wide text-[#bbbbbb]">
-              AUTONOMOUS CREATOR OPERATING SYSTEM
+              YOUR AI HAS ALREADY BEEN WORKING • SYSTEM STATUS: ONLINE
             </p>
           </div>
-          <div className="flex items-center gap-3 font-mono text-xs">
-            <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#1a1a1a] px-4 py-2 font-bold uppercase tracking-widest text-white">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-[#0066b1]" />
-              {"///"} M EXECUTIVE MIND: ACTIVE
+
+          <div className="flex flex-wrap items-center gap-3 font-mono text-xs">
+            <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#1a1a1a] px-3.5 py-1.5 font-bold uppercase tracking-widest text-white">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-[#0066b1]" />M EXECUTIVE MIND:
+              ACTIVE
+            </div>
+            <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#1a1a1a] px-3.5 py-1.5 font-mono text-[11px] text-[#e6e6e6]">
+              <Cpu className="h-3.5 w-3.5 text-[#1c69d4]" />
+              CLUSTERING: BUSY
+            </div>
+            <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#1a1a1a] px-3.5 py-1.5 font-mono text-[11px] text-[#e6e6e6]">
+              <Database className="h-3.5 w-3.5 text-emerald-400" />
+              MEMORY SYNC: 100%
             </div>
           </div>
         </div>
 
-        <div className="relative space-y-3 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-xl">
-          <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-3 font-mono text-xs">
-            <div className="flex items-center gap-2 font-bold uppercase tracking-widest text-white">
-              <Sun className="h-4 w-4 text-[#1c69d4]" /> {"///"} EXECUTIVE BRIEF
-            </div>
-            <span className="border border-[#3c3c3c] bg-[#0d0d0d] px-3 py-0.5 font-mono text-[10px] uppercase text-[#bbbbbb]">
-              MAHIT
-            </span>
-          </div>
-
-          <div className="space-y-1 font-sans">
-            <h2 className="text-xl font-extrabold uppercase tracking-wider text-white">
-              GOOD EVENING, MAHIT.
-            </h2>
-            <div className="text-sm leading-relaxed text-[#e6e6e6]">
-              Yesterday you uploaded{" "}
-              <strong className="border-b border-[#1c69d4] font-mono text-white">
-                React Authentication
-              </strong>
-              . I analyzed <strong className="font-mono text-white">523 comments</strong> and
-              identified{" "}
-              <strong className="border-b border-[#e22718] font-mono text-white">
-                one priority mission
-              </strong>
-              .
-            </div>
-          </div>
-        </div>
-
+        {/* MODULE 2: PRIMARY MISSION HERO COCKPIT */}
         <div className="relative space-y-6 border border-[#3c3c3c] bg-[#1a1a1a] p-8 shadow-2xl">
           <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-4 font-mono text-xs">
             <span className="border border-[#0066b1]/40 bg-[#0066b1]/10 px-3 py-1 font-bold uppercase tracking-widest text-white">
-              {"///"} TODAY&apos;S MISSION (MAIN HERO)
+              {"///"} TODAY&apos;S MISSION (HERO DIRECTIVE)
             </span>
-            <span className="text-[10px] uppercase text-[#bbbbbb]">
+            <span className="text-[10px] font-bold uppercase text-[#1c69d4]">
               PRIORITY 1 • HIGH CONFIDENCE
             </span>
           </div>
 
           <div className="space-y-3">
-            <h3 className="font-sans text-3xl font-extrabold uppercase tracking-wider text-white">
+            <h2 className="font-sans text-3xl font-extrabold uppercase tracking-wider text-white">
               Create Docker Containerization Tutorial Part 1
-            </h3>
+            </h2>
             <p className="font-sans text-base leading-relaxed text-[#e6e6e6]">
               127 viewers requested Docker container orchestration after your React Authentication
-              video. High retention impact expected (+18% watch time retention).
+              video. High retention impact expected (+18% watch time retention baseline).
             </p>
           </div>
 
-          <div className="flex items-center gap-4 pt-2 font-mono text-xs">
+          <div className="flex flex-wrap items-center gap-4 pt-2 font-mono text-xs">
             {approvalStep < 0 ? (
               <button
                 onClick={handleApprove}
@@ -328,17 +329,58 @@ export function MissionControlCockpit() {
             >
               <Brain className="h-4 w-4 text-[#1c69d4]" /> VIEW WHY
             </button>
+
+            <button
+              onClick={() => setApprovalStep(-1)}
+              className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] px-6 py-3.5 font-bold uppercase tracking-widest text-[#bbbbbb] transition hover:text-white"
+            >
+              DISMISS
+            </button>
           </div>
         </div>
 
+        {/* MODULE 3: LIVE AI WORKFLOW & AGENT TASK MONITOR */}
+        <div className="space-y-3 border border-[#3c3c3c] bg-[#1a1a1a] p-6 font-mono text-xs shadow-xl">
+          <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-3">
+            <span className="flex items-center gap-2 font-bold uppercase tracking-widest text-white">
+              <Terminal className="h-4 w-4 text-[#0066b1]" /> {"///"} LIVE AGENT WORKFLOW MONITOR
+            </span>
+            <span className="text-[10px] text-[#bbbbbb]">4 SPECIALIST AGENTS ACTIVE</span>
+          </div>
+
+          <div className="grid grid-cols-1 gap-3 pt-1 text-[#e6e6e6] md:grid-cols-2">
+            <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] p-3">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+              <span className="font-bold text-white">Executive Mind Agent:</span>
+              <span className="text-[#bbbbbb]">Delegating Docker workflow</span>
+            </div>
+            <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] p-3">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+              <span className="font-bold text-white">Memory Grounding:</span>
+              <span className="text-[#bbbbbb]">Verified #mem-yt-comment-42</span>
+            </div>
+            <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] p-3">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+              <span className="font-bold text-white">Content Synthesis:</span>
+              <span className="text-[#bbbbbb]">Prepared 4 multi-platform drafts</span>
+            </div>
+            <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] p-3">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-[#1c69d4]" />
+              <span className="font-bold text-white">Community Agent:</span>
+              <span className="text-[#bbbbbb]">Clustered 523 comments</span>
+            </div>
+          </div>
+        </div>
+
+        {/* MODULE 4: GROUNDED EVIDENCE & PERSISTENT MEMORY GRID */}
         <div className="border border-[#3c3c3c] bg-[#1a1a1a]">
           <button
             onClick={() => setIsEvidenceExpanded(!isEvidenceExpanded)}
             className="flex w-full items-center justify-between p-4 font-mono text-xs font-bold uppercase tracking-widest text-white transition hover:bg-[#0d0d0d]"
           >
             <span className="flex items-center gap-2">
-              <BarChart3 className="h-4 w-4 text-[#0066b1]" /> {"///"} INTERACTIVE EVIDENCE &amp;
-              GROUNDING (4 SIGNALS)
+              <BarChart3 className="h-4 w-4 text-[#0066b1]" /> {"///"} GROUNDED EVIDENCE &amp;
+              MEMORY GRID (4 SIGNALS)
             </span>
             <span className="flex items-center gap-1 text-[10px] text-[#bbbbbb]">
               {isEvidenceExpanded ? "COLLAPSE ▲" : "EXPAND ▼"}
@@ -426,94 +468,91 @@ export function MissionControlCockpit() {
           )}
         </div>
 
-        <div className="relative space-y-6 border border-[#3c3c3c] bg-[#1a1a1a] p-8 shadow-2xl">
-          <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-4 font-mono text-xs">
-            <span className="flex items-center gap-2 font-bold uppercase tracking-widest text-white">
-              <Share2 className="h-4 w-4 text-[#1c69d4]" /> {"///"} GENERATED REPURPOSED CONTENT
-            </span>
-            <span className="text-[10px] uppercase text-[#bbbbbb]">
-              4 ASSETS GENERATED &amp; EDITABLE
-            </span>
-          </div>
+        {/* MODULE 5: GENERATED CONTENT ASSET PIPELINE & AUTONOMOUS ACTIVITY STREAM */}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {/* Generated Assets (2/3 width) */}
+          <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-2xl lg:col-span-2">
+            <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-3 font-mono text-xs">
+              <span className="flex items-center gap-2 font-bold uppercase tracking-widest text-white">
+                <Share2 className="h-4 w-4 text-[#1c69d4]" /> {"///"} GENERATED CONTENT ASSETS
+              </span>
+              <span className="text-[10px] uppercase text-[#bbbbbb]">4 ASSETS GENERATED</span>
+            </div>
 
-          <div className="grid grid-cols-1 gap-4 font-mono text-xs md:grid-cols-2 lg:grid-cols-4">
-            {generatedAssets.map((asset: AssetItem, idx: number) => (
-              <div
-                key={asset.platform}
-                className="flex flex-col justify-between space-y-4 border border-[#3c3c3c] bg-[#0d0d0d] p-5"
-              >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-2">
-                    <span className="text-[10px] text-[#7e7e7e]">ASSET 0{idx + 1}</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-white">
-                      {asset.platform}
-                    </span>
+            <div className="grid grid-cols-1 gap-4 font-mono text-xs md:grid-cols-2">
+              {generatedAssets.map((asset: AssetItem, idx: number) => (
+                <div
+                  key={asset.platform}
+                  className="flex flex-col justify-between space-y-3 border border-[#3c3c3c] bg-[#0d0d0d] p-4"
+                >
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-2">
+                      <span className="text-[10px] text-[#7e7e7e]">ASSET 0{idx + 1}</span>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-white">
+                        {asset.platform}
+                      </span>
+                    </div>
+                    <h4 className="text-xs font-extrabold uppercase text-white">{asset.title}</h4>
+                    <textarea
+                      value={asset.content}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setGeneratedAssets((prev: AssetItem[]) => {
+                          const next = [...prev];
+                          if (next[idx]) next[idx] = { ...next[idx], content: val };
+                          return next;
+                        });
+                      }}
+                      className="h-28 w-full resize-none border border-[#3c3c3c] bg-[#000000] p-2.5 font-sans text-[11px] leading-relaxed text-[#e6e6e6] outline-none focus:border-white"
+                    />
                   </div>
 
-                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-white">
-                    {asset.title}
-                  </h4>
-
-                  <textarea
-                    value={asset.content}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      setGeneratedAssets((prev: AssetItem[]) => {
-                        const next = [...prev];
-                        if (next[idx]) {
-                          next[idx] = { ...next[idx], content: val };
-                        }
-                        return next;
-                      });
-                    }}
-                    className="h-32 w-full resize-none border border-[#3c3c3c] bg-[#000000] p-3 font-sans text-[11px] leading-relaxed text-[#e6e6e6] outline-none focus:border-white"
-                  />
+                  <div className="flex items-center gap-2 border-t border-[#3c3c3c] pt-2">
+                    <button
+                      onClick={() => handleCopyContent(asset.content, idx)}
+                      className="flex-1 border border-[#3c3c3c] bg-[#1a1a1a] py-1.5 text-center text-[10px] font-bold uppercase text-white hover:border-white"
+                    >
+                      {copiedIndex === idx ? "COPIED!" : "COPY"}
+                    </button>
+                    <button
+                      onClick={() => handleRegenerateAsset(idx)}
+                      className="flex-1 border border-[#3c3c3c] bg-[#1a1a1a] py-1.5 text-center text-[10px] font-bold uppercase text-[#1c69d4] hover:border-white"
+                    >
+                      REGENERATE
+                    </button>
+                  </div>
                 </div>
+              ))}
+            </div>
+          </div>
 
-                <div className="flex items-center gap-2 border-t border-[#3c3c3c] pt-3">
-                  <button
-                    onClick={() => handleCopyContent(asset.content, idx)}
-                    className="flex-1 border border-[#3c3c3c] bg-[#1a1a1a] py-2 text-center text-[10px] font-bold uppercase tracking-wider text-white transition hover:border-white"
-                  >
-                    {copiedIndex === idx ? "COPIED!" : "COPY"}
-                  </button>
-                  <button
-                    onClick={() => handleRegenerateAsset(idx)}
-                    className="flex-1 border border-[#3c3c3c] bg-[#1a1a1a] py-2 text-center text-[10px] font-bold uppercase tracking-wider text-[#1c69d4] transition hover:border-white"
-                  >
-                    REGENERATE
-                  </button>
-                </div>
+          {/* Autonomous Activity Timeline (1/3 width) */}
+          <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 font-mono text-xs shadow-xl">
+            <div className="border-b border-[#3c3c3c] pb-3 font-bold uppercase tracking-widest text-white">
+              {"///"} RECENT AI ACTIVITY
+            </div>
+
+            <div className="space-y-3 text-[#e6e6e6]">
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0066b1]" />
+                <span>Imported 523 YouTube comments from React Authentication</span>
               </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-xl">
-          <div className="font-mono text-xs font-bold uppercase tracking-widest text-[#bbbbbb]">
-            {"///"} RECENT AI ACTIVITY TIMELINE
-          </div>
-
-          <div className="space-y-3 font-mono text-xs text-[#e6e6e6]">
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
-              <span>Imported 523 YouTube comments from React Authentication video</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
-              <span>Discovered high-demand trend: 127 viewers requested Docker</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
-              <span>Generated CloudCorp sponsorship follow-up proposal draft</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
-              <span>Synthesized priority mission: Docker Masterclass Series</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
-              <span>Prepared 4 multi-platform content publishing drafts</span>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0066b1]" />
+                <span>Discovered high-demand trend: 127 viewers requested Docker</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0066b1]" />
+                <span>Generated CloudCorp sponsorship proposal draft</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0066b1]" />
+                <span>Synthesized priority mission: Docker Masterclass Series</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0066b1]" />
+                <span>Prepared 4 multi-platform content publishing drafts</span>
+              </div>
             </div>
           </div>
         </div>

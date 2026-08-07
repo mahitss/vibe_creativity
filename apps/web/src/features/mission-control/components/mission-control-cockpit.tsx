@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { ExplainabilityDrawer } from "../../reasoning/components/explainability-drawer";
 import { CommandPalette } from "./command-palette";
+import { SystemBootOverlay } from "./system-boot-overlay";
 
 interface MissionInboxItem {
   id: string;
@@ -48,12 +49,26 @@ interface AssetItem {
 }
 
 export function MissionControlCockpit() {
+  const [booting, setBooting] = useState<boolean>(true);
   const [activeFilter, setActiveFilter] = useState<"ALL" | "PENDING" | "APPROVED" | "WAITING">(
     "ALL",
   );
   const [showExplainability, setShowExplainability] = useState<boolean>(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+
+  // Live AI Thinking Stream state
+  const [isThinking, setIsThinking] = useState<boolean>(false);
+  const [thinkingIndex, setThinkingIndex] = useState<number>(0);
+
+  const thinkingSteps = [
+    "Understanding request...",
+    "Reading 523 YouTube community comments...",
+    "Searching persistent memory substrate (#mem-yt-comment-42)...",
+    "Building tutorial strategy & retention baselines (+18%)...",
+    "Generating multi-platform content assets...",
+    "Done. Mission Approved & Assets Generated.",
+  ];
 
   const inboxItems: MissionInboxItem[] = [
     {
@@ -159,10 +174,28 @@ export function MissionControlCockpit() {
     }
   };
 
+  const handleTriggerThinking = () => {
+    setIsThinking(true);
+    setThinkingIndex(0);
+    let step = 0;
+    const interval = setInterval(() => {
+      step += 1;
+      if (step < thinkingSteps.length) {
+        setThinkingIndex(step);
+      } else {
+        clearInterval(interval);
+        setTimeout(() => setIsThinking(false), 1500);
+      }
+    }, 600);
+  };
+
   return (
-    <div className="relative min-h-screen bg-[#000000] p-6 font-sans text-white selection:bg-[#1c69d4] selection:text-white md:p-10">
+    <div className="relative min-h-screen bg-[#000000] p-6 font-sans text-white transition-opacity duration-300 selection:bg-[#1c69d4] selection:text-white md:p-10">
       {/* Top BMW M Tricolor Bar */}
       <div className="bmw-m-stripe fixed left-0 right-0 top-0 z-40" />
+
+      {/* SIGNATURE INTERACTION 1: SYSTEM BOOT SEQUENCE */}
+      {booting && <SystemBootOverlay onComplete={() => setBooting(false)} />}
 
       {/* Explainability Drawer */}
       <ExplainabilityDrawer
@@ -177,7 +210,7 @@ export function MissionControlCockpit() {
         onClose={() => setIsCommandPaletteOpen(false)}
       />
 
-      <div className="mx-auto max-w-6xl space-y-10 pt-2">
+      <div className="animate-fade-in mx-auto max-w-6xl space-y-10 pt-2">
         {/* Desktop Hub Header & Executive Status Bar */}
         <div className="flex flex-col justify-between gap-4 border-b border-[#3c3c3c] pb-5 md:flex-row md:items-center">
           <div>
@@ -192,7 +225,7 @@ export function MissionControlCockpit() {
               </h1>
             </div>
             <p className="mt-0.5 font-mono text-[11px] uppercase tracking-wide text-[#bbbbbb]">
-              WORLD-CLASS CREATOR WORKSPACE • OPERATING SYSTEM ONLINE
+              WORLD-CLASS LIVING CREATOR WORKSPACE • OPERATING SYSTEM ONLINE
             </p>
           </div>
 
@@ -211,15 +244,16 @@ export function MissionControlCockpit() {
           </div>
         </div>
 
-        {/* MODULE 1: EXECUTIVE BRIEF (COMPACT 2-LINE GREETING BAR) */}
-        <div className="border border-[#3c3c3c] bg-[#1a1a1a] p-5 font-mono text-xs text-[#e6e6e6] shadow-xl">
+        {/* MODULE 1: EXECUTIVE BRIEF (SIGNATURE INTERACTION 4: AMBIENT AI OBSERVATIONS) */}
+        <div className="border border-[#3c3c3c] bg-[#1a1a1a] p-5 font-mono text-xs text-[#e6e6e6] shadow-xl transition-all duration-200 hover:border-white/80">
           <div className="flex flex-col justify-between gap-3 md:flex-row md:items-center">
             <div className="flex items-center gap-3">
               <span className="text-xl">👋</span>
               <div>
                 <p className="font-bold uppercase text-white">Good evening Mahit.</p>
                 <p className="text-xs text-[#bbbbbb]">
-                  2 items require approval • 1 sponsor offer received • 1 draft ready for review.
+                  &quot;I noticed Docker requests increased 32% after React Auth. CloudCorp replied
+                  ($15,000 offer ready). 1 draft is ready.&quot;
                 </p>
               </div>
             </div>
@@ -235,7 +269,35 @@ export function MissionControlCockpit() {
           </div>
         </div>
 
-        {/* MODULE 2: TODAY'S FOCUS HERO DIRECTIVE (20% HEIGHT REDUCTION & SHARP TYPOGRAPHY) */}
+        {/* SIGNATURE INTERACTION 2: LIVE AI THINKING STREAM MODAL */}
+        {isThinking && (
+          <div className="animate-fade-in space-y-3 border border-l-2 border-[#1c69d4] border-[#3c3c3c] bg-[#0d0d0d] p-6 font-mono text-xs shadow-2xl">
+            <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-2 font-bold text-[#1c69d4]">
+              <span className="flex items-center gap-2">
+                <Sparkles className="h-4 w-4 animate-spin text-[#1c69d4]" />
+                {"///"} LIVE AI REASONING STREAM
+              </span>
+              <span>
+                STEP {thinkingIndex + 1} OF {thinkingSteps.length}
+              </span>
+            </div>
+
+            <div className="space-y-2 text-[#e6e6e6]">
+              {thinkingSteps.slice(0, thinkingIndex + 1).map((step, idx) => (
+                <div key={idx} className="animate-fade-in flex items-center gap-3">
+                  {idx === thinkingIndex ? (
+                    <RefreshCw className="h-3.5 w-3.5 animate-spin text-[#1c69d4]" />
+                  ) : (
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+                  )}
+                  <span>{step}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* MODULE 2: TODAY'S FOCUS HERO DIRECTIVE */}
         <div className="relative space-y-5 border border-[#1c69d4]/60 bg-gradient-to-b from-[#1a1a1a] to-[#0d0d0d] p-7 shadow-2xl transition-all duration-200 hover:border-[#1c69d4]">
           <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-3 font-mono text-xs">
             <div className="flex items-center gap-2 font-extrabold uppercase tracking-widest text-white">
@@ -263,7 +325,6 @@ export function MissionControlCockpit() {
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-4 pt-2 font-mono text-xs">
-            {/* Metadata Pills */}
             <div className="flex flex-wrap items-center gap-3 text-[11px]">
               <span className="border border-[#3c3c3c] bg-[#0d0d0d] px-2.5 py-1 text-[#bbbbbb]">
                 IMPACT: <strong className="text-white">+18% Retention Baseline</strong>
@@ -273,7 +334,6 @@ export function MissionControlCockpit() {
               </span>
             </div>
 
-            {/* Action Buttons */}
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowExplainability(true)}
@@ -282,12 +342,12 @@ export function MissionControlCockpit() {
                 <Brain className="h-4 w-4 text-[#1c69d4]" /> View Evidence
               </button>
 
-              <a
-                href="/missions"
+              <button
+                onClick={handleTriggerThinking}
                 className="flex items-center gap-2 border border-white bg-white px-7 py-2.5 font-extrabold uppercase tracking-widest text-black shadow-lg transition-all duration-150 hover:-translate-y-0.5 hover:bg-[#e6e6e6] focus:outline-none focus:ring-2 focus:ring-white active:scale-[0.98]"
               >
                 <Compass className="h-4 w-4" /> Approve Mission →
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -409,7 +469,7 @@ export function MissionControlCockpit() {
             </div>
           </div>
 
-          {/* Right Column: AI Activity Feed & Quick Commands (1/3 width) */}
+          {/* Right Column: AI Activity Feed & Quick Commands (SIGNATURE INTERACTION 5: AMBIENT ACTIVITY) */}
           <div className="space-y-6">
             {/* LIVE AI ACTIVITY FEED */}
             <div className="space-y-3 border border-[#3c3c3c] bg-[#1a1a1a] p-6 font-mono text-xs shadow-xl">
@@ -422,20 +482,20 @@ export function MissionControlCockpit() {
 
               <div className="space-y-3 text-[#e6e6e6]">
                 <div className="flex items-start gap-2.5 text-[11px]">
-                  <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
-                  <span>Imported 523 YouTube comments from React Auth</span>
+                  <span className="mt-1 h-2 w-2 shrink-0 animate-pulse rounded-full bg-emerald-400" />
+                  <span>● Scanning comments (523 processed)</span>
                 </div>
                 <div className="flex items-start gap-2.5 text-[11px]">
-                  <RefreshCw className="mt-0.5 h-3.5 w-3.5 shrink-0 animate-spin text-[#1c69d4]" />
-                  <span>Building Docker Masterclass technical script...</span>
+                  <span className="mt-1 h-2 w-2 shrink-0 animate-pulse rounded-full bg-[#1c69d4]" />
+                  <span>● Watching sponsors (CloudCorp contract)</span>
                 </div>
                 <div className="flex items-start gap-2.5 text-[11px]">
-                  <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
-                  <span>Persistent memory substrate updated (#mem-yt-42)</span>
+                  <span className="mt-1 h-2 w-2 shrink-0 animate-pulse rounded-full bg-[#0066b1]" />
+                  <span>● Building embeddings (#mem-yt-comment-42)</span>
                 </div>
                 <div className="flex items-start gap-2.5 text-[11px]">
-                  <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#0066b1]" />
-                  <span>Sponsor contract offer detected ($15,000 CloudCorp)</span>
+                  <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-emerald-400" />
+                  <span>● Refreshing memory substrate</span>
                 </div>
               </div>
             </div>

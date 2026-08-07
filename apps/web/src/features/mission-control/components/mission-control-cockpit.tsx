@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { ExplainabilityDrawer } from "../../reasoning/components/explainability-drawer";
 import { CommandPalette } from "./command-palette";
+import { SystemBootOverlay } from "./system-boot-overlay";
 
 interface RecentWorkAsset {
   id: string;
@@ -40,6 +41,7 @@ interface RecentWorkAsset {
 }
 
 export function MissionControlCockpit() {
+  const [booting, setBooting] = useState<boolean>(true);
   const [showExplainability, setShowExplainability] = useState<boolean>(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
@@ -95,6 +97,9 @@ export function MissionControlCockpit() {
 
   return (
     <div className="relative min-h-screen bg-[#000000] p-6 font-sans text-white selection:bg-[#1c69d4] selection:text-white md:p-10">
+      {/* System Boot Overlay */}
+      {booting && <SystemBootOverlay onComplete={() => setBooting(false)} />}
+
       {/* Top BMW M Tricolor Bar */}
       <div className="bmw-m-stripe fixed left-0 right-0 top-0 z-40" />
 

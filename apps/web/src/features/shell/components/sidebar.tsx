@@ -62,7 +62,9 @@ export function Sidebar() {
       title: "Workspace",
       items: [
         { id: "home", label: "Home", href: "/", icon: LayoutDashboard },
+        { id: "missions", label: "Missions", href: "/missions", icon: Compass },
         { id: "content", label: "Content", href: "/content", icon: Lightbulb },
+        { id: "sponsors", label: "Sponsors", href: "/sponsors", icon: Handshake },
         { id: "memory", label: "Memory", href: "/memory", icon: Database },
       ],
     },

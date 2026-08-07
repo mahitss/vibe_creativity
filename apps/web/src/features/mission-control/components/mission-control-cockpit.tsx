@@ -317,24 +317,14 @@ export function MissionControlCockpit() {
                 <span />
               </div>
               <h1 className="font-sans text-3xl font-extrabold uppercase tracking-wider text-white">
-                {"///"} OMNIA MISSION CONTROL COMMAND CENTER
+                {"///"} OMNIA CREATOR COMMAND CENTER
               </h1>
             </div>
             <p className="mt-1 font-mono text-xs uppercase tracking-wide text-[#bbbbbb]">
-              AUTONOMOUS CREATOR OPERATING SYSTEM • MOTORSPORT ENGINEERING RUNTIME &amp; MEMORY CORE
+              AUTONOMOUS CREATOR OPERATING SYSTEM
             </p>
           </div>
           <div className="flex items-center gap-3 font-mono text-xs">
-            <button
-              onClick={() => {
-                setShowSyncOverlay(true);
-                setIsCardRevealed(false);
-                setApprovalStep(-1);
-              }}
-              className="flex items-center gap-2 border border-[#3c3c3c] bg-[#1a1a1a] px-4 py-2 font-bold uppercase tracking-wider text-white transition hover:border-white"
-            >
-              <RefreshCw className="h-3.5 w-3.5 text-[#1c69d4]" /> REPLAY M SYNC
-            </button>
             <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#1a1a1a] px-4 py-2 font-bold uppercase tracking-widest text-white">
               <span className="h-2 w-2 animate-pulse rounded-full bg-[#0066b1]" />
               {"///"} M EXECUTIVE MIND: ACTIVE
@@ -342,146 +332,129 @@ export function MissionControlCockpit() {
           </div>
         </div>
 
-        {/* SECTION 1: EXECUTIVE BRIEF */}
-        <div className="relative space-y-5 border border-[#3c3c3c] bg-[#1a1a1a] p-8 shadow-2xl">
+        {/* SECTION 1: ATTENTION STATEMENT */}
+        <div className="relative space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-8 shadow-2xl">
           <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-4">
             <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-white">
-              <Sun className="h-4 w-4 text-[#1c69d4]" /> {"///"} EXECUTIVE BRIEF • DAILY SYNTHESIS
+              <Sun className="h-4 w-4 text-[#1c69d4]" /> {"///"} DAILY SYNTHESIS
             </div>
             <span className="border border-[#3c3c3c] bg-[#0d0d0d] px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-[#bbbbbb]">
-              CREATOR: MAHIT
+              MAHIT
             </span>
           </div>
 
           <div className="space-y-2 font-sans">
             <h2 className="text-3xl font-extrabold uppercase tracking-wider text-white">
-              GOOD EVENING, MAHIT.
+              GOOD MORNING, MAHIT.
             </h2>
-            <p className="text-sm leading-relaxed text-[#e6e6e6]">
-              Yesterday you published{" "}
-              <strong className="border-b border-[#1c69d4] font-mono text-white">
-                React Authentication
-              </strong>
-              . I analyzed <span className="font-mono font-bold text-white">523 comments</span> and
-              identified <span className="font-mono font-bold text-white">127 viewers</span>{" "}
-              requesting Docker container orchestration. I prepared today&apos;s mission.
+            <p className="text-base leading-relaxed text-[#e6e6e6]">
+              I found{" "}
+              <strong className="border-b border-[#1c69d4] font-mono text-white">3 things</strong>{" "}
+              that need your attention today.
             </p>
-          </div>
-
-          <div className="pt-2">
-            <button
-              onClick={scrollToMission}
-              className="flex items-center gap-2 border border-white bg-white px-6 py-3 text-xs font-extrabold uppercase tracking-widest text-black shadow-lg transition hover:bg-[#e6e6e6]"
-            >
-              <Zap className="h-4 w-4 text-[#e22718]" /> REVIEW TODAY&apos;S MISSION
-            </button>
           </div>
         </div>
 
-        {/* SECTION 2: TODAY'S MISSION */}
-        <div
-          id="todays-mission-section"
-          className="relative space-y-6 border border-[#3c3c3c] bg-[#1a1a1a] p-8 shadow-2xl"
-        >
-          {isCardRevealed ? (
-            <div className="space-y-6">
-              <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-5">
-                <div className="flex items-center gap-3">
-                  <div className="bmw-m-tricolor-dots">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                  <div>
-                    <span className="border border-[#0066b1]/40 bg-[#0066b1]/10 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest text-white">
-                      {"///"} TODAY&apos;S PRIORITY MISSION
-                    </span>
-                    <h3 className="mt-2 font-sans text-2xl font-extrabold uppercase tracking-wider text-white">
-                      CREATE DOCKER PART 1
-                    </h3>
-                  </div>
-                </div>
-                <div className="text-right font-mono">
-                  <span className="text-[10px] uppercase tracking-widest text-[#bbbbbb]">
-                    CONFIDENCE SCORE
-                  </span>
-                  <p className="text-3xl font-extrabold tracking-wider text-white">94%</p>
-                </div>
+        {/* SECTION 2: TODAY'S PRIORITIES (MAX 3 ACTION CARDS) */}
+        <div className="space-y-4">
+          <div className="font-mono text-xs font-bold uppercase tracking-widest text-[#bbbbbb]">
+            {"///"} TODAY&apos;S PRIORITIES
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            {/* Priority 1 */}
+            <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-xl transition hover:border-white">
+              <div className="flex items-center justify-between">
+                <span className="border border-[#0066b1]/40 bg-[#0066b1]/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-white">
+                  PRIORITY 1
+                </span>
+                <span className="font-mono text-[10px] text-[#bbbbbb]">SPONSORSHIP</span>
               </div>
-
-              {/* Reason & Evidence */}
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div className="space-y-2 border border-[#3c3c3c] bg-[#0d0d0d] p-5">
-                  <span className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-white">
-                    <HelpCircle className="h-4 w-4 text-[#1c69d4]" /> REASONING GROUNDING
-                  </span>
-                  <p className="font-sans text-xs leading-relaxed text-[#e6e6e6]">
-                    127 community members requested Docker after your React Authentication video.
-                  </p>
-                </div>
-
-                <div className="space-y-2 border border-[#3c3c3c] bg-[#0d0d0d] p-5">
-                  <span className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-white">
-                    <BarChart3 className="h-4 w-4 text-[#0066b1]" /> EVIDENCE &amp; EXPECTED IMPACT
-                  </span>
-                  <div className="space-y-1 font-mono text-xs text-[#e6e6e6]">
-                    <div>
-                      EVIDENCE:{" "}
-                      <span className="font-bold tracking-wider text-white">
-                        MOST REQUESTED TOPIC (127 REQS)
-                      </span>
-                    </div>
-                    <div>
-                      EXPECTED IMPACT:{" "}
-                      <span className="font-bold tracking-wider text-white">
-                        HIGH RETENTION (+18%)
-                      </span>
-                    </div>
-                  </div>
-                </div>
+              <div>
+                <h4 className="font-sans text-lg font-bold text-white">CloudCorp offer ready</h4>
+                <p className="mt-1 text-xs text-[#e6e6e6]">
+                  CloudCorp replied with a $15,000 sponsorship contract offer.
+                </p>
               </div>
-
-              {/* Actions */}
-              <div className="space-y-4 border-t border-[#3c3c3c] pt-5 font-mono text-xs">
-                <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-                  <div className="flex items-center gap-3">
-                    {approvalStep < 0 ? (
-                      <>
-                        <button
-                          onClick={handleApprove}
-                          className="flex items-center gap-2 border border-white bg-white px-6 py-3 font-extrabold uppercase tracking-widest text-black shadow-lg transition hover:bg-[#e6e6e6]"
-                        >
-                          <ThumbsUp className="h-4 w-4" /> APPROVE
-                        </button>
-                        <button className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] px-4 py-3 font-bold uppercase tracking-widest text-white transition hover:border-white">
-                          <Edit3 className="h-3.5 w-3.5" /> MODIFY
-                        </button>
-                        <button className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] px-4 py-3 font-bold uppercase tracking-widest text-[#bbbbbb] transition hover:text-white">
-                          DISMISS
-                        </button>
-                      </>
-                    ) : (
-                      <span className="flex items-center gap-2 border border-[#0066b1] bg-[#0066b1]/20 px-6 py-3 font-extrabold uppercase tracking-widest text-white">
-                        <CheckCircle2 className="h-4 w-4 text-[#0066b1]" /> MISSION ACCEPTED
-                      </span>
-                    )}
-                  </div>
-
-                  <button
-                    onClick={() => setShowExplainability(true)}
-                    className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] px-4 py-3 font-bold uppercase tracking-widest text-white transition hover:border-white"
-                  >
-                    <Brain className="h-4 w-4 text-[#1c69d4]" /> VIEW WHY
-                  </button>
-                </div>
-              </div>
+              <a
+                href="/sponsors"
+                className="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#1c69d4] hover:underline"
+              >
+                Review offer →
+              </a>
             </div>
-          ) : (
-            <div className="animate-pulse space-y-4 border border-[#3c3c3c] bg-[#0d0d0d] p-8">
-              <div className="h-6 w-1/3 bg-[#262626]" />
-              <div className="h-12 w-full bg-[#262626]" />
+
+            {/* Priority 2 */}
+            <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-xl transition hover:border-white">
+              <div className="flex items-center justify-between">
+                <span className="border border-[#e22718]/40 bg-[#e22718]/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-white">
+                  PRIORITY 2
+                </span>
+                <span className="font-mono text-[10px] text-[#bbbbbb]">COMMUNITY</span>
+              </div>
+              <div>
+                <h4 className="font-sans text-lg font-bold text-white">
+                  127 viewers requested Docker
+                </h4>
+                <p className="mt-1 text-xs text-[#e6e6e6]">
+                  Audience demands container orchestration tutorial after React Auth video.
+                </p>
+              </div>
+              <a
+                href="/missions"
+                className="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#1c69d4] hover:underline"
+              >
+                Create tutorial →
+              </a>
             </div>
-          )}
+
+            {/* Priority 3 */}
+            <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-xl transition hover:border-white">
+              <div className="flex items-center justify-between">
+                <span className="border border-[#1c69d4]/40 bg-[#1c69d4]/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-white">
+                  PRIORITY 3
+                </span>
+                <span className="font-mono text-[10px] text-[#bbbbbb]">CONTENT</span>
+              </div>
+              <div>
+                <h4 className="font-sans text-lg font-bold text-white">LinkedIn draft ready</h4>
+                <p className="mt-1 text-xs text-[#e6e6e6]">
+                  Containerizing Multi-Agent Systems post prepared for publishing.
+                </p>
+              </div>
+              <a
+                href="/content"
+                className="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#1c69d4] hover:underline"
+              >
+                Publish draft →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION 3: ACTIVITY TIMELINE */}
+        <div className="space-y-3 border border-[#3c3c3c] bg-[#1a1a1a] p-6">
+          <div className="font-mono text-xs font-bold uppercase tracking-widest text-[#bbbbbb]">
+            {"///"} RECENT AI ACTIVITY TIMELINE
+          </div>
+          <div className="space-y-2 font-mono text-xs text-[#e6e6e6]">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-[#0066b1]" />
+              <span>Imported 523 YouTube comments from React Authentication video</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-[#0066b1]" />
+              <span>Identified 127 viewer requests for Docker Containerization</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-[#0066b1]" />
+              <span>Generated CloudCorp sponsorship follow-up proposal draft</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-[#0066b1]" />
+              <span>Synthesized priority mission: Docker Masterclass Series</span>
+            </div>
+          </div>
         </div>
 
         {/* SECTION 3: INTERACTIVE EVIDENCE PANEL */}

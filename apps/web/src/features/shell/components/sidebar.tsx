@@ -59,24 +59,14 @@ export function Sidebar() {
 
   const navSections = [
     {
-      title: "Core Operations",
+      title: "Workspace",
       items: [
-        { id: "dashboard", label: "Mission Control", href: "/", icon: LayoutDashboard },
-        { id: "content", label: "Content Strategy", href: "/content", icon: Lightbulb },
-        { id: "community", label: "Community Intelligence", href: "/community", icon: Users },
-        { id: "sponsors", label: "Sponsor Deals", href: "/sponsors", icon: Handshake },
-        { id: "workflows", label: "Workflow Orchestrator", href: "/workflows", icon: Workflow },
-      ],
-    },
-    {
-      title: "Intelligence & Memory",
-      items: [
-        { id: "executive", label: "Executive Strategy", href: "/executive", icon: Brain },
-        { id: "memory", label: "Memory Studio", href: "/memory", icon: Database },
-        { id: "universe", label: "Knowledge Universe", href: "/universe", icon: Globe },
-        { id: "timeline", label: "Living Timeline", href: "/timeline", icon: Clock },
-        { id: "evaluation", label: "Self-Improvement", href: "/evaluation", icon: TrendingUp },
-        { id: "analytics", label: "Analytics Insights", href: "/analytics", icon: BarChart3 },
+        { id: "home", label: "Home", href: "/", icon: LayoutDashboard },
+        { id: "missions", label: "Missions", href: "/missions", icon: Compass },
+        { id: "content", label: "Content", href: "/content", icon: Lightbulb },
+        { id: "sponsors", label: "Sponsors", href: "/sponsors", icon: Handshake },
+        { id: "memory", label: "Memory", href: "/memory", icon: Database },
+        { id: "analytics", label: "Analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {

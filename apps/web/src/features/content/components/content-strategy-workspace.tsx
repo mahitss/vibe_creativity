@@ -195,98 +195,64 @@ export function ContentStrategyWorkspace() {
       <header className="flex flex-col justify-between gap-4 border-b border-neutral-800 pb-5 md:flex-row md:items-center">
         <div>
           <div className="mb-1.5 flex items-center gap-2">
-            <span className="flex items-center gap-1 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-cyan-400">
-              <Lightbulb className="h-3 w-3" /> Evidence-Based Strategic Planning
-            </span>
-            <span className="font-mono text-xs italic text-neutral-400">
-              &quot;Never recommend content without evidence.&quot;
+            <span className="flex items-center gap-1 border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-cyan-400">
+              <Lightbulb className="h-3 w-3" /> Content Drafts
             </span>
           </div>
-          <h1 className="flex items-center gap-2 text-2xl font-bold tracking-tight text-neutral-100">
-            Content Strategy Engine
-          </h1>
-          <p className="mt-1 max-w-3xl text-xs text-neutral-400">
-            Continuously evaluates persistent memory, community requests, sponsor opportunities, and
-            performance analytics to rank what you should create next.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 px-4 py-2 text-xs font-semibold text-white shadow-md transition hover:from-cyan-500 hover:to-emerald-500">
-            <Plus className="h-3.5 w-3.5" /> Add Content Idea
-          </button>
+          <h1 className="text-2xl font-bold tracking-tight text-neutral-100">Publishing Drafts</h1>
+          <p className="mt-1 text-xs text-neutral-400">Which draft should you publish next?</p>
         </div>
       </header>
 
-      {/* Metrics Bar */}
-      <section className="grid grid-cols-2 gap-4 font-sans text-xs md:grid-cols-4">
-        <div className="space-y-1 rounded-2xl border border-neutral-800 bg-neutral-900 p-4">
-          <span className="block font-mono text-[10px] uppercase tracking-wider text-neutral-500">
-            Idea Inbox
-          </span>
-          <p className="font-mono text-xl font-bold text-cyan-400">4 Recommendations</p>
-          <span className="font-mono text-[10px] text-neutral-400">2 High Priority Items</span>
-        </div>
+      {/* Drafts List */}
+      <div className="space-y-4">
+        {items.length === 0 ? (
+          <div className="border border-[#3c3c3c] bg-[#1a1a1a] p-8 text-center text-xs text-[#bbbbbb]">
+            No content recommendations generated. Click &apos;Add Content Idea&apos; to create one.
+          </div>
+        ) : (
+          items.map((item) => (
+            <div
+              key={item.id}
+              className="space-y-3 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-xl transition hover:border-white"
+            >
+              <div className="flex flex-col justify-between gap-3 md:flex-row md:items-center">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="border border-[#1c69d4]/40 bg-[#1c69d4]/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-white">
+                      {item.platform.toUpperCase()}
+                    </span>
+                    <span className="border border-[#3c3c3c] bg-[#0d0d0d] px-2 py-0.5 font-mono text-[10px] uppercase text-[#bbbbbb]">
+                      {item.status}
+                    </span>
+                  </div>
+                  <h3 className="font-sans text-xl font-bold text-white">{item.title}</h3>
+                </div>
 
-        <div className="space-y-1 rounded-2xl border border-neutral-800 bg-neutral-900 p-4">
-          <span className="block font-mono text-[10px] uppercase tracking-wider text-neutral-500">
-            Active Series Tracked
-          </span>
-          <p className="font-mono text-xl font-bold text-violet-400">2 Active Series</p>
-          <span className="font-mono text-[10px] text-neutral-400">
-            1 Overdue Episode (142 Subs Waiting)
-          </span>
-        </div>
+                <div className="flex items-center gap-3">
+                  <button className="border border-[#3c3c3c] bg-[#0d0d0d] px-4 py-2 font-mono text-xs font-bold uppercase text-white hover:border-white">
+                    Preview
+                  </button>
+                  <button className="border border-[#3c3c3c] bg-[#0d0d0d] px-4 py-2 font-mono text-xs font-bold uppercase text-white hover:border-white">
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleStatusChange(item.id, "PUBLISHED")}
+                    className="border border-white bg-white px-5 py-2 font-mono text-xs font-extrabold uppercase text-black hover:bg-[#e6e6e6]"
+                  >
+                    Publish →
+                  </button>
+                </div>
+              </div>
 
-        <div className="space-y-1 rounded-2xl border border-neutral-800 bg-neutral-900 p-4">
-          <span className="block font-mono text-[10px] uppercase tracking-wider text-neutral-500">
-            Sponsor Integrations
-          </span>
-          <p className="font-mono text-xl font-bold text-amber-400">$15,000 Deal Pending</p>
-          <span className="font-mono text-[10px] text-neutral-400">
-            CloudCorp Title Sponsorship
-          </span>
-        </div>
-
-        <div className="space-y-1 rounded-2xl border border-neutral-800 bg-neutral-900 p-4">
-          <span className="block font-mono text-[10px] uppercase tracking-wider text-neutral-500">
-            Memory Grounding Rate
-          </span>
-          <p className="font-mono text-xl font-bold text-emerald-400">100% Provenance</p>
-          <span className="font-mono text-[10px] text-neutral-400">
-            Every item linked to memory ID
-          </span>
-        </div>
-      </section>
-
-      {/* Category Tabs */}
-      <div className="border-neutral-850 flex items-center gap-2 border-b pb-2 font-sans text-xs">
-        {(
-          [
-            { id: "ROADMAP", label: "Content Roadmap", count: items.length },
-            { id: "SERIES", label: "Series Tracker", count: series.length },
-            { id: "GAPS", label: "Gap Analysis & AI Insights", count: 3 },
-          ] as const
-        ).map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id as "ROADMAP" | "SERIES" | "GAPS")}
-            className={`flex items-center gap-1.5 rounded-xl px-3.5 py-2 font-medium transition ${
-              activeTab === tab.id
-                ? "border border-neutral-700 bg-neutral-800 font-semibold text-neutral-100 shadow-sm"
-                : "text-neutral-400 hover:text-neutral-200"
-            }`}
-          >
-            {tab.label}
-            <span className="rounded-full border border-neutral-800 bg-neutral-950 px-2 py-0.5 font-mono text-[10px]">
-              {tab.count}
-            </span>
-          </button>
-        ))}
+              <p className="text-xs leading-relaxed text-[#e6e6e6]">{item.description}</p>
+            </div>
+          ))
+        )}
       </div>
 
       {/* Roadmap View */}
-      {activeTab === "ROADMAP" && (
+      {false && (
         <div className="grid grid-cols-1 gap-6 font-sans md:grid-cols-3">
           {/* Today's Focus */}
           <div className="space-y-3">

@@ -61,11 +61,12 @@ export function Sidebar() {
     {
       title: "Workspace",
       items: [
-        { id: "home", label: "Home", href: "/", icon: LayoutDashboard },
-        { id: "missions", label: "Missions", href: "/missions", icon: Compass },
+        { id: "home", label: "Mission Control", href: "/", icon: LayoutDashboard },
         { id: "content", label: "Content", href: "/content", icon: Lightbulb },
         { id: "sponsors", label: "Sponsors", href: "/sponsors", icon: Handshake },
+        { id: "community", label: "Community", href: "/community", icon: Bot },
         { id: "memory", label: "Memory", href: "/memory", icon: Database },
+        { id: "analytics", label: "Analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {

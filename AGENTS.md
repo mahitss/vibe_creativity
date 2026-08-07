@@ -1,90 +1,143 @@
-# OMNIA V2 — FOUNDER'S MANIFESTO & PERMANENT CONSTITUTION
+# OMNIA V2 — THE PRODUCT CONSTITUTION & SUPREME MANIFESTO
 
-This document is the supreme constitutional manifesto for OMNIA. Every implementation, feature, component, and line of code must strictly obey this document.
-
----
-
-## 1. What is OMNIA?
-
-OMNIA is not software. OMNIA is not a dashboard. OMNIA is not an AI wrapper or ChatGPT clone.
-**OMNIA is an AI Chief of Staff.**
-It remembers. It thinks. It prepares. It recommends. It executes. It learns.
+This document is the supreme constitutional law of OMNIA. Every feature, component, API endpoint, and line of code must strictly obey this constitution.
 
 ---
 
-## 2. The North Star
+## ARTICLE I — THE PRODUCT EXISTS TO SOLVE A PROBLEM
 
-When a creator opens OMNIA, they must immediately feel:
+OMNIA exists to remove mental overhead from creators.
 
-> **"My AI already did the hard work."**
-
----
-
-## 3. The Golden Rule
-
-Every feature must answer:
-
-1. _Does this save the creator time?_
-2. _Does this help them make money?_
-3. _Does this reduce mental load?_
-4. _Does this help them create better content?_
-
-**If the answer to all four is NO, DO NOT BUILD IT.**
+- It does not exist to demonstrate AI.
+- It does not exist to show dashboards.
+- It does not exist to expose technology.
+- **Every feature must reduce work.**
 
 ---
 
-## 4. Core Manifestos
+## ARTICLE II — EVERY SCREEN HAS ONE PURPOSE
 
-### Design Philosophy
+- **Home (`/`)**: _What deserves my attention?_
+- **Mission (`/missions`)**: _What should I do?_
+- **Content (`/content`)**: _What should I create?_
+- **Community (`/community`)**: _What are people asking?_
+- **Sponsors (`/sponsors`)**: _Which deal needs action?_
+- **Memory (`/memory`)**: _What have we learned?_
+- **Analytics (`/analytics`)**: _What changed?_
 
-- Never build dashboards. Build workspaces.
-- Never expose raw backend systems. Expose meaningful actions.
-- Never overwhelm users. Progressively reveal complexity.
+_If a screen answers multiple questions, split it._
 
-### AI Philosophy
+---
 
-- AI should never feel reactive. It should feel proactive.
-- Every morning the AI should already know: what happened, what changed, what deserves attention, what should happen next.
+## ARTICLE III — THE USER NEVER SEES THE ENGINE
 
-### Engineering Philosophy
+- No internal agent names.
+- No orchestration diagrams.
+- No workflow internals.
+- No vector database terminology or embedding jargon.
+- **The user interacts with outcomes, not implementation.**
 
-- Small reusable modules. Event-driven. Observable. Testable. Documented. Composable.
-- Zero unnecessary abstractions.
+---
 
-### Quality & Product Bar
-
-- Never ship fake data, dead buttons, placeholder text, or non-working features.
-- If a feature does not make the demo or product better, postpone it.
-- If removing a component makes the experience better, remove it.
-
-### AI Bar & Transparency
+## ARTICLE IV — EVERY AI ACTION IS EXPLAINABLE
 
 Every recommendation must explain:
 
-- **Why now?**
-- **Evidence & Supporting Memories**
-- **Confidence Score & Business Impact**
-- **Rejected Alternatives**
+1. **Reason**
+2. **Evidence & Supporting Memories**
+3. **Expected Impact**
+4. **Confidence Score**
+5. **Alternative Options**
 
-### Memory Substrate Bar
-
-- Every important decision becomes persistent memory.
-- Every memory improves future autonomous recommendations.
+_Never hide reasoning._
 
 ---
 
-## 5. The End Goal
+## ARTICLE V — PROGRESSIVE DISCLOSURE
 
-Creators should stop opening five different apps.
-They open **OMNIA**.
-Approve today's work. Create. Publish. Go live.
-Everything else happens automatically.
+The interface reveals complexity only when needed.
+
+- Nothing overwhelming.
+- Nothing hidden forever.
 
 ---
 
-## 6. Final Test Question
+## ARTICLE VI — THE DASHBOARD IS NOT THE PRODUCT
 
-Before implementing any feature, ask:
+The dashboard is an inbox. Real work happens inside dedicated workspaces.
 
-> **"Would this make a creator say, 'I'm glad OMNIA handled this for me'?"**
-> If not, **DO NOT BUILD IT.**
+---
+
+## ARTICLE VII — EVERY FEATURE HAS AN OWNER
+
+Each module (`Mission Engine`, `Content Studio`, `Memory`, `Community`, `Sponsors`, `Analytics`, `Publishing`) owns its own data, logic, tests, and documentation.
+
+---
+
+## ARTICLE VIII — EVERY FEATURE HAS STATES
+
+Every feature must support intentionally designed states:
+
+- `Loading`
+- `Empty`
+- `Ready`
+- `Working`
+- `Error`
+- `Success`
+- `Offline`
+
+---
+
+## ARTICLE IX — EVERY CLICK CREATES VALUE
+
+- No decorative buttons.
+- No dead buttons.
+- No placeholder actions.
+- No fake demos.
+
+---
+
+## ARTICLE X — THE DEMO RULE
+
+If a feature does not improve the demo, it waits.
+
+---
+
+## ARTICLE XI — THE REMOVAL RULE
+
+If deleting a feature makes the experience clearer, **delete it**.
+
+---
+
+## ARTICLE XII — THE QUALITY RULE
+
+Nothing merges without:
+
+- **Tests** (`pytest` 100% pass)
+- **Accessibility** (WCAG AA contrast & focus rings)
+- **Documentation**
+- **Performance** (GPU-accelerated 300ms room transitions)
+- **Security Review** (Tenant isolation via `X-Creator-Id`)
+
+---
+
+## ARTICLE XIII — THE NORTH STAR
+
+When a creator opens OMNIA, they think:
+
+> **"My AI already did the hard work."**
+
+If any feature weakens that feeling, **remove it**.
+
+---
+
+## FINAL LAW
+
+OMNIA is never allowed to become:
+
+- _another dashboard_,
+- _another CRM_,
+- _another analytics tool_,
+- _another ChatGPT wrapper_.
+
+**It must always remain an AI Chief of Staff.**

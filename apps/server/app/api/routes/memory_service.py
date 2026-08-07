@@ -89,6 +89,15 @@ def _format_consolidation(c: ConsolidationReport) -> dict[str, Any]:
     }
 
 
+@router.get("")
+async def list_memories(
+    context: CreatorContext = Depends(require_creator_context),
+    service: PersistentMemoryService = Depends(get_memory_service),
+) -> list[dict[str, Any]]:
+    memories = service.get_memories(context.creator_id)
+    return [_format_memory(m) for m in memories]
+
+
 @router.post("")
 async def store_memory(
     payload: StoreMemoryPayload,

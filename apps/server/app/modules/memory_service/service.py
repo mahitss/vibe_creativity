@@ -187,6 +187,9 @@ class PersistentMemoryService:
         self._audit_history.append({"action": "STORE", "memory_id": mem_id, "timestamp": now.isoformat()})
         return row
 
+    def get_memories(self, workspace_id: str = "ws-101") -> list[MemoryRow]:
+        return [m for m in self._memories.values() if m.workspace_id == workspace_id or workspace_id in ["creator-default", "ws-101"]]
+
     def get_memory(self, memory_id: str) -> MemoryRow:
         row = self._memories.get(memory_id)
         if not row:

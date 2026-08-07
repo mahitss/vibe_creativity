@@ -44,6 +44,7 @@ async def get_reasoning_evidence(
 
 
 @router.get("/mission/{mission_id}/explanation")
+@router.get("/missions/{mission_id}/explanation")
 async def get_mission_explanation(
     mission_id: str,
     context: CreatorContext = Depends(require_creator_context),

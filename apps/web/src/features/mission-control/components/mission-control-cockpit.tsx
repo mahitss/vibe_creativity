@@ -2,37 +2,20 @@
 
 import React, { useState } from "react";
 import {
-  Activity,
-  BarChart3,
+  ArrowRight,
   Brain,
   CheckCircle2,
-  ChevronDown,
-  ChevronRight,
-  Code2,
   Copy,
-  Cpu,
-  Database,
   Edit3,
-  FileText,
-  Layers,
-  Play,
   RefreshCw,
   Share2,
   Sparkles,
-  Sun,
-  Terminal,
   ThumbsUp,
   X,
-  Zap,
 } from "lucide-react";
 import { ExplainabilityDrawer } from "../../reasoning/components/explainability-drawer";
 
-interface EvidenceItemDetail {
-  type: "COMMENT" | "ANALYTICS" | "VIDEO" | "MEMORY";
-  title: string;
-  detail: string;
-  provenance: string;
-}
+type GuidedStep = "GREETING" | "SCANNING" | "MISSION_REVEAL" | "GENERATING" | "ASSETS_READY";
 
 interface AssetItem {
   platform: string;
@@ -41,18 +24,28 @@ interface AssetItem {
 }
 
 export function MissionControlCockpit() {
+  const [step, setStep] = useState<GuidedStep>("GREETING");
+  const [scanIndex, setScanIndex] = useState<number>(0);
+  const [generationIndex, setGenerationIndex] = useState<number>(0);
   const [showExplainability, setShowExplainability] = useState<boolean>(false);
-  const [approvalStep, setApprovalStep] = useState<number>(-1);
-  const [isDevMode, setIsDevMode] = useState<boolean>(false);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
-  // Live AI thinking state
-  const [isAiThinking, setIsAiThinking] = useState<boolean>(false);
-  const [thinkingStep, setThinkingStep] = useState<number>(0);
+  const scanMessages = [
+    "Scanning 523 audience comments from React Authentication...",
+    "Comparing previous watch time retention baselines (+18% impact)...",
+    "Searching persistent memory substrate (#mem-yt-comment-42)...",
+    "Synthesizing high-demand topic (127 Docker requests)...",
+    "Building mission directive...",
+  ];
 
-  // Inspector modal state
-  const [selectedEvidence, setSelectedEvidence] = useState<EvidenceItemDetail | null>(null);
+  const generationMessages = [
+    "Synthesizing YouTube Masterclass Outline...",
+    "Drafting YouTube Technical Script...",
+    "Creating 60s YouTube Short Script...",
+    "Writing LinkedIn Architecture Post...",
+    "Crafting 3-Post X Thread...",
+  ];
 
-  // Editable Generated Assets state
   const [generatedAssets, setGeneratedAssets] = useState<AssetItem[]>([
     {
       platform: "YOUTUBE SHORT",
@@ -80,104 +73,75 @@ export function MissionControlCockpit() {
     },
   ]);
 
-  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const handleStartReview = () => {
+    setStep("SCANNING");
+    setScanIndex(0);
 
-  const creatorProgressTasks = [
-    {
-      label: "Importing YouTube comments",
-      detail: "523 comments processed from React Authentication",
-      status: "DONE",
-    },
-    {
-      label: "Generating Docker Masterclass outline",
-      detail: "Structuring 3-part tutorial curriculum",
-      status: "IN_PROGRESS",
-    },
-    {
-      label: "Drafting LinkedIn architecture post",
-      detail: "Preparing technical breakdown for tech leaders",
-      status: "PENDING",
-    },
-    {
-      label: "Preparing thumbnail ideas & title variations",
-      detail: "Formulating high-CTR thumbnail hooks",
-      status: "PENDING",
-    },
-    {
-      label: "Preparing publishing queue",
-      detail: "Scheduling multi-platform publishing slots",
-      status: "PENDING",
-    },
-  ];
-
-  const aiThinkingSteps = [
-    "Reading 523 audience comments...",
-    "Finding repeated topics (127 Docker requests)...",
-    "Comparing previous video retention baselines...",
-    "Searching persistent memory (#mem-yt-comment-42)...",
-    "Generating mission directives & 4 repurposed assets...",
-    "Done.",
-  ];
-
-  const triggerAiThinking = (onDone: () => void) => {
-    setIsAiThinking(true);
-    setThinkingStep(0);
-    let step = 0;
+    let idx = 0;
     const interval = setInterval(() => {
-      step += 1;
-      if (step < aiThinkingSteps.length) {
-        setThinkingStep(step);
+      idx += 1;
+      if (idx < scanMessages.length) {
+        setScanIndex(idx);
       } else {
         clearInterval(interval);
-        setIsAiThinking(false);
-        onDone();
+        setStep("MISSION_REVEAL");
       }
-    }, 400);
+    }, 600);
   };
 
-  const handleApprove = () => {
-    triggerAiThinking(() => {
-      setApprovalStep(1);
-    });
+  const handleApproveMission = () => {
+    setStep("GENERATING");
+    setGenerationIndex(0);
+
+    let idx = 0;
+    const interval = setInterval(() => {
+      idx += 1;
+      if (idx < generationMessages.length) {
+        setGenerationIndex(idx);
+      } else {
+        clearInterval(interval);
+        setStep("ASSETS_READY");
+      }
+    }, 700);
   };
 
-  const handleInspectMemoryRow = (memoryId: string) => {
-    setSelectedEvidence({
-      type: "MEMORY",
-      title: `Memory Grounding Provider (${memoryId})`,
-      detail:
-        "Persisted memory record from PersistentMemoryService substrate. Contains 127 verified community request rows.",
-      provenance: `Memory Substrate DB • ID: ${memoryId}`,
-    });
-  };
-
-  const handleCopyContent = async (text: string, index: number) => {
+  const handleCopyContent = async (text: string, idx: number) => {
     try {
       await navigator.clipboard.writeText(text);
-      setCopiedIndex(index);
+      setCopiedIndex(idx);
       setTimeout(() => setCopiedIndex(null), 2000);
     } catch {
       // Fallback
     }
   };
 
-  const handleRegenerateAsset = (index: number) => {
-    triggerAiThinking(() => {
-      setGeneratedAssets((prev) => {
-        const next = [...prev];
-        if (next[index]) {
-          next[index] = {
-            ...next[index],
-            content: `${next[index].content}\n\n[REGENERATED BY AI CHIEF OF STAFF AT ${new Date().toLocaleTimeString()}]`,
-          };
-        }
-        return next;
-      });
-    });
+  const handleRegenerateAsset = (idx: number) => {
+    setStep("GENERATING");
+    setGenerationIndex(0);
+    let i = 0;
+    const interval = setInterval(() => {
+      i += 1;
+      if (i < generationMessages.length) {
+        setGenerationIndex(i);
+      } else {
+        clearInterval(interval);
+        setGeneratedAssets((prev) => {
+          const next = [...prev];
+          if (next[idx]) {
+            next[idx] = {
+              ...next[idx],
+              content: `${next[idx].content}\n\n[REGENERATED WITH MEMORY GROUNDING AT ${new Date().toLocaleTimeString()}]`,
+            };
+          }
+          return next;
+        });
+        setStep("ASSETS_READY");
+      }
+    }, 500);
   };
 
   return (
-    <div className="relative min-h-screen bg-[#000000] p-6 font-sans text-white selection:bg-[#1c69d4] selection:text-white md:p-8">
+    <div className="relative min-h-screen bg-[#000000] p-6 font-sans text-white selection:bg-[#1c69d4] selection:text-white md:p-12">
       {/* Top BMW M Tricolor Bar */}
       <div className="bmw-m-stripe fixed left-0 right-0 top-0 z-40" />
 
@@ -188,321 +152,218 @@ export function MissionControlCockpit() {
         missionTitle="Create Docker Part 1"
       />
 
-      {/* Evidence Inspector Modal */}
-      {selectedEvidence && (
-        <div className="animate-fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-6 font-sans backdrop-blur-md">
-          <div className="relative w-full max-w-lg space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-3 font-mono text-xs">
-              <span className="font-bold uppercase tracking-widest text-[#1c69d4]">
-                {"///"} EVIDENCE INSPECTOR PROVIDER
-              </span>
-              <button
-                onClick={() => setSelectedEvidence(null)}
-                className="text-[#bbbbbb] transition hover:text-white"
-              >
-                <X className="h-4 w-4" />
-              </button>
+      <main className="mx-auto max-w-3xl space-y-10 pt-6">
+        {/* Command Center Header Identifier */}
+        <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-4 font-mono text-xs">
+          <div className="flex items-center gap-3">
+            <div className="bmw-m-tricolor-dots">
+              <span />
+              <span />
+              <span />
             </div>
-
-            <div className="space-y-2">
-              <span className="font-mono text-[10px] font-bold text-[#e22718]">
-                {selectedEvidence.type}
-              </span>
-              <h3 className="font-sans text-lg font-extrabold uppercase tracking-wider text-white">
-                {selectedEvidence.title}
-              </h3>
-              <p className="font-sans text-xs leading-relaxed text-[#e6e6e6]">
-                {selectedEvidence.detail}
-              </p>
-            </div>
-
-            <div className="border-t border-[#3c3c3c] pt-3 font-mono text-[10px] text-[#bbbbbb]">
-              PROVENANCE: {selectedEvidence.provenance}
-            </div>
-
-            <div className="flex justify-end pt-2 font-mono text-xs">
-              <button
-                onClick={() => setSelectedEvidence(null)}
-                className="border border-white bg-white px-5 py-2 font-extrabold uppercase tracking-wider text-black transition hover:bg-[#e6e6e6]"
-              >
-                CLOSE INSPECTOR
-              </button>
-            </div>
+            <span className="font-extrabold uppercase tracking-widest text-white">
+              {"///"} OMNIA CREATOR OPERATING SYSTEM
+            </span>
+          </div>
+          <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#1a1a1a] px-3 py-1 text-[11px] font-bold uppercase text-white">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-[#0066b1]" />M EXECUTIVE MIND:
+            ONLINE
           </div>
         </div>
-      )}
 
-      {/* Live AI Thinking Overlay Modal */}
-      {isAiThinking && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-6 font-sans backdrop-blur-2xl">
-          <div className="relative w-full max-w-md space-y-6 border border-[#3c3c3c] bg-[#1a1a1a] p-8 text-center shadow-2xl">
-            <div className="bmw-m-tricolor-dots mx-auto">
-              <span />
-              <span />
-              <span />
-            </div>
-
-            <div className="space-y-1">
-              <h3 className="font-sans text-xl font-extrabold uppercase tracking-wider text-white">
-                EXECUTIVE MIND THINKING
-              </h3>
-              <p className="font-mono text-xs uppercase text-[#bbbbbb]">
-                PROCESSING WORKFLOW &amp; MEMORY REASONING...
-              </p>
-            </div>
-
-            <div className="space-y-2 border border-[#3c3c3c] bg-[#0d0d0d] p-5 text-left font-mono text-xs">
-              {aiThinkingSteps.map((stepText, sIdx) => {
-                const isDone = sIdx < thinkingStep;
-                const isCurrent = sIdx === thinkingStep;
-                return (
-                  <div
-                    key={stepText}
-                    className={`flex items-center gap-2 transition-all ${
-                      isDone
-                        ? "font-bold text-white"
-                        : isCurrent
-                          ? "font-bold text-[#1c69d4]"
-                          : "text-[#7e7e7e] opacity-40"
-                    }`}
-                  >
-                    {isDone ? (
-                      <CheckCircle2 className="h-3.5 w-3.5 text-[#0066b1]" />
-                    ) : isCurrent ? (
-                      <span className="h-2 w-2 animate-ping rounded-full bg-[#1c69d4]" />
-                    ) : (
-                      <span className="h-2 w-2 rounded-full bg-[#3c3c3c]" />
-                    )}
-                    <span>{stepText}</span>
-                  </div>
-                );
-              })}
-            </div>
+        {/* STEP 1: INITIAL GREETING (SINGLE FOCAL POINT) */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-3">
+            <span className="text-3xl">👋</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-[#bbbbbb]">
+              EXECUTIVE MIND DIRECTIVE
+            </span>
           </div>
-        </div>
-      )}
 
-      <div className="mx-auto max-w-6xl space-y-6 pt-2">
-        {/* Workspace Top Header & Optional Developer Mode Toggle */}
-        <div className="flex flex-col justify-between gap-4 border-b border-[#3c3c3c] pb-4 md:flex-row md:items-center">
-          <div>
-            <div className="flex items-center gap-3">
-              <div className="bmw-m-tricolor-dots">
-                <span />
-                <span />
-                <span />
-              </div>
-              <h1 className="font-sans text-2xl font-extrabold uppercase tracking-wider text-white">
-                {"///"} OMNIA CREATOR WORKSPACE
-              </h1>
-            </div>
-            <p className="mt-0.5 font-mono text-[11px] uppercase tracking-wide text-[#bbbbbb]">
-              AUTONOMOUS CREATOR OPERATING SYSTEM • ONLINE
+          <div className="space-y-3 font-sans text-xl font-medium leading-relaxed text-[#e6e6e6] md:text-2xl">
+            <p className="text-[#8e8e93]">Good evening Mahit.</p>
+            <p>I worked while you were away.</p>
+            <p>
+              I analyzed your{" "}
+              <strong className="border-b border-[#1c69d4] font-mono text-white">
+                React Authentication
+              </strong>{" "}
+              video comments and found{" "}
+              <strong className="border-b border-[#e22718] font-mono text-white">
+                something important
+              </strong>
+              .
             </p>
+            <p className="text-base text-[#bbbbbb]">Would you like to review it?</p>
           </div>
 
-          <div className="flex items-center gap-3 font-mono text-xs">
-            <button
-              onClick={() => setIsDevMode(!isDevMode)}
-              className={`flex items-center gap-2 border px-3.5 py-1.5 font-bold uppercase tracking-wider transition ${
-                isDevMode
-                  ? "border-[#1c69d4] bg-[#1c69d4]/20 text-white"
-                  : "border-[#3c3c3c] bg-[#1a1a1a] text-[#bbbbbb] hover:border-white hover:text-white"
-              }`}
-            >
-              <Code2 className="h-3.5 w-3.5" />
-              DEVELOPER MODE: {isDevMode ? "ON" : "OFF"}
-            </button>
-          </div>
-        </div>
-
-        {/* DEVELOPER MODE ONLY PANEL */}
-        {isDevMode && (
-          <div className="animate-fade-in space-y-3 border border-[#1c69d4] bg-[#0d0d0d] p-5 font-mono text-xs text-[#e6e6e6]">
-            <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-2 font-bold text-[#1c69d4]">
-              <span>{"///"} SYSTEM TELEMETRY &amp; AGENT HEALTH (DEVELOPER MODE)</span>
-              <span>TASK BUS: ACTIVE</span>
-            </div>
-            <div className="grid grid-cols-2 gap-3 text-[11px] md:grid-cols-4">
-              <div>EXECUTIVE MIND: ONLINE</div>
-              <div>CLUSTERING: BUSY</div>
-              <div>MEMORY SYNC: 100%</div>
-              <div>LATENCY: 42ms</div>
-            </div>
-          </div>
-        )}
-
-        {/* MODULE 1: TODAY'S MISSION (HERO DIRECTIVE) */}
-        <div className="relative space-y-6 border border-[#3c3c3c] bg-[#1a1a1a] p-8 shadow-2xl">
-          <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-4 font-mono text-xs">
-            <span className="border border-[#0066b1]/40 bg-[#0066b1]/10 px-3 py-1 font-bold uppercase tracking-widest text-white">
-              {"///"} TODAY&apos;S MISSION (HERO DIRECTIVE)
-            </span>
-            <span className="text-[10px] font-bold uppercase text-[#1c69d4]">
-              PRIMARY ACTION ITEM
-            </span>
-          </div>
-
-          <div className="space-y-3">
-            <h2 className="font-sans text-3xl font-extrabold uppercase tracking-wider text-white">
-              Create Docker Containerization Tutorial Part 1
-            </h2>
-            <p className="font-sans text-base leading-relaxed text-[#e6e6e6]">
-              127 viewers requested Docker container orchestration after your React Authentication
-              video. High retention impact expected (+18% watch time retention baseline).
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-4 pt-2 font-mono text-xs">
-            {approvalStep < 0 ? (
+          {step === "GREETING" && (
+            <div className="pt-2">
               <button
-                onClick={handleApprove}
-                className="flex items-center gap-2 border border-white bg-white px-8 py-3.5 font-extrabold uppercase tracking-widest text-black shadow-lg transition hover:bg-[#e6e6e6]"
+                onClick={handleStartReview}
+                className="group flex items-center gap-3 border border-white bg-white px-8 py-4 font-mono text-xs font-extrabold uppercase tracking-widest text-black shadow-2xl transition hover:bg-[#e6e6e6]"
               >
-                <ThumbsUp className="h-4 w-4" /> APPROVE MISSION
+                <Sparkles className="h-4 w-4 text-[#e22718]" />
+                Review Opportunity
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
               </button>
-            ) : (
-              <span className="flex items-center gap-2 border border-[#0066b1] bg-[#0066b1]/20 px-8 py-3.5 font-extrabold uppercase tracking-widest text-white">
-                <CheckCircle2 className="h-4 w-4 text-[#0066b1]" /> MISSION ACCEPTED
-              </span>
-            )}
-
-            <button
-              onClick={() => setShowExplainability(true)}
-              className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] px-6 py-3.5 font-bold uppercase tracking-widest text-white transition hover:border-white"
-            >
-              <Brain className="h-4 w-4 text-[#1c69d4]" /> VIEW WHY
-            </button>
-
-            <button
-              onClick={() => setApprovalStep(-1)}
-              className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] px-6 py-3.5 font-bold uppercase tracking-widest text-[#bbbbbb] transition hover:text-white"
-            >
-              DISMISS
-            </button>
-          </div>
+            </div>
+          )}
         </div>
 
-        {/* MODULE 2: CREATOR-FACING AI PROGRESS STREAM */}
-        <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 font-mono text-xs shadow-xl">
-          <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-3">
-            <span className="flex items-center gap-2 font-bold uppercase tracking-widest text-white">
-              <Sparkles className="h-4 w-4 text-[#0066b1]" /> {"///"} REAL-TIME AI WORKFLOW PROGRESS
-            </span>
-            <span className="text-[10px] text-[#bbbbbb]">AUTONOMOUS CREATOR PIPELINE</span>
-          </div>
-
-          <div className="space-y-2.5 pt-1 text-[#e6e6e6]">
-            {creatorProgressTasks.map((task) => (
-              <div
-                key={task.label}
-                className="flex items-center justify-between border border-[#3c3c3c] bg-[#0d0d0d] p-3"
-              >
-                <div className="flex items-center gap-3">
-                  {task.status === "DONE" ? (
-                    <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />
-                  ) : task.status === "IN_PROGRESS" ? (
-                    <RefreshCw className="h-4 w-4 shrink-0 animate-spin text-[#1c69d4]" />
-                  ) : (
-                    <span className="ml-1 mr-1 h-2 w-2 shrink-0 rounded-full bg-[#3c3c3c]" />
-                  )}
-                  <span className="font-bold text-white">{task.label}</span>
-                </div>
-                <span className="hidden text-[11px] text-[#bbbbbb] sm:inline">{task.detail}</span>
+        {/* STEP 2: AI SCANNING REASONING ANIMATION */}
+        {step === "SCANNING" && (
+          <div className="animate-fade-in space-y-3 border-l-2 border-[#1c69d4] py-2 pl-6 font-mono text-xs text-[#bbbbbb]">
+            {scanMessages.slice(0, scanIndex + 1).map((msg, i) => (
+              <div key={i} className="flex items-center gap-3 text-white">
+                {i === scanIndex ? (
+                  <RefreshCw className="h-3.5 w-3.5 animate-spin text-[#1c69d4]" />
+                ) : (
+                  <CheckCircle2 className="h-3.5 w-3.5 text-[#0066b1]" />
+                )}
+                <span>{msg}</span>
               </div>
             ))}
           </div>
-        </div>
+        )}
 
-        {/* MODULE 3: READY TO REVIEW (GENERATED CONTENT ASSETS) */}
-        <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-2xl">
-          <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-3 font-mono text-xs">
-            <span className="flex items-center gap-2 font-bold uppercase tracking-widest text-white">
-              <Share2 className="h-4 w-4 text-[#1c69d4]" /> {"///"} READY TO REVIEW (GENERATED
-              CONTENT ASSETS)
-            </span>
-            <span className="text-[10px] uppercase text-[#bbbbbb]">
-              4 ASSETS READY FOR PUBLISHING
-            </span>
+        {/* STEP 3: MISSION REVEAL (SINGLE DECISION HERO) */}
+        {(step === "MISSION_REVEAL" || step === "GENERATING" || step === "ASSETS_READY") && (
+          <div className="animate-fade-in space-y-6 border border-[#3c3c3c] bg-[#1a1a1a] p-8 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-4 font-mono text-xs">
+              <span className="border border-[#0066b1]/40 bg-[#0066b1]/10 px-3 py-1 font-bold uppercase tracking-widest text-white">
+                {"///"} TODAY&apos;S MISSION (HERO DIRECTIVE)
+              </span>
+              <span className="text-[10px] font-bold uppercase text-[#1c69d4]">
+                CONFIDENCE: HIGH
+              </span>
+            </div>
+
+            <div className="space-y-3">
+              <h2 className="text-2xl font-extrabold uppercase tracking-wider text-white md:text-3xl">
+                Create Docker Containerization Tutorial Part 1
+              </h2>
+              <div className="space-y-1 font-sans text-sm text-[#e6e6e6]">
+                <p>
+                  <strong>Reason:</strong> 127 viewers requested Docker container orchestration
+                  after your React Authentication video.
+                </p>
+                <p>
+                  <strong>Expected Impact:</strong> Higher watch time retention baseline (+18%)
+                  &amp; subscriber growth.
+                </p>
+              </div>
+            </div>
+
+            {step === "MISSION_REVEAL" && (
+              <div className="flex flex-wrap items-center gap-4 pt-4 font-mono text-xs">
+                <button
+                  onClick={handleApproveMission}
+                  className="flex items-center gap-2 border border-white bg-white px-8 py-3.5 font-extrabold uppercase tracking-widest text-black transition hover:bg-[#e6e6e6]"
+                >
+                  <ThumbsUp className="h-4 w-4" /> Approve Mission
+                </button>
+
+                <button
+                  onClick={() => setShowExplainability(true)}
+                  className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] px-6 py-3.5 font-bold uppercase tracking-widest text-white transition hover:border-white"
+                >
+                  <Brain className="h-4 w-4 text-[#1c69d4]" /> View Why
+                </button>
+
+                <button
+                  onClick={() => setStep("GREETING")}
+                  className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] px-6 py-3.5 font-bold uppercase tracking-widest text-[#bbbbbb] transition hover:text-white"
+                >
+                  Dismiss
+                </button>
+              </div>
+            )}
           </div>
+        )}
 
-          <div className="grid grid-cols-1 gap-4 font-mono text-xs md:grid-cols-2 lg:grid-cols-4">
-            {generatedAssets.map((asset: AssetItem, idx: number) => (
-              <div
-                key={asset.platform}
-                className="flex flex-col justify-between space-y-3 border border-[#3c3c3c] bg-[#0d0d0d] p-4"
-              >
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-2">
-                    <span className="text-[10px] text-[#7e7e7e]">ASSET 0{idx + 1}</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-white">
+        {/* STEP 4: LIVE ASSET GENERATION ANIMATION STREAM */}
+        {step === "GENERATING" && (
+          <div className="animate-fade-in space-y-4 border-l-2 border-[#e22718] py-2 pl-6 font-mono text-xs text-[#bbbbbb]">
+            <p className="font-bold text-white">
+              Executive Mind: &quot;Preparing all multi-platform content assets now...&quot;
+            </p>
+            {generationMessages.slice(0, generationIndex + 1).map((msg, i) => (
+              <div key={i} className="flex items-center gap-3 text-white">
+                {i === generationIndex ? (
+                  <RefreshCw className="h-3.5 w-3.5 animate-spin text-[#e22718]" />
+                ) : (
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+                )}
+                <span>{msg}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* STEP 5: REVIEW & PUBLISH GENERATED ASSETS */}
+        {step === "ASSETS_READY" && (
+          <div className="animate-fade-in space-y-6 pt-2">
+            <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-3 font-mono text-xs">
+              <span className="flex items-center gap-2 font-bold uppercase tracking-widest text-white">
+                <Share2 className="h-4 w-4 text-[#1c69d4]" /> {"///"} READY TO REVIEW (4 ASSETS
+                GENERATED)
+              </span>
+              <span className="text-[10px] text-[#bbbbbb]">PREVIEW, EDIT &amp; PUBLISH</span>
+            </div>
+
+            <div className="space-y-4">
+              {generatedAssets.map((asset, idx) => (
+                <div
+                  key={asset.platform}
+                  className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-xl"
+                >
+                  <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-3 font-mono text-xs">
+                    <span className="border border-[#1c69d4]/40 bg-[#1c69d4]/10 px-2.5 py-0.5 font-bold text-white">
                       {asset.platform}
                     </span>
+                    <span className="font-bold text-white">{asset.title}</span>
                   </div>
-                  <h4 className="text-xs font-extrabold uppercase text-white">{asset.title}</h4>
+
                   <textarea
                     value={asset.content}
                     onChange={(e) => {
                       const val = e.target.value;
-                      setGeneratedAssets((prev: AssetItem[]) => {
+                      setGeneratedAssets((prev) => {
                         const next = [...prev];
                         if (next[idx]) next[idx] = { ...next[idx], content: val };
                         return next;
                       });
                     }}
-                    className="h-28 w-full resize-none border border-[#3c3c3c] bg-[#000000] p-2.5 font-sans text-[11px] leading-relaxed text-[#e6e6e6] outline-none focus:border-white"
+                    className="h-36 w-full resize-none border border-[#3c3c3c] bg-[#000000] p-4 font-sans text-xs leading-relaxed text-[#e6e6e6] outline-none focus:border-white"
                   />
+
+                  <div className="flex items-center justify-end gap-3 font-mono text-xs">
+                    <button
+                      onClick={() => handleRegenerateAsset(idx)}
+                      className="border border-[#3c3c3c] bg-[#0d0d0d] px-4 py-2 font-bold uppercase text-[#1c69d4] hover:border-white"
+                    >
+                      Regenerate
+                    </button>
+                    <button
+                      onClick={() => handleCopyContent(asset.content, idx)}
+                      className="border border-[#3c3c3c] bg-[#0d0d0d] px-4 py-2 font-bold uppercase text-white hover:border-white"
+                    >
+                      {copiedIndex === idx ? "Copied!" : "Copy"}
+                    </button>
+                    <a
+                      href="/content"
+                      className="border border-white bg-white px-5 py-2 font-extrabold uppercase text-black hover:bg-[#e6e6e6]"
+                    >
+                      Publish →
+                    </a>
+                  </div>
                 </div>
-
-                <div className="flex items-center gap-2 border-t border-[#3c3c3c] pt-2">
-                  <button
-                    onClick={() => handleCopyContent(asset.content, idx)}
-                    className="flex-1 border border-[#3c3c3c] bg-[#1a1a1a] py-1.5 text-center text-[10px] font-bold uppercase text-white hover:border-white"
-                  >
-                    {copiedIndex === idx ? "COPIED!" : "COPY"}
-                  </button>
-                  <button
-                    onClick={() => handleRegenerateAsset(idx)}
-                    className="flex-1 border border-[#3c3c3c] bg-[#1a1a1a] py-1.5 text-center text-[10px] font-bold uppercase text-[#1c69d4] hover:border-white"
-                  >
-                    REGENERATE
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* MODULE 4: RECENT ACTIVITY TIMELINE */}
-        <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 font-mono text-xs shadow-xl">
-          <div className="border-b border-[#3c3c3c] pb-3 font-bold uppercase tracking-widest text-white">
-            {"///"} RECENT AUTONOMOUS AI ACTIVITY
-          </div>
-
-          <div className="space-y-3 text-[#e6e6e6]">
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
-              <span>Imported 523 YouTube comments from React Authentication video</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
-              <span>Discovered high-demand trend: 127 viewers requested Docker</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
-              <span>Generated CloudCorp sponsorship follow-up proposal draft</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
-              <span>Synthesized priority mission: Docker Masterclass Series</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
-              <span>Prepared 4 multi-platform content publishing drafts</span>
+              ))}
             </div>
           </div>
-        </div>
-      </div>
+        )}
+      </main>
     </div>
   );
 }

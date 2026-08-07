@@ -4,15 +4,16 @@ import React, { useState } from "react";
 import {
   Activity,
   BarChart3,
-  Bot,
   Brain,
   CheckCircle2,
   ChevronDown,
   ChevronRight,
+  Code2,
   Copy,
   Cpu,
   Database,
   Edit3,
+  FileText,
   Layers,
   Play,
   RefreshCw,
@@ -42,7 +43,7 @@ interface AssetItem {
 export function MissionControlCockpit() {
   const [showExplainability, setShowExplainability] = useState<boolean>(false);
   const [approvalStep, setApprovalStep] = useState<number>(-1);
-  const [isEvidenceExpanded, setIsEvidenceExpanded] = useState<boolean>(true);
+  const [isDevMode, setIsDevMode] = useState<boolean>(false);
 
   // Live AI thinking state
   const [isAiThinking, setIsAiThinking] = useState<boolean>(false);
@@ -80,6 +81,34 @@ export function MissionControlCockpit() {
   ]);
 
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+
+  const creatorProgressTasks = [
+    {
+      label: "Importing YouTube comments",
+      detail: "523 comments processed from React Authentication",
+      status: "DONE",
+    },
+    {
+      label: "Generating Docker Masterclass outline",
+      detail: "Structuring 3-part tutorial curriculum",
+      status: "IN_PROGRESS",
+    },
+    {
+      label: "Drafting LinkedIn architecture post",
+      detail: "Preparing technical breakdown for tech leaders",
+      status: "PENDING",
+    },
+    {
+      label: "Preparing thumbnail ideas & title variations",
+      detail: "Formulating high-CTR thumbnail hooks",
+      status: "PENDING",
+    },
+    {
+      label: "Preparing publishing queue",
+      detail: "Scheduling multi-platform publishing slots",
+      status: "PENDING",
+    },
+  ];
 
   const aiThinkingSteps = [
     "Reading 523 audience comments...",
@@ -254,7 +283,7 @@ export function MissionControlCockpit() {
       )}
 
       <div className="mx-auto max-w-6xl space-y-6 pt-2">
-        {/* MODULE 1: EXECUTIVE STATUS & LIVE AGENT TELEMETRY */}
+        {/* Workspace Top Header & Optional Developer Mode Toggle */}
         <div className="flex flex-col justify-between gap-4 border-b border-[#3c3c3c] pb-4 md:flex-row md:items-center">
           <div>
             <div className="flex items-center gap-3">
@@ -264,38 +293,53 @@ export function MissionControlCockpit() {
                 <span />
               </div>
               <h1 className="font-sans text-2xl font-extrabold uppercase tracking-wider text-white">
-                {"///"} OMNIA CREATOR OPERATING SYSTEM
+                {"///"} OMNIA CREATOR WORKSPACE
               </h1>
             </div>
             <p className="mt-0.5 font-mono text-[11px] uppercase tracking-wide text-[#bbbbbb]">
-              YOUR AI HAS ALREADY BEEN WORKING • SYSTEM STATUS: ONLINE
+              AUTONOMOUS CREATOR OPERATING SYSTEM • ONLINE
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 font-mono text-xs">
-            <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#1a1a1a] px-3.5 py-1.5 font-bold uppercase tracking-widest text-white">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-[#0066b1]" />M EXECUTIVE MIND:
-              ACTIVE
-            </div>
-            <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#1a1a1a] px-3.5 py-1.5 font-mono text-[11px] text-[#e6e6e6]">
-              <Cpu className="h-3.5 w-3.5 text-[#1c69d4]" />
-              CLUSTERING: BUSY
-            </div>
-            <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#1a1a1a] px-3.5 py-1.5 font-mono text-[11px] text-[#e6e6e6]">
-              <Database className="h-3.5 w-3.5 text-emerald-400" />
-              MEMORY SYNC: 100%
-            </div>
+          <div className="flex items-center gap-3 font-mono text-xs">
+            <button
+              onClick={() => setIsDevMode(!isDevMode)}
+              className={`flex items-center gap-2 border px-3.5 py-1.5 font-bold uppercase tracking-wider transition ${
+                isDevMode
+                  ? "border-[#1c69d4] bg-[#1c69d4]/20 text-white"
+                  : "border-[#3c3c3c] bg-[#1a1a1a] text-[#bbbbbb] hover:border-white hover:text-white"
+              }`}
+            >
+              <Code2 className="h-3.5 w-3.5" />
+              DEVELOPER MODE: {isDevMode ? "ON" : "OFF"}
+            </button>
           </div>
         </div>
 
-        {/* MODULE 2: PRIMARY MISSION HERO COCKPIT */}
+        {/* DEVELOPER MODE ONLY PANEL */}
+        {isDevMode && (
+          <div className="animate-fade-in space-y-3 border border-[#1c69d4] bg-[#0d0d0d] p-5 font-mono text-xs text-[#e6e6e6]">
+            <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-2 font-bold text-[#1c69d4]">
+              <span>{"///"} SYSTEM TELEMETRY &amp; AGENT HEALTH (DEVELOPER MODE)</span>
+              <span>TASK BUS: ACTIVE</span>
+            </div>
+            <div className="grid grid-cols-2 gap-3 text-[11px] md:grid-cols-4">
+              <div>EXECUTIVE MIND: ONLINE</div>
+              <div>CLUSTERING: BUSY</div>
+              <div>MEMORY SYNC: 100%</div>
+              <div>LATENCY: 42ms</div>
+            </div>
+          </div>
+        )}
+
+        {/* MODULE 1: TODAY'S MISSION (HERO DIRECTIVE) */}
         <div className="relative space-y-6 border border-[#3c3c3c] bg-[#1a1a1a] p-8 shadow-2xl">
           <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-4 font-mono text-xs">
             <span className="border border-[#0066b1]/40 bg-[#0066b1]/10 px-3 py-1 font-bold uppercase tracking-widest text-white">
               {"///"} TODAY&apos;S MISSION (HERO DIRECTIVE)
             </span>
             <span className="text-[10px] font-bold uppercase text-[#1c69d4]">
-              PRIORITY 1 • HIGH CONFIDENCE
+              PRIMARY ACTION ITEM
             </span>
           </div>
 
@@ -339,220 +383,122 @@ export function MissionControlCockpit() {
           </div>
         </div>
 
-        {/* MODULE 3: LIVE AI WORKFLOW & AGENT TASK MONITOR */}
-        <div className="space-y-3 border border-[#3c3c3c] bg-[#1a1a1a] p-6 font-mono text-xs shadow-xl">
+        {/* MODULE 2: CREATOR-FACING AI PROGRESS STREAM */}
+        <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 font-mono text-xs shadow-xl">
           <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-3">
             <span className="flex items-center gap-2 font-bold uppercase tracking-widest text-white">
-              <Terminal className="h-4 w-4 text-[#0066b1]" /> {"///"} LIVE AGENT WORKFLOW MONITOR
+              <Sparkles className="h-4 w-4 text-[#0066b1]" /> {"///"} REAL-TIME AI WORKFLOW PROGRESS
             </span>
-            <span className="text-[10px] text-[#bbbbbb]">4 SPECIALIST AGENTS ACTIVE</span>
+            <span className="text-[10px] text-[#bbbbbb]">AUTONOMOUS CREATOR PIPELINE</span>
           </div>
 
-          <div className="grid grid-cols-1 gap-3 pt-1 text-[#e6e6e6] md:grid-cols-2">
-            <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] p-3">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-              <span className="font-bold text-white">Executive Mind Agent:</span>
-              <span className="text-[#bbbbbb]">Delegating Docker workflow</span>
-            </div>
-            <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] p-3">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-              <span className="font-bold text-white">Memory Grounding:</span>
-              <span className="text-[#bbbbbb]">Verified #mem-yt-comment-42</span>
-            </div>
-            <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] p-3">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-              <span className="font-bold text-white">Content Synthesis:</span>
-              <span className="text-[#bbbbbb]">Prepared 4 multi-platform drafts</span>
-            </div>
-            <div className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] p-3">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-[#1c69d4]" />
-              <span className="font-bold text-white">Community Agent:</span>
-              <span className="text-[#bbbbbb]">Clustered 523 comments</span>
-            </div>
-          </div>
-        </div>
-
-        {/* MODULE 4: GROUNDED EVIDENCE & PERSISTENT MEMORY GRID */}
-        <div className="border border-[#3c3c3c] bg-[#1a1a1a]">
-          <button
-            onClick={() => setIsEvidenceExpanded(!isEvidenceExpanded)}
-            className="flex w-full items-center justify-between p-4 font-mono text-xs font-bold uppercase tracking-widest text-white transition hover:bg-[#0d0d0d]"
-          >
-            <span className="flex items-center gap-2">
-              <BarChart3 className="h-4 w-4 text-[#0066b1]" /> {"///"} GROUNDED EVIDENCE &amp;
-              MEMORY GRID (4 SIGNALS)
-            </span>
-            <span className="flex items-center gap-1 text-[10px] text-[#bbbbbb]">
-              {isEvidenceExpanded ? "COLLAPSE ▲" : "EXPAND ▼"}
-            </span>
-          </button>
-
-          {isEvidenceExpanded && (
-            <div className="animate-fade-in border-t border-[#3c3c3c] p-6">
-              <div className="grid grid-cols-1 gap-4 font-mono text-xs md:grid-cols-2 lg:grid-cols-4">
-                <button
-                  onClick={() =>
-                    setSelectedEvidence({
-                      type: "COMMENT",
-                      title: "YouTube Comment @dev_alex",
-                      detail:
-                        "Can you build a Docker setup for multi-agent systems? We need container orchestration for concurrent agent workflows.",
-                      provenance: "YouTube Data API v3 • Verified 142 upvotes",
-                    })
-                  }
-                  className="group space-y-2 border border-[#3c3c3c] bg-[#0d0d0d] p-5 text-left transition hover:border-white"
-                >
-                  <div className="flex items-center justify-between text-[10px] font-bold text-[#0066b1]">
-                    <span>COMMENT SIGNAL</span>
-                    <span className="transition group-hover:translate-x-0.5">INSPECT ↗</span>
-                  </div>
-                  <p className="font-sans text-xs italic leading-relaxed text-white">
-                    &ldquo;Can you build a Docker setup for multi-agent systems?&rdquo;
-                  </p>
-                  <div className="text-[10px] text-[#7e7e7e]">@dev_alex • 142 upvotes</div>
-                </button>
-
-                <button
-                  onClick={() =>
-                    setSelectedEvidence({
-                      type: "ANALYTICS",
-                      title: "YouTube Watch Time Retention Baseline",
-                      detail:
-                        "Technical deep-dive tutorials deliver +18% higher watch time retention in first 10 minutes and 2.4x VIP course conversions.",
-                      provenance: "YouTube Analytics API • 90-Day Baseline",
-                    })
-                  }
-                  className="group space-y-2 border border-[#3c3c3c] bg-[#0d0d0d] p-5 text-left transition hover:border-white"
-                >
-                  <div className="flex items-center justify-between text-[10px] font-bold text-[#1c69d4]">
-                    <span>ANALYTICS SIGNAL</span>
-                    <span className="transition group-hover:translate-x-0.5">INSPECT ↗</span>
-                  </div>
-                  <p className="text-xs font-bold text-white">+18% Retention Baseline</p>
-                  <div className="text-[10px] text-[#7e7e7e]">Last 5 Docker &amp; React videos</div>
-                </button>
-
-                <button
-                  onClick={() =>
-                    setSelectedEvidence({
-                      type: "VIDEO",
-                      title: "React Authentication Series Part 4",
-                      detail:
-                        "Published 24h ago. 4.2k views, 523 comments analyzed, 98.4% retention in first 5 minutes.",
-                      provenance: "Uploaded 2026-08-06 • Master 4K",
-                    })
-                  }
-                  className="group space-y-2 border border-[#3c3c3c] bg-[#0d0d0d] p-5 text-left transition hover:border-white"
-                >
-                  <div className="flex items-center justify-between text-[10px] font-bold text-[#e22718]">
-                    <span>PREVIOUS UPLOAD</span>
-                    <span className="transition group-hover:translate-x-0.5">INSPECT ↗</span>
-                  </div>
-                  <p className="text-xs font-bold text-white">React Authentication</p>
-                  <div className="text-[10px] text-[#7e7e7e]">523 comments analyzed</div>
-                </button>
-
-                <button
-                  onClick={() => handleInspectMemoryRow("mem-yt-comment-42")}
-                  className="group space-y-2 border border-[#3c3c3c] bg-[#0d0d0d] p-5 text-left transition hover:border-white"
-                >
-                  <div className="flex items-center justify-between text-[10px] font-bold text-white">
-                    <span>PERSISTENT MEMORY</span>
-                    <span className="transition group-hover:translate-x-0.5">INSPECT ↗</span>
-                  </div>
-                  <p className="font-mono text-xs font-bold text-white">#mem-yt-comment-42</p>
-                  <div className="text-[10px] text-[#7e7e7e]">127 Verified Requests</div>
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* MODULE 5: GENERATED CONTENT ASSET PIPELINE & AUTONOMOUS ACTIVITY STREAM */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-          {/* Generated Assets (2/3 width) */}
-          <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-2xl lg:col-span-2">
-            <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-3 font-mono text-xs">
-              <span className="flex items-center gap-2 font-bold uppercase tracking-widest text-white">
-                <Share2 className="h-4 w-4 text-[#1c69d4]" /> {"///"} GENERATED CONTENT ASSETS
-              </span>
-              <span className="text-[10px] uppercase text-[#bbbbbb]">4 ASSETS GENERATED</span>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 font-mono text-xs md:grid-cols-2">
-              {generatedAssets.map((asset: AssetItem, idx: number) => (
-                <div
-                  key={asset.platform}
-                  className="flex flex-col justify-between space-y-3 border border-[#3c3c3c] bg-[#0d0d0d] p-4"
-                >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-2">
-                      <span className="text-[10px] text-[#7e7e7e]">ASSET 0{idx + 1}</span>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-white">
-                        {asset.platform}
-                      </span>
-                    </div>
-                    <h4 className="text-xs font-extrabold uppercase text-white">{asset.title}</h4>
-                    <textarea
-                      value={asset.content}
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        setGeneratedAssets((prev: AssetItem[]) => {
-                          const next = [...prev];
-                          if (next[idx]) next[idx] = { ...next[idx], content: val };
-                          return next;
-                        });
-                      }}
-                      className="h-28 w-full resize-none border border-[#3c3c3c] bg-[#000000] p-2.5 font-sans text-[11px] leading-relaxed text-[#e6e6e6] outline-none focus:border-white"
-                    />
-                  </div>
-
-                  <div className="flex items-center gap-2 border-t border-[#3c3c3c] pt-2">
-                    <button
-                      onClick={() => handleCopyContent(asset.content, idx)}
-                      className="flex-1 border border-[#3c3c3c] bg-[#1a1a1a] py-1.5 text-center text-[10px] font-bold uppercase text-white hover:border-white"
-                    >
-                      {copiedIndex === idx ? "COPIED!" : "COPY"}
-                    </button>
-                    <button
-                      onClick={() => handleRegenerateAsset(idx)}
-                      className="flex-1 border border-[#3c3c3c] bg-[#1a1a1a] py-1.5 text-center text-[10px] font-bold uppercase text-[#1c69d4] hover:border-white"
-                    >
-                      REGENERATE
-                    </button>
-                  </div>
+          <div className="space-y-2.5 pt-1 text-[#e6e6e6]">
+            {creatorProgressTasks.map((task) => (
+              <div
+                key={task.label}
+                className="flex items-center justify-between border border-[#3c3c3c] bg-[#0d0d0d] p-3"
+              >
+                <div className="flex items-center gap-3">
+                  {task.status === "DONE" ? (
+                    <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />
+                  ) : task.status === "IN_PROGRESS" ? (
+                    <RefreshCw className="h-4 w-4 shrink-0 animate-spin text-[#1c69d4]" />
+                  ) : (
+                    <span className="ml-1 mr-1 h-2 w-2 shrink-0 rounded-full bg-[#3c3c3c]" />
+                  )}
+                  <span className="font-bold text-white">{task.label}</span>
                 </div>
-              ))}
-            </div>
+                <span className="hidden text-[11px] text-[#bbbbbb] sm:inline">{task.detail}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* MODULE 3: READY TO REVIEW (GENERATED CONTENT ASSETS) */}
+        <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-2xl">
+          <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-3 font-mono text-xs">
+            <span className="flex items-center gap-2 font-bold uppercase tracking-widest text-white">
+              <Share2 className="h-4 w-4 text-[#1c69d4]" /> {"///"} READY TO REVIEW (GENERATED
+              CONTENT ASSETS)
+            </span>
+            <span className="text-[10px] uppercase text-[#bbbbbb]">
+              4 ASSETS READY FOR PUBLISHING
+            </span>
           </div>
 
-          {/* Autonomous Activity Timeline (1/3 width) */}
-          <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 font-mono text-xs shadow-xl">
-            <div className="border-b border-[#3c3c3c] pb-3 font-bold uppercase tracking-widest text-white">
-              {"///"} RECENT AI ACTIVITY
-            </div>
+          <div className="grid grid-cols-1 gap-4 font-mono text-xs md:grid-cols-2 lg:grid-cols-4">
+            {generatedAssets.map((asset: AssetItem, idx: number) => (
+              <div
+                key={asset.platform}
+                className="flex flex-col justify-between space-y-3 border border-[#3c3c3c] bg-[#0d0d0d] p-4"
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-2">
+                    <span className="text-[10px] text-[#7e7e7e]">ASSET 0{idx + 1}</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-white">
+                      {asset.platform}
+                    </span>
+                  </div>
+                  <h4 className="text-xs font-extrabold uppercase text-white">{asset.title}</h4>
+                  <textarea
+                    value={asset.content}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setGeneratedAssets((prev: AssetItem[]) => {
+                        const next = [...prev];
+                        if (next[idx]) next[idx] = { ...next[idx], content: val };
+                        return next;
+                      });
+                    }}
+                    className="h-28 w-full resize-none border border-[#3c3c3c] bg-[#000000] p-2.5 font-sans text-[11px] leading-relaxed text-[#e6e6e6] outline-none focus:border-white"
+                  />
+                </div>
 
-            <div className="space-y-3 text-[#e6e6e6]">
-              <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0066b1]" />
-                <span>Imported 523 YouTube comments from React Authentication</span>
+                <div className="flex items-center gap-2 border-t border-[#3c3c3c] pt-2">
+                  <button
+                    onClick={() => handleCopyContent(asset.content, idx)}
+                    className="flex-1 border border-[#3c3c3c] bg-[#1a1a1a] py-1.5 text-center text-[10px] font-bold uppercase text-white hover:border-white"
+                  >
+                    {copiedIndex === idx ? "COPIED!" : "COPY"}
+                  </button>
+                  <button
+                    onClick={() => handleRegenerateAsset(idx)}
+                    className="flex-1 border border-[#3c3c3c] bg-[#1a1a1a] py-1.5 text-center text-[10px] font-bold uppercase text-[#1c69d4] hover:border-white"
+                  >
+                    REGENERATE
+                  </button>
+                </div>
               </div>
-              <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0066b1]" />
-                <span>Discovered high-demand trend: 127 viewers requested Docker</span>
-              </div>
-              <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0066b1]" />
-                <span>Generated CloudCorp sponsorship proposal draft</span>
-              </div>
-              <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0066b1]" />
-                <span>Synthesized priority mission: Docker Masterclass Series</span>
-              </div>
-              <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0066b1]" />
-                <span>Prepared 4 multi-platform content publishing drafts</span>
-              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* MODULE 4: RECENT ACTIVITY TIMELINE */}
+        <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 font-mono text-xs shadow-xl">
+          <div className="border-b border-[#3c3c3c] pb-3 font-bold uppercase tracking-widest text-white">
+            {"///"} RECENT AUTONOMOUS AI ACTIVITY
+          </div>
+
+          <div className="space-y-3 text-[#e6e6e6]">
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
+              <span>Imported 523 YouTube comments from React Authentication video</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
+              <span>Discovered high-demand trend: 127 viewers requested Docker</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
+              <span>Generated CloudCorp sponsorship follow-up proposal draft</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
+              <span>Synthesized priority mission: Docker Masterclass Series</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
+              <span>Prepared 4 multi-platform content publishing drafts</span>
             </div>
           </div>
         </div>

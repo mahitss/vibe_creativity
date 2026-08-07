@@ -332,284 +332,111 @@ export function MissionControlCockpit() {
           </div>
         </div>
 
-        {/* SECTION 1: ATTENTION STATEMENT */}
+        {/* SECTION 1: EXECUTIVE GREETING */}
         <div className="relative space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-8 shadow-2xl">
-          <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-4">
-            <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-white">
-              <Sun className="h-4 w-4 text-[#1c69d4]" /> {"///"} DAILY SYNTHESIS
+          <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-4 font-mono text-xs">
+            <div className="flex items-center gap-2 font-bold uppercase tracking-widest text-white">
+              <Sun className="h-4 w-4 text-[#1c69d4]" /> {"///"} EXECUTIVE BRIEF
             </div>
-            <span className="border border-[#3c3c3c] bg-[#0d0d0d] px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-[#bbbbbb]">
+            <span className="border border-[#3c3c3c] bg-[#0d0d0d] px-3 py-1 text-[10px] uppercase text-[#bbbbbb]">
               MAHIT
             </span>
           </div>
 
-          <div className="space-y-2 font-sans">
+          <div className="space-y-3 font-sans">
             <h2 className="text-3xl font-extrabold uppercase tracking-wider text-white">
-              GOOD MORNING, MAHIT.
+              GOOD EVENING, MAHIT.
             </h2>
-            <p className="text-base leading-relaxed text-[#e6e6e6]">
-              I found{" "}
-              <strong className="border-b border-[#1c69d4] font-mono text-white">3 things</strong>{" "}
-              that need your attention today.
+            <div className="space-y-1 text-base leading-relaxed text-[#e6e6e6]">
+              <p>
+                Yesterday you uploaded{" "}
+                <strong className="border-b border-[#1c69d4] font-mono text-white">
+                  React Authentication
+                </strong>
+                .
+              </p>
+              <p>
+                I analyzed <strong className="font-mono text-white">523 comments</strong>.
+              </p>
+              <p>
+                I found{" "}
+                <strong className="border-b border-[#e22718] font-mono text-white">
+                  one important opportunity
+                </strong>
+                .
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION 2: TODAY'S MISSION */}
+        <div className="relative space-y-6 border border-[#3c3c3c] bg-[#1a1a1a] p-8 shadow-2xl">
+          <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-4 font-mono text-xs">
+            <span className="border border-[#0066b1]/40 bg-[#0066b1]/10 px-3 py-1 font-bold uppercase tracking-widest text-white">
+              {"///"} TODAY&apos;S MISSION
+            </span>
+          </div>
+
+          <div className="space-y-3">
+            <h3 className="font-sans text-2xl font-extrabold uppercase tracking-wider text-white">
+              Create Docker Containerization Tutorial Part 1
+            </h3>
+            <p className="font-sans text-sm text-[#e6e6e6]">
+              127 viewers requested Docker container orchestration after your React Authentication
+              video.
             </p>
           </div>
-        </div>
 
-        {/* SECTION 2: TODAY'S PRIORITIES (MAX 3 ACTION CARDS) */}
-        <div className="space-y-4">
-          <div className="font-mono text-xs font-bold uppercase tracking-widest text-[#bbbbbb]">
-            {"///"} TODAY&apos;S PRIORITIES
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {/* Priority 1 */}
-            <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-xl transition hover:border-white">
-              <div className="flex items-center justify-between">
-                <span className="border border-[#0066b1]/40 bg-[#0066b1]/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-white">
-                  PRIORITY 1
-                </span>
-                <span className="font-mono text-[10px] text-[#bbbbbb]">SPONSORSHIP</span>
-              </div>
-              <div>
-                <h4 className="font-sans text-lg font-bold text-white">CloudCorp offer ready</h4>
-                <p className="mt-1 text-xs text-[#e6e6e6]">
-                  CloudCorp replied with a $15,000 sponsorship contract offer.
-                </p>
-              </div>
-              <a
-                href="/sponsors"
-                className="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#1c69d4] hover:underline"
+          <div className="flex items-center gap-4 pt-2 font-mono text-xs">
+            {approvalStep < 0 ? (
+              <button
+                onClick={handleApprove}
+                className="flex items-center gap-2 border border-white bg-white px-8 py-3.5 font-extrabold uppercase tracking-widest text-black shadow-lg transition hover:bg-[#e6e6e6]"
               >
-                Review offer →
-              </a>
-            </div>
+                <ThumbsUp className="h-4 w-4" /> APPROVE MISSION
+              </button>
+            ) : (
+              <span className="flex items-center gap-2 border border-[#0066b1] bg-[#0066b1]/20 px-8 py-3.5 font-extrabold uppercase tracking-widest text-white">
+                <CheckCircle2 className="h-4 w-4 text-[#0066b1]" /> MISSION ACCEPTED
+              </span>
+            )}
 
-            {/* Priority 2 */}
-            <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-xl transition hover:border-white">
-              <div className="flex items-center justify-between">
-                <span className="border border-[#e22718]/40 bg-[#e22718]/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-white">
-                  PRIORITY 2
-                </span>
-                <span className="font-mono text-[10px] text-[#bbbbbb]">COMMUNITY</span>
-              </div>
-              <div>
-                <h4 className="font-sans text-lg font-bold text-white">
-                  127 viewers requested Docker
-                </h4>
-                <p className="mt-1 text-xs text-[#e6e6e6]">
-                  Audience demands container orchestration tutorial after React Auth video.
-                </p>
-              </div>
-              <a
-                href="/missions"
-                className="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#1c69d4] hover:underline"
-              >
-                Create tutorial →
-              </a>
-            </div>
-
-            {/* Priority 3 */}
-            <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-xl transition hover:border-white">
-              <div className="flex items-center justify-between">
-                <span className="border border-[#1c69d4]/40 bg-[#1c69d4]/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-white">
-                  PRIORITY 3
-                </span>
-                <span className="font-mono text-[10px] text-[#bbbbbb]">CONTENT</span>
-              </div>
-              <div>
-                <h4 className="font-sans text-lg font-bold text-white">LinkedIn draft ready</h4>
-                <p className="mt-1 text-xs text-[#e6e6e6]">
-                  Containerizing Multi-Agent Systems post prepared for publishing.
-                </p>
-              </div>
-              <a
-                href="/content"
-                className="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#1c69d4] hover:underline"
-              >
-                Publish draft →
-              </a>
-            </div>
+            <button
+              onClick={() => setShowExplainability(true)}
+              className="flex items-center gap-2 border border-[#3c3c3c] bg-[#0d0d0d] px-6 py-3.5 font-bold uppercase tracking-widest text-white transition hover:border-white"
+            >
+              <Brain className="h-4 w-4 text-[#1c69d4]" /> VIEW WHY
+            </button>
           </div>
         </div>
 
-        {/* SECTION 3: ACTIVITY TIMELINE */}
-        <div className="space-y-3 border border-[#3c3c3c] bg-[#1a1a1a] p-6">
+        {/* SECTION 3: RECENT ACTIVITY (LAST 5 AI ACTIONS) */}
+        <div className="space-y-4 border border-[#3c3c3c] bg-[#1a1a1a] p-6 shadow-xl">
           <div className="font-mono text-xs font-bold uppercase tracking-widest text-[#bbbbbb]">
-            {"///"} RECENT AI ACTIVITY TIMELINE
+            {"///"} RECENT AI ACTIVITY
           </div>
-          <div className="space-y-2 font-mono text-xs text-[#e6e6e6]">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4 text-[#0066b1]" />
+
+          <div className="space-y-3 font-mono text-xs text-[#e6e6e6]">
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
               <span>Imported 523 YouTube comments from React Authentication video</span>
             </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4 text-[#0066b1]" />
-              <span>Identified 127 viewer requests for Docker Containerization</span>
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
+              <span>Discovered high-demand trend: 127 viewers requested Docker</span>
             </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4 text-[#0066b1]" />
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
               <span>Generated CloudCorp sponsorship follow-up proposal draft</span>
             </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4 text-[#0066b1]" />
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
               <span>Synthesized priority mission: Docker Masterclass Series</span>
             </div>
-          </div>
-        </div>
-
-        {/* SECTION 3: INTERACTIVE EVIDENCE PANEL */}
-        <div className="relative space-y-6 border border-[#3c3c3c] bg-[#1a1a1a] p-8 shadow-2xl">
-          <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-4 font-mono text-xs">
-            <span className="flex items-center gap-2 font-bold uppercase tracking-widest text-white">
-              <BarChart3 className="h-4 w-4 text-[#0066b1]" /> {"///"} INTERACTIVE EVIDENCE &amp;
-              GROUNDING (CLICK TO INSPECT)
-            </span>
-            <span className="text-[10px] uppercase text-[#bbbbbb]">CLICK ANY ITEM TO INSPECT</span>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 font-mono text-xs md:grid-cols-2 lg:grid-cols-4">
-            {/* Clickable Comment Item */}
-            <button
-              onClick={() =>
-                setSelectedEvidence({
-                  type: "COMMENT",
-                  title: "YouTube Comment @dev_alex",
-                  detail:
-                    "Can you build a Docker setup for multi-agent systems? We need container orchestration for concurrent agent workflows.",
-                  provenance: "YouTube Data API v3 • Verified 142 upvotes",
-                })
-              }
-              className="group space-y-2 border border-[#3c3c3c] bg-[#0d0d0d] p-5 text-left transition hover:border-white"
-            >
-              <div className="flex items-center justify-between text-[10px] font-bold text-[#0066b1]">
-                <span>COMMENT SIGNAL</span>
-                <span className="transition group-hover:translate-x-0.5">INSPECT ↗</span>
-              </div>
-              <p className="font-sans text-xs italic leading-relaxed text-white">
-                &ldquo;Can you build a Docker setup for multi-agent systems?&rdquo;
-              </p>
-              <div className="text-[10px] text-[#7e7e7e]">@dev_alex • 142 upvotes</div>
-            </button>
-
-            {/* Clickable Analytics Item */}
-            <button
-              onClick={() =>
-                setSelectedEvidence({
-                  type: "ANALYTICS",
-                  title: "YouTube Watch Time Retention Baseline",
-                  detail:
-                    "Technical deep-dive tutorials deliver +18% higher watch time retention in first 10 minutes and 2.4x VIP course conversions.",
-                  provenance: "YouTube Analytics API • 90-Day Baseline",
-                })
-              }
-              className="group space-y-2 border border-[#3c3c3c] bg-[#0d0d0d] p-5 text-left transition hover:border-white"
-            >
-              <div className="flex items-center justify-between text-[10px] font-bold text-[#1c69d4]">
-                <span>ANALYTICS SIGNAL</span>
-                <span className="transition group-hover:translate-x-0.5">INSPECT ↗</span>
-              </div>
-              <p className="text-xs font-bold text-white">+18% Retention Baseline</p>
-              <div className="text-[10px] text-[#7e7e7e]">Last 5 Docker &amp; React videos</div>
-            </button>
-
-            {/* Clickable Previous Video Item */}
-            <button
-              onClick={() =>
-                setSelectedEvidence({
-                  type: "VIDEO",
-                  title: "React Authentication Series Part 4",
-                  detail:
-                    "Published 24h ago. 4.2k views, 523 comments analyzed, 98.4% retention in first 5 minutes.",
-                  provenance: "Uploaded 2026-08-06 • Master 4K",
-                })
-              }
-              className="group space-y-2 border border-[#3c3c3c] bg-[#0d0d0d] p-5 text-left transition hover:border-white"
-            >
-              <div className="flex items-center justify-between text-[10px] font-bold text-[#e22718]">
-                <span>PREVIOUS UPLOAD</span>
-                <span className="transition group-hover:translate-x-0.5">INSPECT ↗</span>
-              </div>
-              <p className="text-xs font-bold text-white">React Authentication</p>
-              <div className="text-[10px] text-[#7e7e7e]">523 comments analyzed</div>
-            </button>
-
-            {/* Clickable Memory Item */}
-            <button
-              onClick={() => handleInspectMemoryRow("mem-yt-comment-42")}
-              className="group space-y-2 border border-[#3c3c3c] bg-[#0d0d0d] p-5 text-left transition hover:border-white"
-            >
-              <div className="flex items-center justify-between text-[10px] font-bold text-white">
-                <span>PERSISTENT MEMORY</span>
-                <span className="transition group-hover:translate-x-0.5">INSPECT ↗</span>
-              </div>
-              <p className="font-mono text-xs font-bold text-white">#mem-yt-comment-42</p>
-              <div className="text-[10px] text-[#7e7e7e]">127 Verified Requests</div>
-            </button>
-          </div>
-        </div>
-
-        {/* SECTION 4: GENERATED CONTENT PIPELINE */}
-        <div className="relative space-y-6 border border-[#3c3c3c] bg-[#1a1a1a] p-8 shadow-2xl">
-          <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-4 font-mono text-xs">
-            <span className="flex items-center gap-2 font-bold uppercase tracking-widest text-white">
-              <Share2 className="h-4 w-4 text-[#1c69d4]" /> {"///"} GENERATED REPURPOSED CONTENT
-              (PREVIEW, EDIT &amp; REGENERATE)
-            </span>
-            <span className="text-[10px] uppercase text-[#bbbbbb]">
-              4 ASSETS GENERATED &amp; EDITABLE
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 font-mono text-xs md:grid-cols-2 lg:grid-cols-4">
-            {generatedAssets.map((asset: AssetItem, idx: number) => (
-              <div
-                key={asset.platform}
-                className="flex flex-col justify-between space-y-4 border border-[#3c3c3c] bg-[#0d0d0d] p-5"
-              >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between border-b border-[#3c3c3c] pb-2">
-                    <span className="text-[10px] text-[#7e7e7e]">ASSET 0{idx + 1}</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-white">
-                      {asset.platform}
-                    </span>
-                  </div>
-
-                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-white">
-                    {asset.title}
-                  </h4>
-
-                  <textarea
-                    value={asset.content}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      setGeneratedAssets((prev: AssetItem[]) => {
-                        const next = [...prev];
-                        if (next[idx]) {
-                          next[idx] = { ...next[idx], content: val };
-                        }
-                        return next;
-                      });
-                    }}
-                    className="h-32 w-full resize-none border border-[#3c3c3c] bg-[#000000] p-3 font-sans text-[11px] leading-relaxed text-[#e6e6e6] outline-none focus:border-white"
-                  />
-                </div>
-
-                <div className="flex items-center gap-2 border-t border-[#3c3c3c] pt-3">
-                  <button
-                    onClick={() => handleCopyContent(asset.content, idx)}
-                    className="flex-1 border border-[#3c3c3c] bg-[#1a1a1a] py-2 text-center text-[10px] font-bold uppercase tracking-wider text-white transition hover:border-white"
-                  >
-                    {copiedIndex === idx ? "COPIED!" : "COPY"}
-                  </button>
-                  <button
-                    onClick={() => handleRegenerateAsset(idx)}
-                    className="flex-1 border border-[#3c3c3c] bg-[#1a1a1a] py-2 text-center text-[10px] font-bold uppercase tracking-wider text-[#1c69d4] transition hover:border-white"
-                  >
-                    REGENERATE
-                  </button>
-                </div>
-              </div>
-            ))}
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0066b1]" />
+              <span>Prepared 4 multi-platform content publishing drafts</span>
+            </div>
           </div>
         </div>
       </div>
